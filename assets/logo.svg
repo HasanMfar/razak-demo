@@ -1,0 +1,110 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <defs>
+    <!-- Background Glow Filter -->
+    <filter id="rzk-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Drop Shadow -->
+    <filter id="rzk-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#059669" flood-opacity="0.45" />
+    </filter>
+
+    <!-- Outer Facet Gradients -->
+    <linearGradient id="grad-shield-left" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="60%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#064e3b" />
+    </linearGradient>
+
+    <linearGradient id="grad-shield-right" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6ee7b7" />
+      <stop offset="50%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <linearGradient id="grad-top-facet" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a7f3d0" />
+      <stop offset="50%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#6ee7b7" />
+    </linearGradient>
+
+    <!-- Glass Core Gradient -->
+    <linearGradient id="grad-glass-core" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255, 255, 255, 0.4)" />
+      <stop offset="100%" stop-color="rgba(16, 185, 129, 0.15)" />
+    </linearGradient>
+
+    <!-- Key & Beam Gradient -->
+    <linearGradient id="grad-key-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="30%" stop-color="#67e8f9" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+
+    <!-- Center Radial Glow -->
+    <radialGradient id="grad-radial-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#67e8f9" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#10b981" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#064e3b" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Ambient Light Pulse -->
+  <circle cx="80" cy="80" r="54" fill="url(#grad-radial-glow)" filter="url(#rzk-glow)" />
+
+  <!-- Outer Faceted Diamond Shield -->
+  <g filter="url(#rzk-shadow)">
+    <!-- Top Crown Facet -->
+    <polygon points="80,14 126,38 80,56 34,38" fill="url(#grad-top-facet)" opacity="0.95" />
+    
+    <!-- Left Wing Facet -->
+    <polygon points="34,38 80,56 80,118 20,80" fill="url(#grad-shield-left)" />
+    
+    <!-- Right Wing Facet -->
+    <polygon points="126,38 140,80 80,118 80,56" fill="url(#grad-shield-right)" />
+    
+    <!-- Bottom Arrow Facet Left -->
+    <polygon points="20,80 80,118 80,150 50,132" fill="#047857" opacity="0.85" />
+    
+    <!-- Bottom Arrow Facet Right -->
+    <polygon points="140,80 110,132 80,150 80,118" fill="#059669" opacity="0.9" />
+
+    <!-- Sharp Center Spine Highlight -->
+    <line x1="80" y1="56" x2="80" y2="150" stroke="#a7f3d0" stroke-width="1.8" stroke-linecap="round" opacity="0.8" />
+
+    <!-- Outer Perimeter Highlight Line -->
+    <polygon points="80,14 126,38 140,80 110,132 80,150 50,132 20,80 34,38" 
+             fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" />
+  </g>
+
+  <!-- Glass Core Chamber (Frosted Hexagon) -->
+  <polygon points="80,45 106,60 106,94 80,109 54,94 54,60" 
+           fill="url(#grad-glass-core)" 
+           stroke="rgba(255,255,255,0.6)" 
+           stroke-width="1.8" 
+           backdrop-filter="blur(4px)" />
+
+  <!-- Inner Authentication Lock & Code Symbol -->
+  <!-- Padlock Shackle / Biometric Loop -->
+  <path d="M72,74 V66 C72,61.58 75.58,58 80,58 C84.42,58 88,61.58 88,66 V74" 
+        fill="none" 
+        stroke="url(#grad-key-gold)" 
+        stroke-width="3.5" 
+        stroke-linecap="round" />
+
+  <!-- Padlock Body / Geometric Vault -->
+  <rect x="68" y="73" width="24" height="20" rx="6" 
+        fill="#0f172a" 
+        stroke="#67e8f9" 
+        stroke-width="2" />
+
+  <!-- Central Keyhole & Glowing Laser Core -->
+  <circle cx="80" cy="80" r="3.2" fill="#38bdf8" />
+  <polygon points="78.5,81 81.5,81 82.5,88 77.5,88" fill="#38bdf8" />
+
+  <!-- Shimmer Sparkle (Top Left Corner of Gem) -->
+  <path d="M48,34 Q52,36 54,40 Q52,44 48,46 Q44,44 42,40 Q44,36 48,34 Z" 
+        fill="#ffffff" opacity="0.85" />
+</svg>

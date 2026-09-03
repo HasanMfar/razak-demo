@@ -3,48 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>رازک (Razak) | نسل نوین ورود پیامکی و ورود با گوگل برای وردپرس</title>
-  <meta name="description" content="افزونه رازک (Razak) — سبک‌ترین، سریع‌ترین و زیباترین افزونه ورود و ثبت‌نام با شماره موبایل و کد یکبار مصرف (OTP) و ورود با گوگل برای وردپرس و ووکامرس.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💎</text></svg>">
+  <title>رازک (Razak) | پیش‌نمایش آنلاین و استودیوی زنده ورود پیامکی وردپرس</title>
+  <meta name="description" content="دموی تعاملی و آنلاین افزونه ورود پیامکی شیشه‌ای و احراز هویت با گوگل رازک برای وردپرس و ووکامرس">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
   <style>
+    /* ==========================================================================
+       Razak Showcase & Interactive Studio - Modern Luxury Dark UI
+       ========================================================================== */
     :root {
-      --primary: #10b981;
-      --primary-hover: #059669;
-      --accent-glow: rgba(16, 185, 129, 0.4);
-      --bg-dark: #090d16;
-      --card-bg: rgba(255, 255, 255, 0.07);
-      --card-border: rgba(255, 255, 255, 0.15);
-      --text-main: #f8fafc;
+      --bg: #070a12;
+      --bg-surface: #0f1523;
+      --bg-card: rgba(18, 26, 43, 0.75);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(16, 185, 129, 0.5);
+      --text: #f1f5f9;
       --text-muted: #94a3b8;
-      --glass-blur: 16px;
+      --rzk-accent: #10b981;
+      --rzk-accent-hover: #059669;
+      --rzk-accent-glow: rgba(16, 185, 129, 0.35);
+      --rzk-radius: 20px;
+      --rzk-btn-radius: 12px;
+      --rzk-blur: 16px;
+      --rzk-overlay: 0.55;
+      --rzk-width: 380px;
+      --rzk-transition: 0.3s;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Vazirmatn', Helvetica, Arial, sans-serif;
     }
 
     body {
-      background-color: var(--bg-dark);
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.15) 0px, transparent 50%),
-        radial-gradient(at 50% 50%, rgba(99, 102, 241, 0.08) 0px, transparent 60%);
-      color: var(--text-main);
+      background-color: var(--bg);
+      color: var(--text);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      line-height: 1.6;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* Header */
+    /* Ambient Background Mesh */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -150px;
+      right: 15%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -150px;
+      left: 10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+      filter: blur(90px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       Header & Navigation
+       ========================================================================== */
     header {
-      width: 100%;
-      max-width: 1200px;
-      padding: 24px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 10, 18, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -54,469 +93,984 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: #fff;
       text-decoration: none;
     }
 
-    .brand-badge {
+    .brand-logo-wrap {
+      width: 38px;
+      height: 38px;
+      filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.4));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-name {
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-tag {
       font-size: 11px;
       font-weight: 700;
-      background: rgba(16, 185, 129, 0.2);
+      background: rgba(16, 185, 129, 0.15);
       color: #34d399;
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      padding: 3px 8px;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      padding: 2px 8px;
       border-radius: 20px;
     }
 
-    .nav-links {
+    .nav-actions {
       display: flex;
-      gap: 16px;
       align-items: center;
+      gap: 12px;
     }
 
-    .btn-github {
+    .btn-popup-test {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 18px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--card-border);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 30px;
-      font-size: 14px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 13px;
       font-weight: 600;
+      cursor: pointer;
       transition: all 0.2s ease;
-      backdrop-filter: blur(8px);
     }
 
-    .btn-github:hover {
-      background: rgba(255, 255, 255, 0.2);
+    .btn-popup-test:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
       transform: translateY(-1px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      max-width: 850px;
-      padding: 40px 20px 20px;
-    }
-
-    .hero-pill {
+    .btn-rtltheme {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 16px;
-      background: rgba(16, 185, 129, 0.12);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 18px var(--rzk-accent-glow);
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-rtltheme:hover {
+      background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.55);
+    }
+
+    /* ==========================================================================
+       Hero Section
+       ========================================================================== */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 45px 20px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.1);
       border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      padding: 6px 16px;
       border-radius: 30px;
       font-size: 13px;
-      color: #34d399;
-      margin-bottom: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
     }
 
     .hero h1 {
-      font-size: clamp(32px, 5vw, 54px);
+      font-size: 34px;
       font-weight: 900;
-      line-height: 1.2;
-      margin-bottom: 20px;
-      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      line-height: 1.35;
+      margin-bottom: 14px;
+      color: #fff;
     }
 
     .hero h1 span {
-      background: linear-gradient(135deg, #34d399 0%, #06b6d4 100%);
+      background: linear-gradient(135deg, #34d399 0%, #38bdf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero p {
-      font-size: 18px;
-      line-height: 1.7;
+      font-size: 16px;
       color: var(--text-muted);
-      margin-bottom: 30px;
+      max-width: 720px;
+      margin: 0 auto 30px;
+      line-height: 1.8;
     }
 
-    /* Theme Switcher Bar */
-    .theme-selector {
-      display: inline-flex;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--card-border);
-      padding: 4px;
-      border-radius: 40px;
-      margin-bottom: 35px;
-      backdrop-filter: blur(10px);
-    }
-
-    .theme-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 8px 18px;
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .theme-btn.active {
-      background: var(--primary);
-      color: #fff;
-      box-shadow: 0 2px 10px var(--accent-glow);
-    }
-
-    /* Interactive Demo Card */
-    .demo-container {
-      width: 100%;
-      max-width: 440px;
-      perspective: 1000px;
-      margin-bottom: 80px;
-    }
-
-    .rzk-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 36px 30px;
-      backdrop-filter: blur(var(--glass-blur));
-      -webkit-backdrop-filter: blur(var(--glass-blur));
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 40px rgba(16, 185, 129, 0.1);
-      transition: all 0.3s ease;
+    /* ==========================================================================
+       Studio Layout: Controls (Right) + Interactive Modal (Left)
+       ========================================================================== */
+    .studio-container {
       position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 20px auto 60px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: start;
     }
 
-    /* Styles */
-    .rzk-card.theme-solid {
-      background: #ffffff;
-      color: #1e293b;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
-    .rzk-card.theme-solid input {
-      background: #f8fafc;
-      color: #0f172a;
-      border: 1px solid #cbd5e1;
-    }
-    .rzk-card.theme-solid .step-title, 
-    .rzk-card.theme-solid .logo-text {
-      color: #0f172a;
-    }
-    .rzk-card.theme-solid .step-desc, 
-    .rzk-card.theme-solid .terms-text {
-      color: #64748b;
+    @media (max-width: 980px) {
+      .studio-container {
+        grid-template-columns: 1fr;
+      }
     }
 
-    .rzk-card.theme-outline {
-      background: transparent;
-      border: 2px solid var(--primary);
-      box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+    /* Control Panel Card */
+    .control-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 30px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
     }
 
-    .rzk-card.theme-dark {
-      background: #111827;
-      border: 1px solid #374151;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    .panel-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .card-header {
-      text-align: center;
+    .panel-group {
       margin-bottom: 24px;
     }
 
-    .logo-badge {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, #10b981, #06b6d4);
-      border-radius: 14px;
+    .group-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 10px;
+    }
+
+    /* Style Selector Buttons */
+    .style-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .style-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: #e2e8f0;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .style-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .style-btn.active {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: var(--rzk-accent);
+      color: #34d399;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
+    }
+
+    /* Color Swatches */
+    .color-swatches {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .color-swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .color-swatch:hover {
+      transform: scale(1.15);
+    }
+
+    .color-swatch.active {
+      border-color: #fff;
+      transform: scale(1.15);
+      box-shadow: 0 0 14px var(--swatch-color);
+    }
+
+    /* Sliders */
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .slider-input {
+      flex: 1;
+      accent-color: var(--rzk-accent);
+      height: 6px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .slider-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: #34d399;
+      min-width: 45px;
+      text-align: left;
+    }
+
+    /* Toggle Switches */
+    .toggle-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .toggle-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .toggle-text {
+      font-size: 13px;
+      color: #e2e8f0;
+      font-weight: 500;
+    }
+
+    .switch {
+      position: relative;
+      width: 42px;
+      height: 22px;
+      background: #334155;
+      border-radius: 20px;
+      transition: background 0.2s ease;
+    }
+
+    .switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform 0.2s ease;
+    }
+
+    .toggle-item.checked .switch {
+      background: var(--rzk-accent);
+    }
+
+    .toggle-item.checked .switch::after {
+      transform: translateX(-20px);
+    }
+
+    /* Reset Demo Button */
+    .btn-reset-demo {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      color: #94a3b8;
+      padding: 10px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-reset-demo:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    /* ==========================================================================
+       Stage Display: The EXACT WordPress Plugin Modal
+       ========================================================================== */
+    .stage-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .stage-badge {
       display: inline-flex;
       align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    /* Modal Backdrop Card Container */
+    .modal-display-frame {
+      width: 100%;
+      max-width: 440px;
+      min-height: 520px;
+      background: radial-gradient(circle at top, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 30px 20px;
+      display: flex;
       justify-content: center;
-      font-size: 24px;
-      margin-bottom: 12px;
-      box-shadow: 0 8px 20px var(--accent-glow);
+      align-items: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
     }
 
-    .logo-text {
-      font-size: 22px;
-      font-weight: 800;
-      color: #fff;
+    /* Ambient glow inside frame */
+    .modal-display-frame::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, var(--rzk-accent-glow) 0%, transparent 70%);
+      filter: blur(50px);
+      pointer-events: none;
     }
 
-    .logo-slogan {
+    /* ==========================================================================
+       EXACT PLUGIN MODAL STYLES (MATCHING assets/style.css 100%)
+       ========================================================================== */
+    .rzk-modal-box {
+      background: rgba(255, 255, 255, 0.92);
+      width: var(--rzk-width, 380px);
+      max-width: 100%;
+      padding: 30px 26px;
+      border-radius: var(--rzk-radius, 20px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      position: relative;
+      text-align: center;
+      box-sizing: border-box;
+      backdrop-filter: blur(var(--rzk-blur, 16px));
+      -webkit-backdrop-filter: blur(var(--rzk-blur, 16px));
+      color: #1e293b;
+      transition: background 0.3s ease, border 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Style Variants */
+    .rzk-modal-box.rzk-style-solid {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      color: #1e293b !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25) !important;
+    }
+
+    .rzk-modal-box.rzk-style-outline {
+      background: rgba(255, 255, 255, 0.65) !important;
+      border: 2px solid var(--rzk-accent) !important;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
+      color: #0f172a !important;
+    }
+
+    .rzk-modal-box.rzk-style-dark {
+      background: #111827 !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      color: #f9fafb !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7) !important;
+    }
+
+    .rzk-modal-box.rzk-style-dark .rzk-slogan { color: #9ca3af; }
+    .rzk-modal-box.rzk-style-dark h3 { color: #f9fafb; }
+    .rzk-modal-box.rzk-style-dark input[type="tel"],
+    .rzk-modal-box.rzk-style-dark input[type="text"],
+    .rzk-modal-box.rzk-style-dark input[type="password"] {
+      background: #1f2937;
+      border-color: #374151;
+      color: #f9fafb;
+    }
+    .rzk-modal-box.rzk-style-dark .rzk-captcha-badge {
+      background: #1f2937;
+      border-color: #374151;
+      color: #f9fafb;
+    }
+    .rzk-modal-box.rzk-style-dark .rzk-btn-google {
+      background: #1f2937;
+      border-color: #374151;
+      color: #f9fafb;
+    }
+    .rzk-modal-box.rzk-style-dark .rzk-divider::before { background: #374151; }
+    .rzk-modal-box.rzk-style-dark .rzk-divider span { background: #111827; color: #9ca3af; }
+    .rzk-modal-box.rzk-style-dark .rzk-terms-text { color: #9ca3af; }
+    .rzk-modal-box.rzk-style-dark .rzk-resend-row { color: #9ca3af; }
+
+    /* Brand Header */
+    .rzk-brand-header {
+      margin: 0 0 16px;
+      text-align: center;
+    }
+
+    .rzk-logo-svg {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 8px;
+      display: block;
+      filter: drop-shadow(0 4px 10px var(--rzk-accent-glow));
+    }
+
+    .rzk-slogan {
       font-size: 13px;
-      color: var(--text-muted);
-      margin-top: 4px;
+      color: #64748b;
+      margin: 0 0 14px;
+      font-weight: 500;
     }
 
     /* Steps */
-    .step-view {
+    .rzk-step {
       display: none;
-      animation: fadeIn 0.3s ease;
+      animation: rzkFadeIn 0.25s ease;
     }
 
-    .step-view.active {
+    .rzk-step.active {
       display: block;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
+    @keyframes rzkFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .step-title {
-      font-size: 18px;
+    .rzk-step h3 {
+      font-size: 17px;
       font-weight: 700;
-      margin-bottom: 6px;
-      color: #fff;
+      margin-bottom: 16px;
+      color: inherit;
     }
 
-    .step-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 20px;
+    /* Google Button */
+    .rzk-google-wrap {
+      margin-bottom: 14px;
     }
 
-    .input-group {
-      margin-bottom: 18px;
-      text-align: right;
-    }
-
-    .input-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .text-input {
+    .rzk-btn-google {
       width: 100%;
-      padding: 13px 16px;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-      background: rgba(255, 255, 255, 0.05);
-      color: #fff;
-      font-size: 15px;
-      direction: ltr;
-      text-align: left;
-      transition: all 0.2s ease;
-    }
-
-    .text-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-    }
-
-    .btn-submit {
-      width: 100%;
-      padding: 13px;
-      border-radius: 12px;
-      border: none;
-      background: var(--primary);
-      color: #fff;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 15px var(--accent-glow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .btn-submit:hover {
-      background: var(--primary-hover);
-      transform: translateY(-1px);
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      margin: 18px 0;
-      color: var(--text-muted);
-      font-size: 12px;
-    }
-
-    .divider::before, .divider::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--card-border);
-    }
-
-    .divider span {
-      padding: 0 12px;
-    }
-
-    .btn-google {
-      width: 100%;
-      padding: 11px 16px;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-      background: rgba(255, 255, 255, 0.06);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 10px 14px;
+      border-radius: var(--rzk-btn-radius, 12px);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
       transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
     }
 
-    .btn-google:hover {
-      background: rgba(255, 255, 255, 0.12);
+    .rzk-btn-google:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      transform: translateY(-1px);
     }
 
-    /* OTP Inputs */
-    .otp-boxes {
+    .rzk-divider {
+      position: relative;
+      text-align: center;
+      margin: 16px 0 14px;
+    }
+
+    .rzk-divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #e2e8f0;
+    }
+
+    .rzk-divider span {
+      position: relative;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 0 12px;
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    /* Inputs */
+    .rzk-modal-box input[type="tel"],
+    .rzk-modal-box input[type="text"],
+    .rzk-modal-box input[type="password"] {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: var(--rzk-btn-radius, 12px);
+      border: 1px solid #cbd5e1;
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f172a;
+      direction: ltr;
+      text-align: left;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    .rzk-modal-box input:focus {
+      outline: none;
+      border-color: var(--rzk-accent);
+      box-shadow: 0 0 0 3px var(--rzk-accent-glow);
+    }
+
+    /* Captcha Section */
+    .rzk-captcha-wrap {
       display: flex;
       gap: 8px;
-      justify-content: center;
-      direction: ltr;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
+      align-items: center;
     }
 
-    .otp-input {
-      width: 48px;
-      height: 52px;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-      background: rgba(255, 255, 255, 0.06);
-      color: #fff;
-      font-size: 20px;
+    .rzk-captcha-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      border-radius: var(--rzk-btn-radius, 12px);
+      font-size: 14px;
       font-weight: 700;
+      color: #1e293b;
+      white-space: nowrap;
+    }
+
+    .rzk-captcha-refresh {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--rzk-accent);
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .rzk-captcha-refresh:hover {
+      transform: rotate(180deg);
+    }
+
+    .rzk-captcha-wrap input {
+      margin-bottom: 0 !important;
+      text-align: center !important;
+    }
+
+    /* Terms */
+    .rzk-terms-wrap {
+      text-align: right;
+      margin-bottom: 14px;
+      font-size: 12px;
+    }
+
+    .rzk-terms-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: #475569;
+    }
+
+    .rzk-terms-label a {
+      color: var(--rzk-accent);
+      text-decoration: none;
+    }
+
+    /* Action Button */
+    .rzk-modal-box button[type="button"]:not(.rzk-btn-google):not(.rzk-captcha-refresh) {
+      width: 100%;
+      padding: 12px;
+      border-radius: var(--rzk-btn-radius, 12px);
+      border: none;
+      background: var(--rzk-accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px var(--rzk-accent-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .rzk-modal-box button[type="button"]:not(.rzk-btn-google):hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    .rzk-msg {
+      font-size: 12px;
+      margin-top: 10px;
+      font-weight: 600;
+      min-height: 18px;
+    }
+
+    .rzk-msg.error { color: #ef4444; }
+    .rzk-msg.success { color: #10b981; }
+
+    /* OTP Segmented Boxes */
+    .rzk-otp-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 16px 0;
+      direction: ltr;
+    }
+
+    .rzk-otp-digit {
+      width: 44px;
+      height: 48px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
       text-align: center;
+      box-sizing: border-box;
       transition: all 0.2s ease;
     }
 
-    .otp-input:focus {
+    .rzk-otp-digit:focus {
       outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--accent-glow);
+      border-color: var(--rzk-accent);
+      box-shadow: 0 0 0 3px var(--rzk-accent-glow);
     }
 
-    /* Math Captcha */
-    .captcha-box {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
-    }
-
-    .captcha-question {
-      font-size: 15px;
-      font-weight: 700;
-      color: #34d399;
-      direction: ltr;
-    }
-
-    .captcha-input {
-      width: 65px;
-      padding: 6px;
-      border-radius: 8px;
-      border: 1px solid var(--card-border);
-      background: rgba(0, 0, 0, 0.2);
-      color: #fff;
-      text-align: center;
-      font-weight: 700;
-    }
-
-    .resend-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .rzk-resend-row {
       font-size: 12px;
-      color: var(--text-muted);
+      color: #64748b;
       margin-top: 14px;
     }
 
-    .link-action {
-      color: #34d399;
-      text-decoration: none;
-      font-weight: 600;
+    .rzk-resend-row span {
+      color: var(--rzk-accent);
+      font-weight: 700;
       cursor: pointer;
     }
 
+    .rzk-back-link {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 10px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
     /* Success Screen */
-    .success-view {
-      text-align: center;
-      padding: 15px 0;
+    .rzk-success-wrapper {
+      margin: 16px auto;
+      width: 72px;
+      height: 72px;
     }
 
-    .check-icon {
-      width: 64px;
-      height: 64px;
-      background: rgba(16, 185, 129, 0.2);
-      border: 2px solid #10b981;
-      color: #10b981;
+    .rzk-checkmark {
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      margin-bottom: 16px;
-      box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+      display: block;
+      stroke-width: 3;
+      stroke: var(--rzk-accent);
+      stroke-miterlimit: 10;
+      box-shadow: inset 0px 0px 0px var(--rzk-accent);
+      animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
     }
 
-    /* Features Showcase */
+    .rzk-checkmark-circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      stroke-width: 3;
+      stroke-miterlimit: 10;
+      stroke: var(--rzk-accent);
+      fill: none;
+      animation: stroke .6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .rzk-checkmark-check {
+      transform-origin: 50% 50%;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      stroke: #fff;
+      animation: stroke .3s cubic-bezier(0.65, 0, 0.45, 1) .8s forwards;
+    }
+
+    @keyframes stroke { 100% { stroke-dashoffset: 0; } }
+    @keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
+    @keyframes fill { 100% { box-shadow: inset 0px 0px 0px 40px var(--rzk-accent); } }
+
+    /* ==========================================================================
+       REAL FULLSCREEN POPUP OVERLAY (#rzk-modal-overlay)
+       ========================================================================== */
+    #rzk-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, var(--rzk-overlay, 0.55));
+      backdrop-filter: blur(var(--rzk-blur, 16px));
+      -webkit-backdrop-filter: blur(var(--rzk-blur, 16px));
+      z-index: 99999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--rzk-transition) ease, visibility var(--rzk-transition) ease;
+    }
+
+    #rzk-modal-overlay.rzk-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .rzk-close {
+      position: absolute;
+      top: 12px;
+      left: 16px;
+      font-size: 26px;
+      cursor: pointer;
+      color: #64748b;
+      line-height: 1;
+      transition: color 0.2s ease;
+    }
+
+    .rzk-close:hover {
+      color: #0f172a;
+    }
+
+    .rzk-modal-box.rzk-style-dark .rzk-close:hover {
+      color: #fff;
+    }
+
+    /* ==========================================================================
+       Features & Comparison Section
+       ========================================================================== */
+    .features-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .section-title-wrap {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .section-title-wrap h2 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .section-title-wrap p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
-      max-width: 1000px;
-      width: 100%;
-      padding: 0 20px 60px;
+      margin-bottom: 50px;
     }
 
-    .feature-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
+    .f-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
       padding: 24px;
       transition: all 0.2s ease;
     }
 
-    .feature-card:hover {
-      background: rgba(255, 255, 255, 0.06);
-      transform: translateY(-2px);
+    .f-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
-    .feature-icon {
-      font-size: 28px;
-      margin-bottom: 12px;
+    .f-icon {
+      font-size: 30px;
+      margin-bottom: 14px;
     }
 
-    .feature-card h3 {
+    .f-card h3 {
       font-size: 17px;
+      font-weight: 700;
+      color: #fff;
       margin-bottom: 8px;
+    }
+
+    .f-card p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Speed Comparison Card */
+    .comparison-card {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 24px;
+      padding: 34px;
+      margin-bottom: 50px;
+    }
+
+    .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .comp-item {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .comp-number {
+      font-size: 32px;
+      font-weight: 900;
+      color: #34d399;
+      margin-bottom: 4px;
+    }
+
+    .comp-label {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Live Sales Toast */
+    .toast-sales {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 12px 18px;
+      border-radius: 16px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 999;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .toast-sales.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #10b981, #06b6d4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
       color: #fff;
     }
 
-    .feature-card p {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.6;
+    .toast-content {
+      font-size: 12px;
+      text-align: right;
     }
 
+    .toast-title {
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .toast-desc {
+      color: #94a3b8;
+    }
+
+    /* Footer */
     footer {
-      width: 100%;
-      padding: 30px;
+      border-top: 1px solid var(--border);
+      padding: 30px 20px;
       text-align: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
       color: var(--text-muted);
       font-size: 13px;
     }
@@ -525,197 +1079,647 @@
       color: #34d399;
       text-decoration: none;
     }
-
-    .btn-rtltheme {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: #fff;
-      padding: 7px 15px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 700;
-      text-decoration: none;
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
-      transition: all 0.2s ease;
-    }
-
-    .btn-rtltheme:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
-    }
   </style>
 </head>
 <body>
 
+  <!-- ==========================================================================
+       Header
+       ========================================================================== -->
   <header>
     <a href="#" class="brand">
-      <span>💎 رازک</span>
-      <span class="brand-badge">v1.0</span>
+      <div class="brand-logo-wrap">
+        <img src="assets/logo.svg" alt="رازک" width="34" height="34">
+      </div>
+      <div>
+        <div class="brand-name">رازک <span class="brand-tag">v1.0</span></div>
+      </div>
     </a>
-    <div class="nav-links">
+    <div class="nav-actions">
+      <button type="button" class="btn-popup-test" id="btn-open-fullscreen">
+        🚀 تست پاپ‌آپ واقعی
+      </button>
       <a href="https://www.rtl-theme.com" class="btn-rtltheme" target="_blank">
         🛒 خرید از راست‌چین
       </a>
     </div>
   </header>
 
+  <!-- ==========================================================================
+       Hero Section
+       ========================================================================== -->
   <section class="hero">
-    <div class="hero-pill">⚡ فوق‌سریع (<35KB) • ۱۰۰٪ بدون جی‌کوئری • طراحی شیشه‌ای لوکس</div>
-    <h1>احراز هویت هوشمند و ورود پیامکی <span>رازک (Razak)</span></h1>
-    <p>سبک‌ترین و امن‌ترین افزونه ورود با شماره موبایل و کد یکبار مصرف، ورود با گوگل و تایید دو مرحله‌ای برای وردپرس و ووکامرس</p>
-
-    <!-- Theme Switcher -->
-    <div class="theme-selector">
-      <button class="theme-btn active" onclick="setTheme('glass')">شیشه‌ای (Glass)</button>
-      <button class="theme-btn" onclick="setTheme('solid')">مات (Solid)</button>
-      <button class="theme-btn" onclick="setTheme('outline')">خطی (Outline)</button>
-      <button class="theme-btn" onclick="setTheme('dark')">تاریک (Dark)</button>
-    </div>
+    <div class="hero-badge">💎 نسل نوین ورود پیامکی و احراز هویت با گوگل</div>
+    <h1>تجربه ورود پیامکی شیشه‌ای را <span>به صورت زنده تست کنید</span></h1>
+    <p>
+      افزونه رازک (Razak) سبک‌ترین، امن‌ترین و زیباترین سیستم احراز هویت بدون پسورد برای وردپرس و ووکامرس است. استایل و تنظیمات را در پنل زیر تغییر دهید و واکنش زنده مودال را ببینید!
+    </p>
   </section>
 
-  <!-- Interactive Live Demo Card -->
-  <div class="demo-container">
-    <div class="rzk-card" id="demoCard">
-      <div class="card-header">
-        <div class="logo-badge">💎</div>
-        <div class="logo-text">رازک</div>
-        <div class="logo-slogan">سیستم ورود و عضویت هوشمند</div>
+  <!-- ==========================================================================
+       Studio: Controls (Right) + Exact Live Modal (Left)
+       ========================================================================== -->
+  <div class="studio-container">
+
+    <!-- Controls Column -->
+    <div class="control-panel">
+      <div class="panel-title">
+        <span>⚙️ استودیوی شخصی‌سازی زنده</span>
       </div>
 
-      <!-- Step 1: Phone -->
-      <div class="step-view active" id="step1">
-        <div class="step-title">ورود یا ثبت‌نام سریع</div>
-        <div class="step-desc">شماره موبایل خود را جهت دریافت کد تایید وارد کنید:</div>
-
-        <div class="input-group">
-          <label class="input-label">شماره موبایل</label>
-          <input type="tel" class="text-input" id="phoneInput" placeholder="۰۹۱۲۳۴۵۶۷۸۹" value="09123456789">
-        </div>
-
-        <button class="btn-submit" onclick="goToStep(2)">
-          دریافت کد تایید
-          <span>←</span>
-        </button>
-
-        <div class="divider"><span>یا</span></div>
-
-        <button class="btn-google" onclick="goToSuccess('کاربر گوگل')">
-          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-          ورود سریع با حساب گوگل
-        </button>
-      </div>
-
-      <!-- Step 2: OTP Verification & Captcha -->
-      <div class="step-view" id="step2">
-        <div class="step-title">تایید شماره موبایل</div>
-        <div class="step-desc">کد ۶ رقمی پیامک‌شده را وارد نمایید:</div>
-
-        <div class="otp-boxes">
-          <input type="text" maxlength="1" class="otp-input" value="4">
-          <input type="text" maxlength="1" class="otp-input" value="8">
-          <input type="text" maxlength="1" class="otp-input" value="2">
-          <input type="text" maxlength="1" class="otp-input" value="9">
-          <input type="text" maxlength="1" class="otp-input" value="1">
-          <input type="text" maxlength="1" class="otp-input" value="7">
-        </div>
-
-        <!-- Standalone Math Captcha -->
-        <div class="captcha-box">
-          <div class="captcha-question">۴ + ۷ = ؟</div>
-          <input type="text" class="captcha-input" placeholder="پاسخ" value="11">
-        </div>
-
-        <button class="btn-submit" onclick="goToSuccess('کاربر گرامی')">
-          تایید و ورود به سایت
-        </button>
-
-        <div class="resend-bar">
-          <span>ارسال مجدد کد در: <strong id="timer">۵۲</strong> ثانیه</span>
-          <span class="link-action" onclick="goToStep(1)">تغییر شماره</span>
+      <!-- Theme Style Selector -->
+      <div class="panel-group">
+        <label class="group-label">پوسته ظاهری مودال (UI Style):</label>
+        <div class="style-grid">
+          <button type="button" class="style-btn active" data-style="glass">💎 شیشه‌ای (Glass)</button>
+          <button type="button" class="style-btn" data-style="solid">⚪ مات (Solid)</button>
+          <button type="button" class="style-btn" data-style="outline">🔲 خطی (Outline)</button>
+          <button type="button" class="style-btn" data-style="dark">🌙 تاریک (Dark)</button>
         </div>
       </div>
 
-      <!-- Step 3: Success -->
-      <div class="step-view" id="step3">
-        <div class="success-view">
-          <div class="check-icon">✓</div>
-          <div class="step-title">ورود با موفقیت انجام شد!</div>
-          <div class="step-desc" id="welcomeMsg">خوش آمدید! در حال انتقال به پیشخوان...</div>
-          <button class="btn-submit" style="margin-top: 15px;" onclick="goToStep(1)">
-            تست مجدد دمو
-          </button>
+      <!-- Accent Color Swatches -->
+      <div class="panel-group">
+        <label class="group-label">رنگ سازمانی و دکمه‌ها (Accent Color):</label>
+        <div class="color-swatches">
+          <div class="color-swatch active" style="background: #10b981; --swatch-color: #10b981;" data-color="#10b981" title="زمردی"></div>
+          <div class="color-swatch" style="background: #06b6d4; --swatch-color: #06b6d4;" data-color="#06b6d4" title="فیروزه‌ای"></div>
+          <div class="color-swatch" style="background: #6366f1; --swatch-color: #6366f1;" data-color="#6366f1" title="نیلی"></div>
+          <div class="color-swatch" style="background: #f59e0b; --swatch-color: #f59e0b;" data-color="#f59e0b" title="کهربایی"></div>
+          <div class="color-swatch" style="background: #f43f5e; --swatch-color: #f43f5e;" data-color="#f43f5e" title="یاقوتی"></div>
         </div>
       </div>
 
+      <!-- Blur Intensity Slider -->
+      <div class="panel-group">
+        <label class="group-label">شدت ماتی و بلور شیشه (Blur Level):</label>
+        <div class="slider-row">
+          <input type="range" class="slider-input" id="slider-blur" min="0" max="25" value="16">
+          <span class="slider-val" id="val-blur">16px</span>
+        </div>
+      </div>
+
+      <!-- Feature Toggles -->
+      <div class="panel-group">
+        <label class="group-label">ماژول‌ها و گزینه‌های فعال:</label>
+        <div class="toggle-list">
+          <div class="toggle-item checked" id="toggle-google">
+            <span class="toggle-text">ورود سریع با اکانت گوگل (Google One-Tap)</span>
+            <div class="switch"></div>
+          </div>
+          <div class="toggle-item checked" id="toggle-captcha">
+            <span class="toggle-text">کپچای ریاضی تصادفی ضد اسپم</span>
+            <div class="switch"></div>
+          </div>
+          <div class="toggle-item checked" id="toggle-terms">
+            <span class="toggle-text">چک‌باکس پذیرش قوانین و مقررات</span>
+            <div class="switch"></div>
+          </div>
+          <div class="toggle-item checked" id="toggle-fullname">
+            <span class="toggle-text">فیلد نام و نام خانوادگی برای ثبت‌نام</span>
+            <div class="switch"></div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-reset-demo" id="btn-reset">
+        🔄 بازنشانی فرم به مرحله اول
+      </button>
+    </div>
+
+    <!-- Live Stage Column -->
+    <div class="stage-container">
+      <div class="stage-badge">✨ پیش‌نمایش کاملاً منطبق با محصول وردپرس</div>
+
+      <div class="modal-display-frame">
+
+        <!-- THE EXACT MODAL BOX (Identical to WordPress Output) -->
+        <div class="rzk-modal-box" id="demo-modal-box">
+          <div class="rzk-brand-header">
+            <img class="rzk-logo-svg" src="assets/logo.svg" alt="لوگوی رازک">
+            <p class="rzk-slogan" id="demo-slogan">ورود امن و سریع به حساب کاربری</p>
+          </div>
+
+          <!-- STEP 1: Phone Number -->
+          <div id="rzk-step-phone" class="rzk-step active">
+            <h3>شماره موبایل خود را وارد کنید</h3>
+
+            <!-- Google Button -->
+            <div class="rzk-google-wrap" id="demo-google-wrap">
+              <button type="button" class="rzk-btn-google" id="demo-btn-google">
+                <svg class="rzk-google-icon" viewBox="0 0 48 48" width="18" height="18">
+                  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                </svg>
+                <span>ورود با حساب گوگل</span>
+              </button>
+              <div class="rzk-divider"><span>یا با شماره موبایل</span></div>
+            </div>
+
+            <!-- Phone Input -->
+            <input type="tel" id="demo-phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" inputmode="numeric" autocomplete="tel">
+
+            <!-- Captcha Section -->
+            <div class="rzk-captcha-wrap" id="demo-captcha-wrap">
+              <div class="rzk-captcha-badge">
+                <span id="demo-captcha-q">۷ + ۶ = ؟</span>
+                <button type="button" class="rzk-captcha-refresh" id="demo-captcha-refresh" title="سوال جدید">&#x21bb;</button>
+              </div>
+              <input type="text" id="demo-captcha-ans" placeholder="پاسخ" inputmode="numeric">
+            </div>
+
+            <!-- Terms Wrap -->
+            <div class="rzk-terms-wrap" id="demo-terms-wrap">
+              <label class="rzk-terms-label">
+                <input type="checkbox" id="demo-terms-cb" checked>
+                <span>با <a href="#" onclick="return false;">قوانین و مقررات</a> سایت موافقم.</span>
+              </label>
+            </div>
+
+            <button type="button" id="demo-btn-continue">دریافت کد تایید</button>
+            <div class="rzk-msg" id="demo-msg-phone"></div>
+          </div>
+
+          <!-- STEP 2: OTP Code -->
+          <div id="rzk-step-otp" class="rzk-step">
+            <h3>کد تایید ارسال شد</h3>
+            <p class="rzk-slogan" id="demo-otp-desc">کد ۶ رقمی ارسال شده به شماره را وارد کنید</p>
+
+            <!-- 6 Segmented Digits -->
+            <div class="rzk-otp-boxes">
+              <input type="text" maxlength="1" class="rzk-otp-digit" data-idx="0" inputmode="numeric">
+              <input type="text" maxlength="1" class="rzk-otp-digit" data-idx="1" inputmode="numeric">
+              <input type="text" maxlength="1" class="rzk-otp-digit" data-idx="2" inputmode="numeric">
+              <input type="text" maxlength="1" class="rzk-otp-digit" data-idx="3" inputmode="numeric">
+              <input type="text" maxlength="1" class="rzk-otp-digit" data-idx="4" inputmode="numeric">
+              <input type="text" maxlength="1" class="rzk-otp-digit" data-idx="5" inputmode="numeric">
+            </div>
+
+            <!-- Fullname Input for registration -->
+            <div id="demo-fullname-wrap">
+              <input type="text" id="demo-fullname" placeholder="نام و نام خانوادگی شما">
+            </div>
+
+            <button type="button" id="demo-btn-verify">تایید و ورود به سایت</button>
+
+            <div class="rzk-resend-row">
+              کد را دریافت نکردید؟ <span id="demo-resend-btn">ارسال مجدد</span> (<span id="demo-timer">54</span> ثانیه)
+            </div>
+            <div class="rzk-back-link" id="demo-back-to-phone">تغییر شماره موبایل</div>
+            <div class="rzk-msg" id="demo-msg-otp"></div>
+          </div>
+
+          <!-- STEP 3: Success Screen -->
+          <div id="rzk-step-success" class="rzk-step">
+            <div class="rzk-success-wrapper">
+              <svg class="rzk-checkmark" viewBox="0 0 52 52">
+                <circle class="rzk-checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="rzk-checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+              </svg>
+            </div>
+            <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 6px;">ورود با موفقیت انجام شد!</h3>
+            <p class="rzk-slogan" style="margin-bottom: 20px;">خوش آمدید، در حال انتقال به پیشخوان کاربری...</p>
+            <button type="button" id="demo-btn-restart">تست مجدد از ابتدا</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==========================================================================
+       REAL FULLSCREEN MODAL POPUP (Triggered via Header Button)
+       ========================================================================== -->
+  <div id="rzk-modal-overlay">
+    <div class="rzk-modal-box" id="popup-modal-box">
+      <span class="rzk-close" id="popup-close">&times;</span>
+      <div class="rzk-brand-header">
+        <img class="rzk-logo-svg" src="assets/logo.svg" alt="لوگوی رازک">
+        <p class="rzk-slogan">مودال زنده رازک بر روی سایت شما</p>
+      </div>
+      <h3>ورود با شماره موبایل</h3>
+      <input type="tel" id="popup-phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" inputmode="numeric">
+      <button type="button" id="popup-btn-submit" style="margin-top: 10px;">دریافت کد تایید</button>
+      <div class="rzk-msg" id="popup-msg"></div>
     </div>
   </div>
 
-  <!-- Features Grid -->
-  <section class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">⚡</div>
-      <h3>سبک‌ترین در اکوسیستم وردپرس</h3>
-      <p>کمتر از ۳۵ کیلوبایت و ۱۰۰٪ بدون وابستگی به جی‌کوئری (Vanilla JS). بدون کوچک‌ترین افت در رتبه لایت‌هاوس سایت شما.</p>
+  <!-- ==========================================================================
+       Speed Benchmark & Feature Cards
+       ========================================================================== */
+  -->
+  <section class="features-section">
+    
+    <!-- Speed Benchmark Card -->
+    <div class="comparison-card">
+      <div class="section-title-wrap" style="margin-bottom: 0;">
+        <h2>⚡ سبک‌ترین افزونه ورود پیامکی جهان</h2>
+        <p>بدون حتی ۱ خط کد jQuery • بدون وابستگی به CDN خارجی • ۱۰۰٪ پایدار در اختلالات اینترنت</p>
+      </div>
+
+      <div class="comp-grid">
+        <div class="comp-item">
+          <div class="comp-number">&lt; 32 KB</div>
+          <div class="comp-label">حجم فرانت‌اند رازک (بسیار ناچیز)</div>
+        </div>
+        <div class="comp-item">
+          <div class="comp-number" style="color: #ef4444;">1,400 KB</div>
+          <div class="comp-label">سایر افزونه‌های بازار (سنگین و کند)</div>
+        </div>
+        <div class="comp-item">
+          <div class="comp-number">0.02s</div>
+          <div class="comp-label">زمان اجرای اسکریپت (نامحسوس)</div>
+        </div>
+        <div class="comp-item">
+          <div class="comp-number">0 jQuery</div>
+          <div class="comp-label">فناوری نوین Vanilla JS خالص</div>
+        </div>
+      </div>
     </div>
 
-    <div class="feature-card">
-      <div class="feature-icon">🛡️</div>
-      <h3>۱۰۰٪ ضد تحریم و ضد فیلتر</h3>
-      <p>بدون وابستگی به CDNهای خارجی یا گوگل فونت‌های مسدودشونده. عملکرد بدون وقفه حتی در زمان اختلال اینترنت بین‌الملل.</p>
+    <!-- Feature Grid -->
+    <div class="section-title-wrap">
+      <h2>چرا رازک بهترین انتخاب برای فروشگاه شماست؟</h2>
+      <p>برخی از قابلیت‌های بی‌رقیب افزونه رازک در مقایسه با سایر محصولات</p>
     </div>
 
-    <div class="feature-card">
-      <div class="feature-icon">💸</div>
-      <h3>ارسال رایگان در بستر پیام‌رسان‌ها</h3>
-      <p>پشتیبانی بومی از ربات پیام‌رسان بله (رایگان)، ایتا و تلگرام جهت به صفر رساندن هزینه‌های شارژ پیامک سایت.</p>
+    <div class="features-grid">
+      <div class="f-card">
+        <div class="f-icon">🌐</div>
+        <h3>ورود رسمی با گوگل (One-Tap)</h3>
+        <p>کاربر با یک کلیک و بدون نیاز به پیامک با اکانت گوگل خود ثبت‌نام کرده و وارد می‌شود؛ نام و ایمیل و تصویر پروفایل اتوماتیک ست می‌گردد.</p>
+      </div>
+
+      <div class="f-card">
+        <div class="f-icon">🤖</div>
+        <h3>ارسال ۱۰۰٪ رایگان پیام‌رسان‌ها</h3>
+        <p>پشتیبانی پیش‌فرض از ربات‌های پیام‌رسان بله و ایتا تا بدون پرداخت ریالی هزینه پنل پیامک، کدهای یکبار مصرف را ارسال کنید.</p>
+      </div>
+
+      <div class="f-card">
+        <div class="f-icon">🛡️</div>
+        <h3>کپچای ریاضی ضد اتک ربات‌ها</h3>
+        <p>جلوگیری قطعی از خالی شدن شارژ پنل پیامکی شما توسط ربات‌های مخرب، با فرمول‌های تصادفی ریاضی امضا شده با Salt امن وردپرس.</p>
+      </div>
+
+      <div class="f-card">
+        <div class="f-icon">🛒</div>
+        <h3>هماهنگی کامل با ووکامرس</h3>
+        <p>جایگزینی هوشمند با صفحه «حساب کاربری من» و فیلد ورود تسویه حساب ووکامرس (چه در حالت کلاسیک و چه در Checkout بلوکی جدید).</p>
+      </div>
+
+      <div class="f-card">
+        <div class="f-icon">🔢</div>
+        <h3>تبدیل خودکار ارقام فارسی</h3>
+        <p>دیگر نگران ورود اعداد فارسی از موبایل یا ارقام عربی کیبورد نباشید؛ رازک به‌صورت بلادرنگ اعداد را استانداردسازی می‌کند.</p>
+      </div>
+
+      <div class="f-card">
+        <div class="f-icon">📱</div>
+        <h3>سازگار با تمام سامانه‌های پیامک</h3>
+        <p>پشتیبانی کامل از فراز اس‌ام‌اس (آی‌پنل)، کاوه‌نگار، SMS.ir، ملی‌پیامک، قاصدک، فراپیامک، مگفا و خطوط خدماتی بدون بلک‌لیست.</p>
+      </div>
     </div>
 
-    <div class="feature-card">
-      <div class="feature-icon">🌐</div>
-      <h3>ورود با گوگل (One-Tap)</h3>
-      <p>ورود و ثبت‌نام با یک کلیک از طریق حساب جیمیل گوگل رسمی و همگام‌سازی خودکار عکس پروفایل و ایمیل کاربر.</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">🧩</div>
-      <h3>کپچای ریاضی شیشه‌ای مستقل</h3>
-      <p>حل معماهای ریاضی با امضای امنیتی HMAC وردپرس جهت جلوگیری کامل از حملات ربات بدون نیاز به APIهای فیلترشده گوگل.</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">🛒</div>
-      <h3>ادغام کامل با ووکامرس</h3>
-      <p>هماهنگ با صفحه حساب کاربری، تسویه‌حساب سنتی و تسویه‌حساب بلوکی جدید ووکامرس به همراه ذخیره خودکار شماره خریدار.</p>
-    </div>
   </section>
 
+  <!-- Live Toast -->
+  <div class="toast-sales" id="toast-sales">
+    <div class="toast-avatar">✓</div>
+    <div class="toast-content">
+      <div class="toast-title" id="toast-user">محمد از مشهد</div>
+      <div class="toast-desc">همین الان نسخه اصلی رازک را خریداری کرد</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <footer>
-    <p>طراحی و توسعه یافته توسط <a href="https://github.com/HasanMfar" target="_blank">Hasan Mfar</a> • منتشر شده تحت لایسنس متن‌باز GPL-2.0</p>
+    <p>طراحی و توسعه با افتخار توسط <strong>Hasan Mfar</strong> • ارائه شده با پشتیبانی اختصاصی در مارکت‌پلیس <strong>راست‌چین (RTL-Theme)</strong></p>
   </footer>
 
+  <!-- ==========================================================================
+       Interactive Studio JavaScript Logic
+       ========================================================================== -->
   <script>
-    function setTheme(theme) {
-      document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+    (function () {
+      'use strict';
 
-      const card = document.getElementById('demoCard');
-      card.className = 'rzk-card';
-      if (theme !== 'glass') {
-        card.classList.add('theme-' + theme);
+      // Captcha State
+      var captchaA = 6, captchaB = 8;
+      function newCaptcha() {
+        captchaA = Math.floor(Math.random() * 9) + 2;
+        captchaB = Math.floor(Math.random() * 9) + 1;
+        var qEl = document.getElementById('demo-captcha-q');
+        if (qEl) qEl.textContent = captchaA + ' + ' + captchaB + ' = ؟';
+        var ansEl = document.getElementById('demo-captcha-ans');
+        if (ansEl) ansEl.value = '';
       }
-    }
 
-    function goToStep(step) {
-      document.querySelectorAll('.step-view').forEach(v => v.classList.remove('active'));
-      document.getElementById('step' + step).classList.add('active');
-    }
+      // Digits Normalizer
+      function normalizeFa(str) {
+        if (!str) return '';
+        var fa = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹','٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+        var en = ['0','1','2','3','4','5','6','7','8','9','0','1','2','3','4','5','6','7','8','9'];
+        for (var i = 0; i < fa.length; i++) {
+          str = str.split(fa[i]).join(en[i]);
+        }
+        return str;
+      }
 
-    function goToSuccess(name) {
-      document.getElementById('welcomeMsg').innerText = 'خوش آمدید ' + name + '! حساب شما با موفقیت تایید شد.';
-      goToStep(3);
-    }
+      // Switch Steps
+      function showStep(stepId) {
+        document.querySelectorAll('.stage-container .rzk-step').forEach(function (el) {
+          el.classList.remove('active');
+          el.style.display = 'none';
+        });
+        var target = document.getElementById(stepId);
+        if (target) {
+          target.style.display = 'block';
+          requestAnimationFrame(function () { target.classList.add('active'); });
+        }
+      }
+
+      // 1. Theme Style Buttons
+      document.querySelectorAll('.style-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.style-btn').forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          var style = btn.getAttribute('data-style');
+
+          var boxes = [document.getElementById('demo-modal-box'), document.getElementById('popup-modal-box')];
+          boxes.forEach(function (box) {
+            if (!box) return;
+            box.className = 'rzk-modal-box';
+            if (style !== 'glass') {
+              box.classList.add('rzk-style-' + style);
+            }
+          });
+        });
+      });
+
+      // 2. Color Swatches
+      document.querySelectorAll('.color-swatch').forEach(function (swatch) {
+        swatch.addEventListener('click', function () {
+          document.querySelectorAll('.color-swatch').forEach(function (s) { s.classList.remove('active'); });
+          swatch.classList.add('active');
+          var color = swatch.getAttribute('data-color');
+          document.documentElement.style.setProperty('--rzk-accent', color);
+          document.documentElement.style.setProperty('--rzk-accent-glow', color + '55');
+        });
+      });
+
+      // 3. Blur Slider
+      var slider = document.getElementById('slider-blur');
+      var valBlur = document.getElementById('val-blur');
+      if (slider) {
+        slider.addEventListener('input', function () {
+          var val = slider.value + 'px';
+          valBlur.textContent = val;
+          document.documentElement.style.setProperty('--rzk-blur', val);
+        });
+      }
+
+      // 4. Feature Toggles
+      function bindToggle(id, targetSelector) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('click', function () {
+          el.classList.toggle('checked');
+          var isChecked = el.classList.contains('checked');
+          var target = document.querySelector(targetSelector);
+          if (target) {
+            target.style.display = isChecked ? '' : 'none';
+          }
+        });
+      }
+
+      bindToggle('toggle-google', '#demo-google-wrap');
+      bindToggle('toggle-captcha', '#demo-captcha-wrap');
+      bindToggle('toggle-terms', '#demo-terms-wrap');
+      bindToggle('toggle-fullname', '#demo-fullname-wrap');
+
+      // 5. Captcha Refresh
+      var btnRefresh = document.getElementById('demo-captcha-refresh');
+      if (btnRefresh) {
+        btnRefresh.addEventListener('click', function () {
+          newCaptcha();
+        });
+      }
+      newCaptcha();
+
+      // 6. Step 1 Continue
+      var btnCont = document.getElementById('demo-btn-continue');
+      var phoneInp = document.getElementById('demo-phone');
+      var msgPhone = document.getElementById('demo-msg-phone');
+
+      btnCont.addEventListener('click', function () {
+        msgPhone.textContent = '';
+        msgPhone.className = 'rzk-msg';
+
+        var phone = normalizeFa(phoneInp.value.trim());
+        if (!phone || phone.length < 10) {
+          msgPhone.textContent = 'لطفاً شماره موبایل معتبر (۱۱ رقم) وارد کنید.';
+          msgPhone.classList.add('error');
+          phoneInp.focus();
+          return;
+        }
+
+        var captchaWrap = document.getElementById('demo-captcha-wrap');
+        if (captchaWrap && captchaWrap.style.display !== 'none') {
+          var ans = normalizeFa(document.getElementById('demo-captcha-ans').value.trim());
+          if (parseInt(ans, 10) !== (captchaA + captchaB)) {
+            msgPhone.textContent = 'پاسخ سوال ریاضی اشتباه است! دوباره امتحان کنید.';
+            msgPhone.classList.add('error');
+            newCaptcha();
+            return;
+          }
+        }
+
+        var termsWrap = document.getElementById('demo-terms-wrap');
+        if (termsWrap && termsWrap.style.display !== 'none') {
+          if (!document.getElementById('demo-terms-cb').checked) {
+            msgPhone.textContent = 'جهت ادامه باید تیک قوانین را تایید کنید.';
+            msgPhone.classList.add('error');
+            return;
+          }
+        }
+
+        // Simulate Busy
+        btnCont.textContent = 'در حال ارسال پیامک...';
+        btnCont.disabled = true;
+
+        setTimeout(function () {
+          btnCont.textContent = 'دریافت کد تایید';
+          btnCont.disabled = false;
+          showStep('rzk-step-otp');
+
+          var digits = document.querySelectorAll('.rzk-otp-digit');
+          digits.forEach(function (d) { d.value = ''; });
+          if (digits[0]) digits[0].focus();
+          startTimer();
+        }, 600);
+      });
+
+      // 7. Google One-Tap Simulator
+      var btnGoogle = document.getElementById('demo-btn-google');
+      if (btnGoogle) {
+        btnGoogle.addEventListener('click', function () {
+          btnGoogle.innerHTML = 'در حال ارتباط با گوگل...';
+          setTimeout(function () {
+            btnGoogle.innerHTML = '<span>ورود با حساب گوگل</span>';
+            showStep('rzk-step-success');
+          }, 800);
+        });
+      }
+
+      // 8. OTP Segmented Inputs
+      var otpInputs = document.querySelectorAll('.rzk-otp-digit');
+      otpInputs.forEach(function (input, index) {
+        input.addEventListener('input', function (e) {
+          var val = normalizeFa(e.target.value);
+          input.value = val ? val.charAt(val.length - 1) : '';
+          if (input.value && index < otpInputs.length - 1) {
+            otpInputs[index + 1].focus();
+          }
+        });
+
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Backspace' && !input.value && index > 0) {
+            otpInputs[index - 1].focus();
+          }
+        });
+      });
+
+      // 9. OTP Verification
+      var btnVerify = document.getElementById('demo-btn-verify');
+      var msgOtp = document.getElementById('demo-msg-otp');
+
+      btnVerify.addEventListener('click', function () {
+        msgOtp.textContent = '';
+        msgOtp.className = 'rzk-msg';
+
+        var code = '';
+        otpInputs.forEach(function (d) { code += d.value; });
+
+        if (code.length < 6) {
+          msgOtp.textContent = 'لطفاً کد ۶ رقمی کامل را وارد کنید.';
+          msgOtp.classList.add('error');
+          return;
+        }
+
+        btnVerify.textContent = 'در حال اعتبارسنجی...';
+        btnVerify.disabled = true;
+
+        setTimeout(function () {
+          btnVerify.textContent = 'تایید و ورود به سایت';
+          btnVerify.disabled = false;
+          showStep('rzk-step-success');
+        }, 600);
+      });
+
+      // 10. Timer
+      var timerInterval = null;
+      function startTimer() {
+        var timerEl = document.getElementById('demo-timer');
+        var count = 60;
+        if (timerInterval) clearInterval(timerInterval);
+        timerEl.textContent = count;
+        timerInterval = setInterval(function () {
+          count--;
+          if (count <= 0) {
+            clearInterval(timerInterval);
+            timerEl.textContent = '۰';
+          } else {
+            timerEl.textContent = count;
+          }
+        }, 1000);
+      }
+
+      // 11. Navigation Links
+      document.getElementById('demo-back-to-phone').addEventListener('click', function () {
+        showStep('rzk-step-phone');
+      });
+
+      document.getElementById('demo-resend-btn').addEventListener('click', function () {
+        startTimer();
+        alert('کد تایید جدید پیامک شد!');
+      });
+
+      document.getElementById('demo-btn-restart').addEventListener('click', function () {
+        showStep('rzk-step-phone');
+        phoneInp.value = '';
+        newCaptcha();
+      });
+
+      document.getElementById('btn-reset').addEventListener('click', function () {
+        showStep('rzk-step-phone');
+        phoneInp.value = '';
+        newCaptcha();
+      });
+
+      // 12. Fullscreen Popup Modal Test
+      var overlay = document.getElementById('rzk-modal-overlay');
+      var btnOpenPopup = document.getElementById('btn-open-fullscreen');
+      var btnClosePopup = document.getElementById('popup-close');
+
+      btnOpenPopup.addEventListener('click', function () {
+        overlay.classList.add('rzk-open');
+      });
+
+      btnClosePopup.addEventListener('click', function () {
+        overlay.classList.remove('rzk-open');
+      });
+
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) {
+          overlay.classList.remove('rzk-open');
+        }
+      });
+
+      document.getElementById('popup-btn-submit').addEventListener('click', function () {
+        var pMsg = document.getElementById('popup-msg');
+        var pPhone = document.getElementById('popup-phone').value.trim();
+        if (!pPhone) {
+          pMsg.textContent = 'شماره موبایل را وارد نمایید.';
+          pMsg.className = 'rzk-msg error';
+          return;
+        }
+        pMsg.textContent = 'پیامک ارسال شد! (مدل نمایشی پاپ‌آپ)';
+        pMsg.className = 'rzk-msg success';
+      });
+
+      // 13. Social Proof Toasts
+      var buyers = [
+        { name: 'محمد از مشهد', time: 'همین الان' },
+        { name: 'رضا از اصفهان', time: '۲ دقیقه پیش' },
+        { name: 'سارا از شیراز', time: '۵ دقیقه پیش' },
+        { name: 'امیر از تهران', time: '۷ دقیقه پیش' },
+        { name: 'حسین از تبریز', time: '۱۰ دقیقه پیش' }
+      ];
+
+      var toastEl = document.getElementById('toast-sales');
+      var toastUser = document.getElementById('toast-user');
+      var buyerIdx = 0;
+
+      function triggerToast() {
+        if (!toastEl) return;
+        var b = buyers[buyerIdx % buyers.length];
+        buyerIdx++;
+        toastUser.textContent = b.name;
+        toastEl.classList.add('show');
+        setTimeout(function () {
+          toastEl.classList.remove('show');
+        }, 4000);
+      }
+
+      setTimeout(triggerToast, 3500);
+      setInterval(triggerToast, 14000);
+
+    })();
   </script>
 </body>
 </html>
