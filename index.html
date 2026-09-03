@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -44,22 +44,22 @@
       position: relative;
     }
 
-    /* Ambient Floating Glow Orbs (To clearly show glass refraction) */
+    /* Ambient Floating Glow (Subtle and Organic) */
     .ambient-orb {
       position: fixed;
       border-radius: 50%;
-      filter: blur(80px);
+      filter: blur(90px);
       z-index: 0;
       pointer-events: none;
-      animation: floatPulse 12s ease-in-out infinite alternate;
+      animation: floatPulse 14s ease-in-out infinite alternate;
     }
 
     .orb-1 {
-      top: -100px;
+      top: -120px;
       right: 15%;
       width: 500px;
       height: 500px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
     }
 
     .orb-2 {
@@ -67,23 +67,40 @@
       left: 5%;
       width: 450px;
       height: 450px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
       animation-delay: -5s;
     }
 
     .orb-3 {
-      bottom: -100px;
+      bottom: -120px;
       right: 25%;
       width: 550px;
       height: 550px;
-      background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
       animation-delay: -9s;
     }
 
     @keyframes floatPulse {
       0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(30px, -20px) scale(1.08); }
-      100% { transform: translate(-20px, 30px) scale(0.95); }
+      50% { transform: translate(25px, -15px) scale(1.05); }
+      100% { transform: translate(-15px, 25px) scale(0.97); }
+    }
+
+    /* Professional Status Pulse Dot (Replaces emoji sparkles) */
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      display: inline-block;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulseDot 2s infinite;
+      margin-left: 2px;
+    }
+    @keyframes pulseDot {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
 
     /* ==========================================================================
@@ -633,6 +650,10 @@
     }
 
     /* Background preset themes for stage-backdrop */
+    .stage-backdrop.bg-razak {
+      background: #060911 url('assets/razak-bg.jpg') center center / cover no-repeat !important;
+    }
+
     .stage-backdrop.bg-aurora {
       background: radial-gradient(at 10% 20%, #1e1b4b 0px, transparent 50%),
                   radial-gradient(at 90% 80%, #064e3b 0px, transparent 50%),
@@ -1149,8 +1170,23 @@
     }
 
     .f-icon {
-      font-size: 30px;
-      margin-bottom: 14px;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #34d399;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
+    }
+
+    .f-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
     }
 
     .f-card h3 {
@@ -1239,10 +1275,10 @@
     </a>
     <div class="nav-actions">
       <button type="button" class="btn-popup-test" id="btn-open-fullscreen">
-        🚀 تست پاپ‌آپ واقعی
+        تست پاپ‌آپ تمام‌صفحه
       </button>
       <a href="https://www.rtl-theme.com" class="btn-rtltheme" target="_blank">
-        🛒 خرید از راست‌چین
+        خرید از راست‌چین
       </a>
     </div>
   </header>
@@ -1251,10 +1287,10 @@
        Hero Section
        ========================================================================== -->
   <section class="hero">
-    <div class="hero-badge">💎 استودیوی زنده احراز هویت پیامکی و ورود با گوگل</div>
-    <h1>زیبایی شیشه‌ای و سرعت سرسام‌آور را <span>به صورت زنده تجربه کنید</span></h1>
+    <div class="hero-badge"><span class="pulse-dot"></span> استودیوی تعاملی احراز هویت پیامکی و ورود با گوگل</div>
+    <h1>ورود پیامکی و احراز هویت با گوگل در <span>قالب شیشه‌ای (Glassmorphism)</span></h1>
     <p>
-      افزونه رازک (Razak) سبک‌ترین و لوکس‌ترین سیستم ورود پیامکی وردپرس است. پوسته، رنگ، لوگو و تصویر پس‌زمینه را در استودیوی زیر تغییر دهید و نتیجه را آنی در مودال شیشه‌ای ببینید.
+      افزونه رازک (Razak) سبک‌ترین سیستم ورود و ثبت‌نام سریع در وردپرس و ووکامرس است. در این استودیو پوسته، رنگ‌بندی، پس‌زمینه و المان‌ها را تغییر دهید و شفافیت واقعی شیشه را ارزیابی کنید.
     </p>
   </section>
 
@@ -1274,10 +1310,10 @@
       <div class="panel-group">
         <label class="group-label">پوسته ظاهری مودال (UI Style):</label>
         <div class="style-grid">
-          <button type="button" class="style-btn active" data-style="glass">💎 شیشه‌ای (Glass)</button>
-          <button type="button" class="style-btn" data-style="solid">⚪ سفید مات (Solid)</button>
-          <button type="button" class="style-btn" data-style="outline">🔲 خطی (Outline)</button>
-          <button type="button" class="style-btn" data-style="dark">🌙 تاریک نئون (Dark)</button>
+          <button type="button" class="style-btn active" data-style="glass">شیشه‌ای (Glass)</button>
+          <button type="button" class="style-btn" data-style="solid">سفید مات (Solid)</button>
+          <button type="button" class="style-btn" data-style="outline">خطی (Outline)</button>
+          <button type="button" class="style-btn" data-style="dark">تاریک نئون (Dark)</button>
         </div>
       </div>
 
@@ -1297,7 +1333,8 @@
       <div class="panel-group">
         <label class="group-label">تصویر و افکت پس‌زمینه مودال (Background):</label>
         <div class="bg-presets">
-          <button type="button" class="bg-preset-btn active" data-bg="aurora">شفق قطبی</button>
+          <button type="button" class="bg-preset-btn active" data-bg="razak">طبیعت رازک</button>
+          <button type="button" class="bg-preset-btn" data-bg="aurora">شفق قطبی</button>
           <button type="button" class="bg-preset-btn" data-bg="neon">نئون سایبر</button>
           <button type="button" class="bg-preset-btn" data-bg="store">مینیمال دارک</button>
           <button type="button" class="bg-preset-btn" data-bg="none">بدون تصویر</button>
@@ -1363,10 +1400,10 @@
 
     <!-- Live Stage Column -->
     <div class="stage-container">
-      <div class="stage-badge">✨ پیش‌نمایش کاملاً شیشه‌ای و بلورین</div>
+      <div class="stage-badge">پیش‌نمایش زنده روی بافت طبیعی رازک</div>
 
       <!-- Backdrop with colorful ambient shapes for genuine frosted glass effect -->
-      <div class="stage-backdrop bg-aurora" id="stage-backdrop">
+      <div class="stage-backdrop bg-razak" id="stage-backdrop">
         <div class="stage-bg-art">
           <div class="art-circle art-c1"></div>
           <div class="art-circle art-c2"></div>
@@ -1515,22 +1552,22 @@
     <!-- Speed Benchmark Card -->
     <div class="comparison-card">
       <div class="section-title-wrap" style="margin-bottom: 0;">
-        <h2>⚡ سبک‌ترین افزونه ورود پیامکی جهان</h2>
-        <p>بدون حتی ۱ خط کد jQuery • بدون وابستگی به CDN خارجی • ۱۰۰٪ پایدار در اختلالات اینترنت</p>
+        <h2>عملکرد فنی و سبکی فرانت‌اند (Performance Metric)</h2>
+        <p>بدون حتی ۱ خط کد jQuery • بدون وابستگی به CDN خارجی • پایداری در انواع شبکه‌ها</p>
       </div>
 
       <div class="comp-grid">
         <div class="comp-item">
           <div class="comp-number">&lt; 32 KB</div>
-          <div class="comp-label">حجم فرانت‌اند رازک (بسیار ناچیز)</div>
+          <div class="comp-label">حجم بسته کلاینت (CSS + JS)</div>
         </div>
         <div class="comp-item">
           <div class="comp-number" style="color: #ef4444;">1,400 KB</div>
-          <div class="comp-label">سایر افزونه‌های بازار (سنگین و کند)</div>
+          <div class="comp-label">میانگین سایر افزونه‌ها</div>
         </div>
         <div class="comp-item">
           <div class="comp-number">0.02s</div>
-          <div class="comp-label">زمان اجرای اسکریپت (نامحسوس)</div>
+          <div class="comp-label">زمان اجرای اسکریپت در مرورگر</div>
         </div>
         <div class="comp-item">
           <div class="comp-number">0 jQuery</div>
@@ -1541,43 +1578,74 @@
 
     <!-- Feature Grid -->
     <div class="section-title-wrap">
-      <h2>چرا رازک بهترین انتخاب برای فروشگاه شماست؟</h2>
-      <p>برخی از قابلیت‌های بی‌رقیب افزونه رازک در مقایسه با سایر محصولات</p>
+      <h2>ویژگی‌های کلیدی و معماری محصول</h2>
+      <p>طراحی شده با استانداردهای مدرن توسعه وب و سازگاری کامل با اکوسیستم وردپرس</p>
     </div>
 
     <div class="features-grid">
       <div class="f-card">
-        <div class="f-icon">🌐</div>
+        <div class="f-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
         <h3>ورود رسمی با گوگل (One-Tap)</h3>
-        <p>کاربر با یک کلیک و بدون نیاز به پیامک با اکانت گوگل خود ثبت‌نام کرده و وارد می‌شود؛ نام و ایمیل و تصویر پروفایل اتوماتیک ست می‌گردد.</p>
+        <p>کاربر با یک کلیک و بدون نیاز به پیامک با اکانت گوگل خود ثبت‌نام کرده و وارد می‌شود؛ نام، ایمیل و تصویر پروفایل اتوماتیک ست می‌گردد.</p>
       </div>
 
       <div class="f-card">
-        <div class="f-icon">🤖</div>
-        <h3>ارسال ۱۰۰٪ رایگان پیام‌رسان‌ها</h3>
-        <p>پشتیبانی پیش‌فرض از ربات‌های پیام‌رسان بله و ایتا تا بدون پرداخت ریالی هزینه پنل پیامک، کدهای یکبار مصرف را ارسال کنید.</p>
+        <div class="f-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <h3>ارسال پیامک از پیام‌رسان‌ها</h3>
+        <p>پشتیبانی بومی از ربات‌های پیام‌رسان بله و ایتا برای ارسال سریع کدهای اعتبارسنجی با کمترین هزینه و بالاترین پایداری.</p>
       </div>
 
       <div class="f-card">
-        <div class="f-icon">🛡️</div>
+        <div class="f-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
         <h3>کپچای ریاضی ضد اتک ربات‌ها</h3>
-        <p>جلوگیری قطعی از خالی شدن شارژ پنل پیامکی شما توسط ربات‌های مخرب، با فرمول‌های تصادفی ریاضی امضا شده با Salt امن وردپرس.</p>
+        <p>جلوگیری قطعی از ارسال اسپم و ترافیک فیک به پنل پیامک، با فرمول‌های تصادفی ریاضی امضا شده با Salt امنیتی وردپرس.</p>
       </div>
 
       <div class="f-card">
-        <div class="f-icon">🛒</div>
+        <div class="f-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"/>
+            <circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+        </div>
         <h3>هماهنگی کامل با ووکامرس</h3>
-        <p>جایگزینی هوشمند با صفحه «حساب کاربری من» و فیلد ورود تسویه حساب ووکامرس (چه در حالت کلاسیک و چه در Checkout بلوکی جدید).</p>
+        <p>جایگزینی هوشمند با صفحه «حساب کاربری من» و فیلد ورود تسویه حساب ووکامرس (چه در فرم کلاسیک و چه در Checkout بلوکی جدید).</p>
       </div>
 
       <div class="f-card">
-        <div class="f-icon">🔢</div>
+        <div class="f-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 7 4 4 20 4 20 7"/>
+            <line x1="9" y1="20" x2="15" y2="20"/>
+            <line x1="12" y1="4" x2="12" y2="20"/>
+          </svg>
+        </div>
         <h3>تبدیل خودکار ارقام فارسی</h3>
-        <p>دیگر نگران ورود اعداد فارسی از موبایل یا ارقام عربی کیبورد نباشید؛ رازک به‌صورت بلادرنگ اعداد را استانداردسازی می‌کند.</p>
+        <p>استانداردسازی خودکار اعداد فارسی و عربی کیبورد گوشی به فرمت بین‌المللی برای جلوگیری از هرگونه خطای تایپی کاربر.</p>
       </div>
 
       <div class="f-card">
-        <div class="f-icon">📱</div>
+        <div class="f-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+            <line x1="12" y1="18" x2="12.01" y2="18"/>
+          </svg>
+        </div>
         <h3>سازگار با تمام سامانه‌های پیامک</h3>
         <p>پشتیبانی کامل از فراز اس‌ام‌اس (آی‌پنل)، کاوه‌نگار، SMS.ir، ملی‌پیامک، قاصدک، فراپیامک، مگفا و خطوط خدماتی بدون بلک‌لیست.</p>
       </div>
