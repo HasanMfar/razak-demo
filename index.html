@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>رازک (Razak) | نسل نوین ورود پیامکی و ورود با گوگل برای وردپرس</title>
+  <meta name="description" content="افزونه رازک (Razak) — سبک‌ترین، سریع‌ترین و زیباترین افزونه ورود و ثبت‌نام با شماره موبایل و کد یکبار مصرف (OTP) و ورود با گوگل برای وردپرس و ووکامرس.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💎</text></svg>">
+  <style>
+    :root {
+      --primary: #10b981;
+      --primary-hover: #059669;
+      --accent-glow: rgba(16, 185, 129, 0.4);
+      --bg-dark: #090d16;
+      --card-bg: rgba(255, 255, 255, 0.07);
+      --card-border: rgba(255, 255, 255, 0.15);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --glass-blur: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.15) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(99, 102, 241, 0.08) 0px, transparent 60%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      width: 100%;
+      max-width: 1200px;
+      padding: 24px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .brand-badge {
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .btn-github {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-github:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      max-width: 850px;
+      padding: 40px 20px 20px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 30px;
+      font-size: 13px;
+      color: #34d399;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 54px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #34d399 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+    }
+
+    /* Theme Switcher Bar */
+    .theme-selector {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      padding: 4px;
+      border-radius: 40px;
+      margin-bottom: 35px;
+      backdrop-filter: blur(10px);
+    }
+
+    .theme-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-btn.active {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 2px 10px var(--accent-glow);
+    }
+
+    /* Interactive Demo Card */
+    .demo-container {
+      width: 100%;
+      max-width: 440px;
+      perspective: 1000px;
+      margin-bottom: 80px;
+    }
+
+    .rzk-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 36px 30px;
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 40px rgba(16, 185, 129, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    /* Styles */
+    .rzk-card.theme-solid {
+      background: #ffffff;
+      color: #1e293b;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    .rzk-card.theme-solid input {
+      background: #f8fafc;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+    }
+    .rzk-card.theme-solid .step-title, 
+    .rzk-card.theme-solid .logo-text {
+      color: #0f172a;
+    }
+    .rzk-card.theme-solid .step-desc, 
+    .rzk-card.theme-solid .terms-text {
+      color: #64748b;
+    }
+
+    .rzk-card.theme-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+    }
+
+    .rzk-card.theme-dark {
+      background: #111827;
+      border: 1px solid #374151;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .logo-badge {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #10b981, #06b6d4);
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 20px var(--accent-glow);
+    }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .logo-slogan {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Steps */
+    .step-view {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .step-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 18px;
+      text-align: right;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .text-input {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 15px;
+      direction: ltr;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .text-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 13px;
+      border-radius: 12px;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px var(--accent-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 18px 0;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--card-border);
+    }
+
+    .divider span {
+      padding: 0 12px;
+    }
+
+    .btn-google {
+      width: 100%;
+      padding: 11px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-google:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* OTP Inputs */
+    .otp-boxes {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      direction: ltr;
+      margin-bottom: 20px;
+    }
+
+    .otp-input {
+      width: 48px;
+      height: 52px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .otp-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    /* Math Captcha */
+    .captcha-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .captcha-question {
+      font-size: 15px;
+      font-weight: 700;
+      color: #34d399;
+      direction: ltr;
+    }
+
+    .captcha-input {
+      width: 65px;
+      padding: 6px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      background: rgba(0, 0, 0, 0.2);
+      color: #fff;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .resend-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+
+    .link-action {
+      color: #34d399;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Success Screen */
+    .success-view {
+      text-align: center;
+      padding: 15px 0;
+    }
+
+    .check-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 2px solid #10b981;
+      color: #10b981;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 16px;
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+    }
+
+    /* Features Showcase */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      width: 100%;
+      padding: 0 20px 60px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.2s ease;
+    }
+
+    .feature-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .feature-card h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    footer {
+      width: 100%;
+      padding: 30px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    footer a {
+      color: #34d399;
+      text-decoration: none;
+    }
+
+    .btn-rtltheme {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      padding: 7px 15px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .btn-rtltheme:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#" class="brand">
+      <span>💎 رازک</span>
+      <span class="brand-badge">v1.0</span>
+    </a>
+    <div class="nav-links">
+      <a href="https://www.rtl-theme.com" class="btn-rtltheme" target="_blank">
+        🛒 خرید از راست‌چین
+      </a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-pill">⚡ فوق‌سریع (<35KB) • ۱۰۰٪ بدون جی‌کوئری • طراحی شیشه‌ای لوکس</div>
+    <h1>احراز هویت هوشمند و ورود پیامکی <span>رازک (Razak)</span></h1>
+    <p>سبک‌ترین و امن‌ترین افزونه ورود با شماره موبایل و کد یکبار مصرف، ورود با گوگل و تایید دو مرحله‌ای برای وردپرس و ووکامرس</p>
+
+    <!-- Theme Switcher -->
+    <div class="theme-selector">
+      <button class="theme-btn active" onclick="setTheme('glass')">شیشه‌ای (Glass)</button>
+      <button class="theme-btn" onclick="setTheme('solid')">مات (Solid)</button>
+      <button class="theme-btn" onclick="setTheme('outline')">خطی (Outline)</button>
+      <button class="theme-btn" onclick="setTheme('dark')">تاریک (Dark)</button>
+    </div>
+  </section>
+
+  <!-- Interactive Live Demo Card -->
+  <div class="demo-container">
+    <div class="rzk-card" id="demoCard">
+      <div class="card-header">
+        <div class="logo-badge">💎</div>
+        <div class="logo-text">رازک</div>
+        <div class="logo-slogan">سیستم ورود و عضویت هوشمند</div>
+      </div>
+
+      <!-- Step 1: Phone -->
+      <div class="step-view active" id="step1">
+        <div class="step-title">ورود یا ثبت‌نام سریع</div>
+        <div class="step-desc">شماره موبایل خود را جهت دریافت کد تایید وارد کنید:</div>
+
+        <div class="input-group">
+          <label class="input-label">شماره موبایل</label>
+          <input type="tel" class="text-input" id="phoneInput" placeholder="۰۹۱۲۳۴۵۶۷۸۹" value="09123456789">
+        </div>
+
+        <button class="btn-submit" onclick="goToStep(2)">
+          دریافت کد تایید
+          <span>←</span>
+        </button>
+
+        <div class="divider"><span>یا</span></div>
+
+        <button class="btn-google" onclick="goToSuccess('کاربر گوگل')">
+          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          ورود سریع با حساب گوگل
+        </button>
+      </div>
+
+      <!-- Step 2: OTP Verification & Captcha -->
+      <div class="step-view" id="step2">
+        <div class="step-title">تایید شماره موبایل</div>
+        <div class="step-desc">کد ۶ رقمی پیامک‌شده را وارد نمایید:</div>
+
+        <div class="otp-boxes">
+          <input type="text" maxlength="1" class="otp-input" value="4">
+          <input type="text" maxlength="1" class="otp-input" value="8">
+          <input type="text" maxlength="1" class="otp-input" value="2">
+          <input type="text" maxlength="1" class="otp-input" value="9">
+          <input type="text" maxlength="1" class="otp-input" value="1">
+          <input type="text" maxlength="1" class="otp-input" value="7">
+        </div>
+
+        <!-- Standalone Math Captcha -->
+        <div class="captcha-box">
+          <div class="captcha-question">۴ + ۷ = ؟</div>
+          <input type="text" class="captcha-input" placeholder="پاسخ" value="11">
+        </div>
+
+        <button class="btn-submit" onclick="goToSuccess('کاربر گرامی')">
+          تایید و ورود به سایت
+        </button>
+
+        <div class="resend-bar">
+          <span>ارسال مجدد کد در: <strong id="timer">۵۲</strong> ثانیه</span>
+          <span class="link-action" onclick="goToStep(1)">تغییر شماره</span>
+        </div>
+      </div>
+
+      <!-- Step 3: Success -->
+      <div class="step-view" id="step3">
+        <div class="success-view">
+          <div class="check-icon">✓</div>
+          <div class="step-title">ورود با موفقیت انجام شد!</div>
+          <div class="step-desc" id="welcomeMsg">خوش آمدید! در حال انتقال به پیشخوان...</div>
+          <button class="btn-submit" style="margin-top: 15px;" onclick="goToStep(1)">
+            تست مجدد دمو
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Features Grid -->
+  <section class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>سبک‌ترین در اکوسیستم وردپرس</h3>
+      <p>کمتر از ۳۵ کیلوبایت و ۱۰۰٪ بدون وابستگی به جی‌کوئری (Vanilla JS). بدون کوچک‌ترین افت در رتبه لایت‌هاوس سایت شما.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <h3>۱۰۰٪ ضد تحریم و ضد فیلتر</h3>
+      <p>بدون وابستگی به CDNهای خارجی یا گوگل فونت‌های مسدودشونده. عملکرد بدون وقفه حتی در زمان اختلال اینترنت بین‌الملل.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">💸</div>
+      <h3>ارسال رایگان در بستر پیام‌رسان‌ها</h3>
+      <p>پشتیبانی بومی از ربات پیام‌رسان بله (رایگان)، ایتا و تلگرام جهت به صفر رساندن هزینه‌های شارژ پیامک سایت.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🌐</div>
+      <h3>ورود با گوگل (One-Tap)</h3>
+      <p>ورود و ثبت‌نام با یک کلیک از طریق حساب جیمیل گوگل رسمی و همگام‌سازی خودکار عکس پروفایل و ایمیل کاربر.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🧩</div>
+      <h3>کپچای ریاضی شیشه‌ای مستقل</h3>
+      <p>حل معماهای ریاضی با امضای امنیتی HMAC وردپرس جهت جلوگیری کامل از حملات ربات بدون نیاز به APIهای فیلترشده گوگل.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🛒</div>
+      <h3>ادغام کامل با ووکامرس</h3>
+      <p>هماهنگ با صفحه حساب کاربری، تسویه‌حساب سنتی و تسویه‌حساب بلوکی جدید ووکامرس به همراه ذخیره خودکار شماره خریدار.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>طراحی و توسعه یافته توسط <a href="https://github.com/HasanMfar" target="_blank">Hasan Mfar</a> • منتشر شده تحت لایسنس متن‌باز GPL-2.0</p>
+  </footer>
+
+  <script>
+    function setTheme(theme) {
+      document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const card = document.getElementById('demoCard');
+      card.className = 'rzk-card';
+      if (theme !== 'glass') {
+        card.classList.add('theme-' + theme);
+      }
+    }
+
+    function goToStep(step) {
+      document.querySelectorAll('.step-view').forEach(v => v.classList.remove('active'));
+      document.getElementById('step' + step).classList.add('active');
+    }
+
+    function goToSuccess(name) {
+      document.getElementById('welcomeMsg').innerText = 'خوش آمدید ' + name + '! حساب شما با موفقیت تایید شد.';
+      goToStep(3);
+    }
+  </script>
+</body>
+</html>
