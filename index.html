@@ -11,20 +11,19 @@
        Razak Showcase & Interactive Studio - Modern Luxury Dark UI
        ========================================================================== */
     :root {
-      --bg: #070a12;
-      --bg-surface: #0f1523;
-      --bg-card: rgba(18, 26, 43, 0.75);
-      --border: rgba(255, 255, 255, 0.08);
-      --border-focus: rgba(16, 185, 129, 0.5);
-      --text: #f1f5f9;
+      --bg: #060911;
+      --bg-card: rgba(15, 23, 42, 0.65);
+      --border: rgba(255, 255, 255, 0.1);
+      --text: #f8fafc;
       --text-muted: #94a3b8;
       --rzk-accent: #10b981;
       --rzk-accent-hover: #059669;
-      --rzk-accent-glow: rgba(16, 185, 129, 0.35);
-      --rzk-radius: 20px;
+      --rzk-accent-glow: rgba(16, 185, 129, 0.4);
+      --rzk-radius: 24px;
       --rzk-btn-radius: 12px;
-      --rzk-blur: 16px;
-      --rzk-overlay: 0.55;
+      --rzk-blur: 20px;
+      --rzk-overlay: 0.6;
+      --rzk-logo-h: 46px;
       --rzk-width: 380px;
       --rzk-transition: 0.3s;
     }
@@ -45,31 +44,46 @@
       position: relative;
     }
 
-    /* Ambient Background Mesh */
-    body::before {
-      content: '';
+    /* Ambient Floating Glow Orbs (To clearly show glass refraction) */
+    .ambient-orb {
       position: fixed;
-      top: -150px;
-      right: 15%;
-      width: 550px;
-      height: 550px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
       filter: blur(80px);
       z-index: 0;
       pointer-events: none;
+      animation: floatPulse 12s ease-in-out infinite alternate;
     }
 
-    body::after {
-      content: '';
-      position: fixed;
-      bottom: -150px;
-      left: 10%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-      filter: blur(90px);
-      z-index: 0;
-      pointer-events: none;
+    .orb-1 {
+      top: -100px;
+      right: 15%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, transparent 70%);
+    }
+
+    .orb-2 {
+      top: 35%;
+      left: 5%;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, transparent 70%);
+      animation-delay: -5s;
+    }
+
+    .orb-3 {
+      bottom: -100px;
+      right: 25%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+      animation-delay: -9s;
+    }
+
+    @keyframes floatPulse {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -20px) scale(1.08); }
+      100% { transform: translate(-20px, 30px) scale(0.95); }
     }
 
     /* ==========================================================================
@@ -79,9 +93,9 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(7, 10, 18, 0.82);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(6, 9, 17, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       padding: 14px 28px;
       display: flex;
@@ -97,9 +111,9 @@
     }
 
     .brand-logo-wrap {
-      width: 38px;
-      height: 38px;
-      filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.4));
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.5));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -109,7 +123,6 @@
       font-size: 20px;
       font-weight: 900;
       color: #fff;
-      letter-spacing: -0.5px;
     }
 
     .brand-tag {
@@ -132,21 +145,23 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #e2e8f0;
-      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #f1f5f9;
+      padding: 8px 18px;
       border-radius: 12px;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
+      backdrop-filter: blur(10px);
       transition: all 0.2s ease;
     }
 
     .btn-popup-test:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.3);
-      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     }
 
     .btn-rtltheme {
@@ -155,20 +170,20 @@
       gap: 8px;
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: #fff;
-      padding: 8px 20px;
+      padding: 8px 22px;
       border-radius: 12px;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       text-decoration: none;
       box-shadow: 0 4px 18px var(--rzk-accent-glow);
       transition: all 0.2s ease;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
     .btn-rtltheme:hover {
       background: linear-gradient(135deg, #34d399 0%, #059669 100%);
       transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.55);
+      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.6);
     }
 
     /* ==========================================================================
@@ -178,7 +193,7 @@
       position: relative;
       z-index: 1;
       text-align: center;
-      padding: 45px 20px 20px;
+      padding: 40px 20px 15px;
       max-width: 900px;
       margin: 0 auto;
     }
@@ -187,18 +202,18 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.3);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
       color: #34d399;
-      padding: 6px 16px;
+      padding: 6px 18px;
       border-radius: 30px;
       font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 20px;
+      font-weight: 700;
+      margin-bottom: 18px;
     }
 
     .hero h1 {
-      font-size: 34px;
+      font-size: 36px;
       font-weight: 900;
       line-height: 1.35;
       margin-bottom: 14px;
@@ -215,7 +230,7 @@
       font-size: 16px;
       color: var(--text-muted);
       max-width: 720px;
-      margin: 0 auto 30px;
+      margin: 0 auto 20px;
       line-height: 1.8;
     }
 
@@ -245,10 +260,10 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 24px;
-      padding: 30px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+      padding: 28px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
     }
 
     .panel-title {
@@ -257,21 +272,21 @@
       color: #fff;
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 24px;
+      justify-content: space-between;
+      margin-bottom: 22px;
       padding-bottom: 14px;
       border-bottom: 1px solid var(--border);
     }
 
     .panel-group {
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .group-label {
       display: block;
       font-size: 13px;
       font-weight: 700;
-      color: #cbd5e1;
+      color: #e2e8f0;
       margin-bottom: 10px;
     }
 
@@ -283,7 +298,7 @@
     }
 
     .style-btn {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border);
       color: #e2e8f0;
       padding: 10px 14px;
@@ -298,15 +313,15 @@
     }
 
     .style-btn:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
     }
 
     .style-btn.active {
-      background: rgba(16, 185, 129, 0.15);
+      background: rgba(16, 185, 129, 0.2);
       border-color: var(--rzk-accent);
       color: #34d399;
-      box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.3);
     }
 
     /* Color Swatches */
@@ -317,8 +332,8 @@
     }
 
     .color-swatch {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       border: 2px solid transparent;
       cursor: pointer;
@@ -332,7 +347,107 @@
     .color-swatch.active {
       border-color: #fff;
       transform: scale(1.15);
-      box-shadow: 0 0 14px var(--swatch-color);
+      box-shadow: 0 0 16px var(--swatch-color);
+    }
+
+    /* Background Selector Tabs */
+    .bg-presets {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .bg-preset-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #cbd5e1;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .bg-preset-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .bg-preset-btn.active {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--rzk-accent);
+      color: #34d399;
+    }
+
+    .upload-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn-upload {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px dashed rgba(255, 255, 255, 0.25);
+      color: #cbd5e1;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .btn-upload:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--rzk-accent);
+      color: #fff;
+    }
+
+    /* Logo Controls */
+    .logo-controls {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .logo-opt-btn {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .logo-opt-btn.active {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--rzk-accent);
+      color: #34d399;
+    }
+
+    .slogan-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .slogan-input:focus {
+      border-color: var(--rzk-accent);
     }
 
     /* Sliders */
@@ -362,7 +477,7 @@
     .toggle-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .toggle-item {
@@ -378,7 +493,7 @@
     }
 
     .toggle-item:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
     }
 
     .toggle-text {
@@ -389,7 +504,7 @@
 
     .switch {
       position: relative;
-      width: 42px;
+      width: 40px;
       height: 22px;
       background: #334155;
       border-radius: 20px;
@@ -413,10 +528,9 @@
     }
 
     .toggle-item.checked .switch::after {
-      transform: translateX(-20px);
+      transform: translateX(-18px);
     }
 
-    /* Reset Demo Button */
     .btn-reset-demo {
       width: 100%;
       background: rgba(255, 255, 255, 0.05);
@@ -427,7 +541,7 @@
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 14px;
       transition: all 0.2s ease;
     }
 
@@ -438,13 +552,14 @@
     }
 
     /* ==========================================================================
-       Stage Display: The EXACT WordPress Plugin Modal
+       Stage Display: The TRUE FROSTED GLASS Modal
        ========================================================================== */
     .stage-container {
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
+      width: 100%;
     }
 
     .stage-badge {
@@ -454,109 +569,161 @@
       font-size: 12px;
       font-weight: 700;
       color: #38bdf8;
-      background: rgba(56, 189, 248, 0.1);
+      background: rgba(56, 189, 248, 0.12);
       border: 1px solid rgba(56, 189, 248, 0.3);
       padding: 4px 14px;
       border-radius: 20px;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
-    /* Modal Backdrop Card Container */
-    .modal-display-frame {
+    /* Visual Background Backstage for Embedded Preview */
+    .stage-backdrop {
       width: 100%;
-      max-width: 440px;
-      min-height: 520px;
-      background: radial-gradient(circle at top, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
-      border: 1px solid var(--border);
+      min-height: 580px;
       border-radius: 28px;
-      padding: 30px 20px;
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-      position: relative;
+      padding: 30px 15px;
       overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      transition: background 0.4s ease;
     }
 
-    /* Ambient glow inside frame */
-    .modal-display-frame::before {
-      content: '';
+    /* Floating Colorful Background Elements to Prove Glass Refraction */
+    .stage-bg-art {
       position: absolute;
-      top: -50px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 250px;
-      height: 250px;
-      background: radial-gradient(circle, var(--rzk-accent-glow) 0%, transparent 70%);
-      filter: blur(50px);
+      inset: 0;
+      overflow: hidden;
       pointer-events: none;
+      z-index: 0;
+    }
+
+    .art-circle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.85;
+    }
+
+    .art-c1 {
+      width: 220px;
+      height: 220px;
+      background: linear-gradient(135deg, #10b981, #06b6d4);
+      top: 10%;
+      right: 15%;
+    }
+
+    .art-c2 {
+      width: 260px;
+      height: 260px;
+      background: linear-gradient(135deg, #6366f1, #ec4899);
+      bottom: 8%;
+      left: 10%;
+    }
+
+    .art-c3 {
+      width: 180px;
+      height: 180px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      top: 45%;
+      right: 35%;
+    }
+
+    /* Background preset themes for stage-backdrop */
+    .stage-backdrop.bg-aurora {
+      background: radial-gradient(at 10% 20%, #1e1b4b 0px, transparent 50%),
+                  radial-gradient(at 90% 80%, #064e3b 0px, transparent 50%),
+                  #070a12;
+    }
+
+    .stage-backdrop.bg-neon {
+      background: radial-gradient(at 30% 30%, #312e81 0px, transparent 50%),
+                  radial-gradient(at 70% 70%, #0f766e 0px, transparent 50%),
+                  #090d16;
+    }
+
+    .stage-backdrop.bg-store {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
     }
 
     /* ==========================================================================
-       EXACT PLUGIN MODAL STYLES (MATCHING assets/style.css 100%)
+       TRUE FROSTED GLASS MODAL BOX (.rzk-modal-box)
        ========================================================================== */
     .rzk-modal-box {
-      background: rgba(255, 255, 255, 0.92);
+      /* PURE FROSTED GLASS */
+      background: rgba(255, 255, 255, 0.12) !important;
+      backdrop-filter: blur(var(--rzk-blur, 20px)) saturate(190%) !important;
+      -webkit-backdrop-filter: blur(var(--rzk-blur, 20px)) saturate(190%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.22) !important;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.35) !important;
       width: var(--rzk-width, 380px);
       max-width: 100%;
-      padding: 30px 26px;
-      border-radius: var(--rzk-radius, 20px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 32px 28px;
+      border-radius: var(--rzk-radius, 24px);
       position: relative;
       text-align: center;
       box-sizing: border-box;
-      backdrop-filter: blur(var(--rzk-blur, 16px));
-      -webkit-backdrop-filter: blur(var(--rzk-blur, 16px));
-      color: #1e293b;
-      transition: background 0.3s ease, border 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+      color: #ffffff !important;
+      z-index: 1;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* Style Variants */
     .rzk-modal-box.rzk-style-solid {
       background: #ffffff !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
       border: 1px solid #e2e8f0 !important;
-      color: #1e293b !important;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25) !important;
+      color: #0f172a !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35) !important;
     }
 
-    .rzk-modal-box.rzk-style-outline {
-      background: rgba(255, 255, 255, 0.65) !important;
-      border: 2px solid var(--rzk-accent) !important;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
+    .rzk-modal-box.rzk-style-solid .rzk-slogan { color: #64748b !important; }
+    .rzk-modal-box.rzk-style-solid h3 { color: #0f172a !important; }
+    .rzk-modal-box.rzk-style-solid input[type="tel"],
+    .rzk-modal-box.rzk-style-solid input[type="text"] {
+      background: #f8fafc !important;
+      border: 1px solid #cbd5e1 !important;
       color: #0f172a !important;
+    }
+    .rzk-modal-box.rzk-style-solid .rzk-captcha-badge {
+      background: #f1f5f9 !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    .rzk-modal-box.rzk-style-solid .rzk-terms-label { color: #475569 !important; }
+    .rzk-modal-box.rzk-style-solid .rzk-resend-row { color: #64748b !important; }
+    .rzk-modal-box.rzk-style-solid .rzk-divider::before,
+    .rzk-modal-box.rzk-style-solid .rzk-divider::after { border-bottom-color: #e2e8f0 !important; }
+    .rzk-modal-box.rzk-style-solid .rzk-divider span { color: #94a3b8 !important; }
+
+    .rzk-modal-box.rzk-style-outline {
+      background: rgba(15, 23, 42, 0.5) !important;
+      border: 2px solid var(--rzk-accent) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) !important;
+      color: #ffffff !important;
     }
 
     .rzk-modal-box.rzk-style-dark {
-      background: #111827 !important;
+      background: rgba(10, 14, 26, 0.78) !important;
       border: 1px solid rgba(255, 255, 255, 0.12) !important;
-      color: #f9fafb !important;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      color: #f8fafc !important;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7) !important;
     }
 
-    .rzk-modal-box.rzk-style-dark .rzk-slogan { color: #9ca3af; }
-    .rzk-modal-box.rzk-style-dark h3 { color: #f9fafb; }
-    .rzk-modal-box.rzk-style-dark input[type="tel"],
-    .rzk-modal-box.rzk-style-dark input[type="text"],
-    .rzk-modal-box.rzk-style-dark input[type="password"] {
-      background: #1f2937;
-      border-color: #374151;
-      color: #f9fafb;
+    /* Optional Custom Background Image for Modal */
+    .rzk-modal-box.has-custom-bg {
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
     }
-    .rzk-modal-box.rzk-style-dark .rzk-captcha-badge {
-      background: #1f2937;
-      border-color: #374151;
-      color: #f9fafb;
-    }
-    .rzk-modal-box.rzk-style-dark .rzk-btn-google {
-      background: #1f2937;
-      border-color: #374151;
-      color: #f9fafb;
-    }
-    .rzk-modal-box.rzk-style-dark .rzk-divider::before { background: #374151; }
-    .rzk-modal-box.rzk-style-dark .rzk-divider span { background: #111827; color: #9ca3af; }
-    .rzk-modal-box.rzk-style-dark .rzk-terms-text { color: #9ca3af; }
-    .rzk-modal-box.rzk-style-dark .rzk-resend-row { color: #9ca3af; }
 
     /* Brand Header */
     .rzk-brand-header {
@@ -564,22 +731,25 @@
       text-align: center;
     }
 
-    .rzk-logo-svg {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 8px;
+    .rzk-logo-img {
+      height: var(--rzk-logo-h, 46px);
+      max-width: 80%;
+      width: auto;
+      margin: 0 auto 10px;
       display: block;
-      filter: drop-shadow(0 4px 10px var(--rzk-accent-glow));
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px var(--rzk-accent-glow));
+      transition: height 0.2s ease;
     }
 
     .rzk-slogan {
       font-size: 13px;
-      color: #64748b;
-      margin: 0 0 14px;
+      color: rgba(255, 255, 255, 0.75);
+      margin: 0 0 16px;
       font-weight: 500;
     }
 
-    /* Steps */
+    /* Step Views */
     .rzk-step {
       display: none;
       animation: rzkFadeIn 0.25s ease;
@@ -596,7 +766,7 @@
 
     .rzk-step h3 {
       font-size: 17px;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 16px;
       color: inherit;
     }
@@ -612,61 +782,63 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      color: #334155;
+      background: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      color: #1e293b !important;
       padding: 10px 14px;
       border-radius: var(--rzk-btn-radius, 12px);
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 13.5px;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
     }
 
     .rzk-btn-google:hover {
-      background: #f8fafc;
-      border-color: #94a3b8;
+      background: #f8fafc !important;
       transform: translateY(-1px);
+      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18);
     }
 
+    /* Clean Seamless Divider (NO Ugly Box or Square!) */
     .rzk-divider {
-      position: relative;
+      display: flex;
+      align-items: center;
       text-align: center;
-      margin: 16px 0 14px;
+      margin: 16px 0;
+      gap: 12px;
     }
 
-    .rzk-divider::before {
+    .rzk-divider::before,
+    .rzk-divider::after {
       content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: #e2e8f0;
+      flex: 1;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
     }
 
     .rzk-divider span {
-      position: relative;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 0 12px;
       font-size: 12px;
-      color: #94a3b8;
+      color: rgba(255, 255, 255, 0.6);
       font-weight: 600;
+      background: transparent !important;
+      padding: 0;
+      white-space: nowrap;
     }
 
-    /* Inputs */
+    /* Frosted Inputs */
     .rzk-modal-box input[type="tel"],
     .rzk-modal-box input[type="text"],
     .rzk-modal-box input[type="password"] {
       width: 100%;
-      padding: 11px 14px;
+      padding: 12px 16px;
       border-radius: var(--rzk-btn-radius, 12px);
-      border: 1px solid #cbd5e1;
-      background: rgba(255, 255, 255, 0.9);
-      font-size: 14px;
-      font-weight: 600;
-      color: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
       direction: ltr;
       text-align: left;
       margin-bottom: 12px;
@@ -674,43 +846,54 @@
       box-sizing: border-box;
     }
 
+    .rzk-modal-box input::placeholder {
+      color: rgba(255, 255, 255, 0.45);
+      font-weight: 500;
+    }
+
     .rzk-modal-box input:focus {
       outline: none;
       border-color: var(--rzk-accent);
       box-shadow: 0 0 0 3px var(--rzk-accent-glow);
+      background: rgba(255, 255, 255, 0.14);
     }
 
-    /* Captcha Section */
+    /* Captcha Section (Clean Frosted Style) */
     .rzk-captcha-wrap {
       display: flex;
       gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       align-items: center;
     }
 
     .rzk-captcha-badge {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      padding: 8px 12px;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      padding: 9px 14px;
       border-radius: var(--rzk-btn-radius, 12px);
-      font-size: 14px;
-      font-weight: 700;
-      color: #1e293b;
+      font-size: 15px;
+      font-weight: 800;
+      color: #ffffff;
       white-space: nowrap;
+      direction: ltr;
     }
 
     .rzk-captcha-refresh {
-      background: none;
-      border: none;
+      background: none !important;
+      border: none !important;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 17px;
       color: var(--rzk-accent);
       transition: transform 0.3s ease;
       display: flex;
       align-items: center;
+      padding: 0 !important;
+      width: auto !important;
+      box-shadow: none !important;
     }
 
     .rzk-captcha-refresh:hover {
@@ -725,8 +908,8 @@
     /* Terms */
     .rzk-terms-wrap {
       text-align: right;
-      margin-bottom: 14px;
-      font-size: 12px;
+      margin-bottom: 16px;
+      font-size: 12.5px;
     }
 
     .rzk-terms-label {
@@ -734,27 +917,27 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      color: #475569;
+      color: rgba(255, 255, 255, 0.8);
     }
 
     .rzk-terms-label a {
-      color: var(--rzk-accent);
-      text-decoration: none;
+      color: #34d399;
+      text-decoration: underline;
     }
 
-    /* Action Button */
+    /* Action Buttons */
     .rzk-modal-box button[type="button"]:not(.rzk-btn-google):not(.rzk-captcha-refresh) {
       width: 100%;
-      padding: 12px;
+      padding: 13px;
       border-radius: var(--rzk-btn-radius, 12px);
       border: none;
       background: var(--rzk-accent);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 700;
+      color: #ffffff;
+      font-size: 14.5px;
+      font-weight: 800;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 14px var(--rzk-accent-glow);
+      box-shadow: 0 4px 18px var(--rzk-accent-glow);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -763,37 +946,39 @@
 
     .rzk-modal-box button[type="button"]:not(.rzk-btn-google):hover {
       filter: brightness(1.1);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px var(--rzk-accent-glow);
     }
 
     .rzk-msg {
-      font-size: 12px;
-      margin-top: 10px;
-      font-weight: 600;
+      font-size: 12.5px;
+      margin-top: 12px;
+      font-weight: 700;
       min-height: 18px;
     }
 
-    .rzk-msg.error { color: #ef4444; }
-    .rzk-msg.success { color: #10b981; }
+    .rzk-msg.error { color: #f87171; }
+    .rzk-msg.success { color: #34d399; }
 
-    /* OTP Segmented Boxes */
+    /* OTP 6-Digit Segmented Boxes */
     .rzk-otp-boxes {
       display: flex;
       justify-content: center;
       gap: 8px;
-      margin: 16px 0;
+      margin: 18px 0;
       direction: ltr;
     }
 
     .rzk-otp-digit {
-      width: 44px;
-      height: 48px;
-      border-radius: 10px;
-      border: 1px solid #cbd5e1;
-      background: rgba(255, 255, 255, 0.9);
-      font-size: 20px;
-      font-weight: 800;
-      color: #0f172a;
+      width: 45px;
+      height: 50px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      font-size: 22px;
+      font-weight: 900;
+      color: #ffffff;
       text-align: center;
       box-sizing: border-box;
       transition: all 0.2s ease;
@@ -803,26 +988,31 @@
       outline: none;
       border-color: var(--rzk-accent);
       box-shadow: 0 0 0 3px var(--rzk-accent-glow);
+      background: rgba(255, 255, 255, 0.18);
     }
 
     .rzk-resend-row {
-      font-size: 12px;
-      color: #64748b;
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.7);
       margin-top: 14px;
     }
 
     .rzk-resend-row span {
-      color: var(--rzk-accent);
-      font-weight: 700;
+      color: #34d399;
+      font-weight: 800;
       cursor: pointer;
     }
 
     .rzk-back-link {
-      font-size: 12px;
-      color: #64748b;
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.6);
       margin-top: 10px;
       cursor: pointer;
       text-decoration: underline;
+    }
+
+    .rzk-back-link:hover {
+      color: #ffffff;
     }
 
     /* Success Screen */
@@ -875,9 +1065,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, var(--rzk-overlay, 0.55));
-      backdrop-filter: blur(var(--rzk-blur, 16px));
-      -webkit-backdrop-filter: blur(var(--rzk-blur, 16px));
+      background: rgba(0, 0, 0, var(--rzk-overlay, 0.65));
+      backdrop-filter: blur(var(--rzk-blur, 20px));
+      -webkit-backdrop-filter: blur(var(--rzk-blur, 20px));
       z-index: 99999;
       display: flex;
       justify-content: center;
@@ -885,6 +1075,7 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity var(--rzk-transition) ease, visibility var(--rzk-transition) ease;
+      padding: 20px;
     }
 
     #rzk-modal-overlay.rzk-open {
@@ -894,21 +1085,17 @@
 
     .rzk-close {
       position: absolute;
-      top: 12px;
-      left: 16px;
+      top: 14px;
+      left: 18px;
       font-size: 26px;
       cursor: pointer;
-      color: #64748b;
+      color: rgba(255, 255, 255, 0.6);
       line-height: 1;
       transition: color 0.2s ease;
     }
 
     .rzk-close:hover {
-      color: #0f172a;
-    }
-
-    .rzk-modal-box.rzk-style-dark .rzk-close:hover {
-      color: #fff;
+      color: #ffffff;
     }
 
     /* ==========================================================================
@@ -951,6 +1138,7 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 24px;
+      backdrop-filter: blur(16px);
       transition: all 0.2s ease;
     }
 
@@ -985,6 +1173,7 @@
       border-radius: 24px;
       padding: 34px;
       margin-bottom: 50px;
+      backdrop-filter: blur(20px);
     }
 
     .comp-grid {
@@ -1014,58 +1203,6 @@
       color: var(--text-muted);
     }
 
-    /* Live Sales Toast */
-    .toast-sales {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      padding: 12px 18px;
-      border-radius: 16px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      z-index: 999;
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .toast-sales.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .toast-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #10b981, #06b6d4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 14px;
-      color: #fff;
-    }
-
-    .toast-content {
-      font-size: 12px;
-      text-align: right;
-    }
-
-    .toast-title {
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .toast-desc {
-      color: #94a3b8;
-    }
-
     /* Footer */
     footer {
       border-top: 1px solid var(--border);
@@ -1082,6 +1219,11 @@
   </style>
 </head>
 <body>
+
+  <!-- Background Orbs to highlight translucent frosted glass -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
 
   <!-- ==========================================================================
        Header
@@ -1109,10 +1251,10 @@
        Hero Section
        ========================================================================== -->
   <section class="hero">
-    <div class="hero-badge">💎 نسل نوین ورود پیامکی و احراز هویت با گوگل</div>
-    <h1>تجربه ورود پیامکی شیشه‌ای را <span>به صورت زنده تست کنید</span></h1>
+    <div class="hero-badge">💎 استودیوی زنده احراز هویت پیامکی و ورود با گوگل</div>
+    <h1>زیبایی شیشه‌ای و سرعت سرسام‌آور را <span>به صورت زنده تجربه کنید</span></h1>
     <p>
-      افزونه رازک (Razak) سبک‌ترین، امن‌ترین و زیباترین سیستم احراز هویت بدون پسورد برای وردپرس و ووکامرس است. استایل و تنظیمات را در پنل زیر تغییر دهید و واکنش زنده مودال را ببینید!
+      افزونه رازک (Razak) سبک‌ترین و لوکس‌ترین سیستم ورود پیامکی وردپرس است. پوسته، رنگ، لوگو و تصویر پس‌زمینه را در استودیوی زیر تغییر دهید و نتیجه را آنی در مودال شیشه‌ای ببینید.
     </p>
   </section>
 
@@ -1124,7 +1266,8 @@
     <!-- Controls Column -->
     <div class="control-panel">
       <div class="panel-title">
-        <span>⚙️ استودیوی شخصی‌سازی زنده</span>
+        <span>⚙️ کنترل‌پنل شخصی‌سازی زنده</span>
+        <span style="font-size: 12px; color: #34d399; font-weight: 600;">تنظیمات نسخه نهایی</span>
       </div>
 
       <!-- Theme Style Selector -->
@@ -1132,9 +1275,9 @@
         <label class="group-label">پوسته ظاهری مودال (UI Style):</label>
         <div class="style-grid">
           <button type="button" class="style-btn active" data-style="glass">💎 شیشه‌ای (Glass)</button>
-          <button type="button" class="style-btn" data-style="solid">⚪ مات (Solid)</button>
+          <button type="button" class="style-btn" data-style="solid">⚪ سفید مات (Solid)</button>
           <button type="button" class="style-btn" data-style="outline">🔲 خطی (Outline)</button>
-          <button type="button" class="style-btn" data-style="dark">🌙 تاریک (Dark)</button>
+          <button type="button" class="style-btn" data-style="dark">🌙 تاریک نئون (Dark)</button>
         </div>
       </div>
 
@@ -1150,12 +1293,43 @@
         </div>
       </div>
 
+      <!-- Background Image Preset & Upload -->
+      <div class="panel-group">
+        <label class="group-label">تصویر و افکت پس‌زمینه مودال (Background):</label>
+        <div class="bg-presets">
+          <button type="button" class="bg-preset-btn active" data-bg="aurora">شفق قطبی</button>
+          <button type="button" class="bg-preset-btn" data-bg="neon">نئون سایبر</button>
+          <button type="button" class="bg-preset-btn" data-bg="store">مینیمال دارک</button>
+          <button type="button" class="bg-preset-btn" data-bg="none">بدون تصویر</button>
+        </div>
+        <div class="upload-row">
+          <label class="btn-upload" for="file-bg-upload">
+            📁 آپلود عکس دلخواه شما
+            <input type="file" id="file-bg-upload" accept="image/*" style="display:none;">
+          </label>
+        </div>
+      </div>
+
+      <!-- Logo & Slogan Controls -->
+      <div class="panel-group">
+        <label class="group-label">لوگو و شعار برند (Branding):</label>
+        <div class="logo-controls">
+          <button type="button" class="logo-opt-btn active" id="logo-btn-rzk">لوگوی رازک</button>
+          <button type="button" class="logo-opt-btn" id="logo-btn-store">لوگوی فروشگاهی</button>
+          <label class="logo-opt-btn" for="file-logo-upload" style="cursor: pointer;">
+            📁 آپلود لوگو
+            <input type="file" id="file-logo-upload" accept="image/*" style="display:none;">
+          </label>
+        </div>
+        <input type="text" class="slogan-input" id="inp-slogan" value="ورود امن و سریع به حساب کاربری" placeholder="متن شعار زیر لوگو">
+      </div>
+
       <!-- Blur Intensity Slider -->
       <div class="panel-group">
-        <label class="group-label">شدت ماتی و بلور شیشه (Blur Level):</label>
+        <label class="group-label">شدت ماتی شیشه (Blur Level):</label>
         <div class="slider-row">
-          <input type="range" class="slider-input" id="slider-blur" min="0" max="25" value="16">
-          <span class="slider-val" id="val-blur">16px</span>
+          <input type="range" class="slider-input" id="slider-blur" min="0" max="30" value="20">
+          <span class="slider-val" id="val-blur">20px</span>
         </div>
       </div>
 
@@ -1176,27 +1350,34 @@
             <div class="switch"></div>
           </div>
           <div class="toggle-item checked" id="toggle-fullname">
-            <span class="toggle-text">فیلد نام و نام خانوادگی برای ثبت‌نام</span>
+            <span class="toggle-text">فیلد نام کاربر برای ثبت‌نام</span>
             <div class="switch"></div>
           </div>
         </div>
       </div>
 
       <button type="button" class="btn-reset-demo" id="btn-reset">
-        🔄 بازنشانی فرم به مرحله اول
+        🔄 بازنشانی تست به مرحله اول
       </button>
     </div>
 
     <!-- Live Stage Column -->
     <div class="stage-container">
-      <div class="stage-badge">✨ پیش‌نمایش کاملاً منطبق با محصول وردپرس</div>
+      <div class="stage-badge">✨ پیش‌نمایش کاملاً شیشه‌ای و بلورین</div>
 
-      <div class="modal-display-frame">
+      <!-- Backdrop with colorful ambient shapes for genuine frosted glass effect -->
+      <div class="stage-backdrop bg-aurora" id="stage-backdrop">
+        <div class="stage-bg-art">
+          <div class="art-circle art-c1"></div>
+          <div class="art-circle art-c2"></div>
+          <div class="art-circle art-c3"></div>
+        </div>
 
-        <!-- THE EXACT MODAL BOX (Identical to WordPress Output) -->
+        <!-- THE EXACT FROSTED GLASS MODAL BOX -->
         <div class="rzk-modal-box" id="demo-modal-box">
+          
           <div class="rzk-brand-header">
-            <img class="rzk-logo-svg" src="assets/logo.svg" alt="لوگوی رازک">
+            <img class="rzk-logo-img" id="demo-logo-img" src="assets/logo.svg" alt="لوگو">
             <p class="rzk-slogan" id="demo-slogan">ورود امن و سریع به حساب کاربری</p>
           </div>
 
@@ -1215,13 +1396,17 @@
                 </svg>
                 <span>ورود با حساب گوگل</span>
               </button>
-              <div class="rzk-divider"><span>یا با شماره موبایل</span></div>
+              
+              <!-- Clean Seamless Flex Divider (No square box!) -->
+              <div class="rzk-divider">
+                <span>یا با شماره موبایل</span>
+              </div>
             </div>
 
             <!-- Phone Input -->
             <input type="tel" id="demo-phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" inputmode="numeric" autocomplete="tel">
 
-            <!-- Captcha Section -->
+            <!-- Captcha Section (Clean Frosted Style) -->
             <div class="rzk-captcha-wrap" id="demo-captcha-wrap">
               <div class="rzk-captcha-badge">
                 <span id="demo-captcha-q">۷ + ۶ = ؟</span>
@@ -1298,10 +1483,24 @@
     <div class="rzk-modal-box" id="popup-modal-box">
       <span class="rzk-close" id="popup-close">&times;</span>
       <div class="rzk-brand-header">
-        <img class="rzk-logo-svg" src="assets/logo.svg" alt="لوگوی رازک">
-        <p class="rzk-slogan">مودال زنده رازک بر روی سایت شما</p>
+        <img class="rzk-logo-img" id="popup-logo-img" src="assets/logo.svg" alt="لوگو">
+        <p class="rzk-slogan">مودال شیشه‌ای زنده رازک بر روی سایت شما</p>
       </div>
       <h3>ورود با شماره موبایل</h3>
+      
+      <div class="rzk-google-wrap">
+        <button type="button" class="rzk-btn-google">
+          <svg class="rzk-google-icon" viewBox="0 0 48 48" width="18" height="18">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          <span>ورود با حساب گوگل</span>
+        </button>
+        <div class="rzk-divider"><span>یا با شماره موبایل</span></div>
+      </div>
+
       <input type="tel" id="popup-phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" inputmode="numeric">
       <button type="button" id="popup-btn-submit" style="margin-top: 10px;">دریافت کد تایید</button>
       <div class="rzk-msg" id="popup-msg"></div>
@@ -1310,8 +1509,7 @@
 
   <!-- ==========================================================================
        Speed Benchmark & Feature Cards
-       ========================================================================== */
-  -->
+       ========================================================================== -->
   <section class="features-section">
     
     <!-- Speed Benchmark Card -->
@@ -1387,15 +1585,6 @@
 
   </section>
 
-  <!-- Live Toast -->
-  <div class="toast-sales" id="toast-sales">
-    <div class="toast-avatar">✓</div>
-    <div class="toast-content">
-      <div class="toast-title" id="toast-user">محمد از مشهد</div>
-      <div class="toast-desc">همین الان نسخه اصلی رازک را خریداری کرد</div>
-    </div>
-  </div>
-
   <!-- Footer -->
   <footer>
     <p>طراحی و توسعه با افتخار توسط <strong>Hasan Mfar</strong> • ارائه شده با پشتیبانی اختصاصی در مارکت‌پلیس <strong>راست‌چین (RTL-Theme)</strong></p>
@@ -1454,6 +1643,7 @@
           boxes.forEach(function (box) {
             if (!box) return;
             box.className = 'rzk-modal-box';
+            if (box.classList.contains('has-custom-bg')) box.classList.add('has-custom-bg');
             if (style !== 'glass') {
               box.classList.add('rzk-style-' + style);
             }
@@ -1468,11 +1658,102 @@
           swatch.classList.add('active');
           var color = swatch.getAttribute('data-color');
           document.documentElement.style.setProperty('--rzk-accent', color);
-          document.documentElement.style.setProperty('--rzk-accent-glow', color + '55');
+          document.documentElement.style.setProperty('--rzk-accent-glow', color + '66');
         });
       });
 
-      // 3. Blur Slider
+      // 3. Background Presets & Custom Upload
+      var stageBackdrop = document.getElementById('stage-backdrop');
+      var demoModalBox = document.getElementById('demo-modal-box');
+      var popupModalBox = document.getElementById('popup-modal-box');
+
+      document.querySelectorAll('.bg-preset-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.bg-preset-btn').forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          var bg = btn.getAttribute('data-bg');
+
+          // Reset custom image on modal
+          demoModalBox.style.backgroundImage = '';
+          demoModalBox.classList.remove('has-custom-bg');
+          popupModalBox.style.backgroundImage = '';
+
+          stageBackdrop.className = 'stage-backdrop';
+          if (bg === 'none') {
+            stageBackdrop.style.background = '#0a0f1d';
+          } else {
+            stageBackdrop.style.background = '';
+            stageBackdrop.classList.add('bg-' + bg);
+          }
+        });
+      });
+
+      // Background Upload Input
+      var fileBgUpload = document.getElementById('file-bg-upload');
+      if (fileBgUpload) {
+        fileBgUpload.addEventListener('change', function (e) {
+          var file = e.target.files[0];
+          if (file) {
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+              var dataUrl = evt.target.result;
+              demoModalBox.style.backgroundImage = 'url(' + dataUrl + ')';
+              demoModalBox.classList.add('has-custom-bg');
+              popupModalBox.style.backgroundImage = 'url(' + dataUrl + ')';
+              popupModalBox.classList.add('has-custom-bg');
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      }
+
+      // 4. Logo Controls & Custom Upload
+      var demoLogoImg = document.getElementById('demo-logo-img');
+      var popupLogoImg = document.getElementById('popup-logo-img');
+
+      document.getElementById('logo-btn-rzk').addEventListener('click', function () {
+        document.querySelectorAll('.logo-opt-btn').forEach(function (b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        demoLogoImg.src = 'assets/logo.svg';
+        popupLogoImg.src = 'assets/logo.svg';
+        document.documentElement.style.setProperty('--rzk-logo-h', '46px');
+      });
+
+      document.getElementById('logo-btn-store').addEventListener('click', function () {
+        document.querySelectorAll('.logo-opt-btn').forEach(function (b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        // Sample SVG Store Icon
+        demoLogoImg.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30" width="100" height="30"><text x="10" y="22" fill="%23ffffff" font-weight="bold" font-family="sans-serif" font-size="16">ONLINE SHOP</text></svg>';
+        popupLogoImg.src = demoLogoImg.src;
+        document.documentElement.style.setProperty('--rzk-logo-h', '32px');
+      });
+
+      var fileLogoUpload = document.getElementById('file-logo-upload');
+      if (fileLogoUpload) {
+        fileLogoUpload.addEventListener('change', function (e) {
+          var file = e.target.files[0];
+          if (file) {
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+              demoLogoImg.src = evt.target.result;
+              popupLogoImg.src = evt.target.result;
+              document.querySelectorAll('.logo-opt-btn').forEach(function (b) { b.classList.remove('active'); });
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      }
+
+      // Slogan Input
+      var inpSlogan = document.getElementById('inp-slogan');
+      var demoSlogan = document.getElementById('demo-slogan');
+      if (inpSlogan && demoSlogan) {
+        inpSlogan.addEventListener('input', function () {
+          demoSlogan.textContent = inpSlogan.value || '';
+        });
+      }
+
+      // 5. Blur Slider
       var slider = document.getElementById('slider-blur');
       var valBlur = document.getElementById('val-blur');
       if (slider) {
@@ -1483,7 +1764,7 @@
         });
       }
 
-      // 4. Feature Toggles
+      // 6. Feature Toggles
       function bindToggle(id, targetSelector) {
         var el = document.getElementById(id);
         if (!el) return;
@@ -1502,7 +1783,7 @@
       bindToggle('toggle-terms', '#demo-terms-wrap');
       bindToggle('toggle-fullname', '#demo-fullname-wrap');
 
-      // 5. Captcha Refresh
+      // 7. Captcha Refresh
       var btnRefresh = document.getElementById('demo-captcha-refresh');
       if (btnRefresh) {
         btnRefresh.addEventListener('click', function () {
@@ -1511,7 +1792,7 @@
       }
       newCaptcha();
 
-      // 6. Step 1 Continue
+      // 8. Step 1 Continue
       var btnCont = document.getElementById('demo-btn-continue');
       var phoneInp = document.getElementById('demo-phone');
       var msgPhone = document.getElementById('demo-msg-phone');
@@ -1548,7 +1829,6 @@
           }
         }
 
-        // Simulate Busy
         btnCont.textContent = 'در حال ارسال پیامک...';
         btnCont.disabled = true;
 
@@ -1564,7 +1844,7 @@
         }, 600);
       });
 
-      // 7. Google One-Tap Simulator
+      // 9. Google One-Tap Simulator
       var btnGoogle = document.getElementById('demo-btn-google');
       if (btnGoogle) {
         btnGoogle.addEventListener('click', function () {
@@ -1576,7 +1856,7 @@
         });
       }
 
-      // 8. OTP Segmented Inputs
+      // 10. OTP Segmented Inputs
       var otpInputs = document.querySelectorAll('.rzk-otp-digit');
       otpInputs.forEach(function (input, index) {
         input.addEventListener('input', function (e) {
@@ -1594,7 +1874,7 @@
         });
       });
 
-      // 9. OTP Verification
+      // 11. OTP Verification
       var btnVerify = document.getElementById('demo-btn-verify');
       var msgOtp = document.getElementById('demo-msg-otp');
 
@@ -1621,7 +1901,7 @@
         }, 600);
       });
 
-      // 10. Timer
+      // 12. Timer
       var timerInterval = null;
       function startTimer() {
         var timerEl = document.getElementById('demo-timer');
@@ -1639,7 +1919,7 @@
         }, 1000);
       }
 
-      // 11. Navigation Links
+      // 13. Navigation Links
       document.getElementById('demo-back-to-phone').addEventListener('click', function () {
         showStep('rzk-step-phone');
       });
@@ -1661,7 +1941,7 @@
         newCaptcha();
       });
 
-      // 12. Fullscreen Popup Modal Test
+      // 14. Fullscreen Popup Modal Test
       var overlay = document.getElementById('rzk-modal-overlay');
       var btnOpenPopup = document.getElementById('btn-open-fullscreen');
       var btnClosePopup = document.getElementById('popup-close');
@@ -1688,36 +1968,9 @@
           pMsg.className = 'rzk-msg error';
           return;
         }
-        pMsg.textContent = 'پیامک ارسال شد! (مدل نمایشی پاپ‌آپ)';
+        pMsg.textContent = 'پیامک ارسال شد! (تست زنده پاپ‌آپ)';
         pMsg.className = 'rzk-msg success';
       });
-
-      // 13. Social Proof Toasts
-      var buyers = [
-        { name: 'محمد از مشهد', time: 'همین الان' },
-        { name: 'رضا از اصفهان', time: '۲ دقیقه پیش' },
-        { name: 'سارا از شیراز', time: '۵ دقیقه پیش' },
-        { name: 'امیر از تهران', time: '۷ دقیقه پیش' },
-        { name: 'حسین از تبریز', time: '۱۰ دقیقه پیش' }
-      ];
-
-      var toastEl = document.getElementById('toast-sales');
-      var toastUser = document.getElementById('toast-user');
-      var buyerIdx = 0;
-
-      function triggerToast() {
-        if (!toastEl) return;
-        var b = buyers[buyerIdx % buyers.length];
-        buyerIdx++;
-        toastUser.textContent = b.name;
-        toastEl.classList.add('show');
-        setTimeout(function () {
-          toastEl.classList.remove('show');
-        }, 4000);
-      }
-
-      setTimeout(triggerToast, 3500);
-      setInterval(triggerToast, 14000);
 
     })();
   </script>
