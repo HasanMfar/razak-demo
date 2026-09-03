@@ -1,0 +1,494 @@
+/* ==========================================================================
+   Glassy OTP Login - Core Styles & Customization Variables
+   ========================================================================== */
+
+:root {
+    --rzk-accent: #007cba;
+    --rzk-radius: 20px;
+    --rzk-btn-radius: 12px;
+    --rzk-width: 380px;
+    --rzk-blur: 8px;
+    --rzk-transition: 0.3s;
+}
+
+/* استایل دکمه بازکننده در هدر و صفحات */
+.rzk-trigger-btn {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 8px 15px;
+    color: #333;
+    transition: var(--rzk-transition);
+    display: inline-block;
+}
+.rzk-trigger-btn:hover { color: var(--rzk-accent); }
+
+/* پس‌زمینه تار (Glass Backdrop) */
+#rzk-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, var(--rzk-overlay, 0.4));
+    backdrop-filter: blur(var(--rzk-blur, 8px));
+    -webkit-backdrop-filter: blur(var(--rzk-blur, 8px));
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--rzk-transition) ease, visibility var(--rzk-transition) ease;
+}
+#rzk-modal-overlay.rzk-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* باکس مودال شیشه‌ای */
+.rzk-modal-box {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(180%);
+    width: var(--rzk-width, 380px);
+    max-width: 90%;
+    padding: 30px;
+    border-radius: var(--rzk-radius, 20px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    position: relative;
+    text-align: center;
+    font-family: inherit; /* ارث‌بری فونت قالب */
+    transform: translateY(12px) scale(0.98);
+    transition: transform var(--rzk-transition) ease, background var(--rzk-transition) ease;
+    box-sizing: border-box;
+    color: #ffffff;
+}
+#rzk-modal-overlay.rzk-open .rzk-modal-box {
+    transform: translateY(0) scale(1);
+}
+
+/* پس‌زمینه تصویری مودال (شیشه‌ای و هماهنگ با تصویر انتخابی) */
+#rzk-modal-overlay[style*="--rzk-bg"] .rzk-modal-box,
+.rzk-modal-box.has-custom-bg {
+    background-image: linear-gradient(rgba(10, 15, 28, 0.72), rgba(10, 15, 28, 0.72)), var(--rzk-bg) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(190%) !important;
+}
+
+/* بخش برندینگ: لوگو و شعار */
+.rzk-brand-header {
+    margin: 0 0 16px;
+    text-align: center;
+}
+.rzk-logo {
+    display: block;
+    max-width: 70%;
+    height: var(--rzk-logo-h, 40px);
+    width: auto;
+    margin: 0 auto 12px;
+    object-fit: contain;
+}
+.rzk-slogan {
+    font-size: 13px;
+    color: #666;
+    margin: -4px 0 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+.rzk-close {
+    position: absolute;
+    top: 10px; left: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+.rzk-close:hover { color: #111; }
+
+/* مراحل مودال - انیمیشن ورود نرم */
+.rzk-step { animation: rzk-fade-in var(--rzk-transition) ease; }
+@keyframes rzk-fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.rzk-step h3 { margin-bottom: 18px; font-size: 20px; }
+.rzk-step p { font-size: 14px; color: #555; margin-bottom: 15px; }
+.rzk-step p small { color: #999; }
+
+/* ورودی‌ها */
+.rzk-modal-box input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom: 2px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    text-align: center;
+    font-size: 16px;
+    transition: var(--rzk-transition);
+    box-sizing: border-box;
+    font-family: inherit;
+}
+.rzk-modal-box input:focus { border-bottom-color: var(--rzk-accent); }
+
+#rzk-phone {
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+#rzk-otp-input {
+    letter-spacing: 8px;
+    font-size: 22px;
+    font-weight: 700;
+    direction: ltr;
+    text-align: center;
+}
+
+#otp-dest-display { direction: ltr; unicode-bidi: embed; font-weight: bold; }
+
+/* دکمه‌ها */
+.rzk-modal-box button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: var(--rzk-btn-radius, 12px);
+    background: var(--rzk-accent);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--rzk-transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+.rzk-modal-box button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    filter: brightness(0.9);
+}
+.rzk-modal-box button:disabled { opacity: 0.65; cursor: wait; }
+
+/* اسپینر لودینگ دکمه‌ها */
+.rzk-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: rzk-spin 0.6s linear infinite;
+    display: inline-block;
+}
+@keyframes rzk-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* لینک‌های بازگشت و جایگزین */
+.rzk-back-link,
+.rzk-alt-link {
+    display: block;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #888;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.rzk-alt-link { color: var(--rzk-accent); font-size: 13px; }
+.rzk-alt-link:hover { filter: brightness(0.85); }
+
+/* ارسال مجدد کد + شمارش معکوس */
+.rzk-resend-row { font-size: 13px; color: #666; margin-top: 10px; }
+#rzk-resend {
+    color: var(--rzk-accent);
+    cursor: pointer;
+    text-decoration: underline;
+}
+#rzk-countdown { color: #aaa; }
+
+.rzk-msg { margin-top: 10px; font-size: 13px; color: #d63638; min-height: 0; }
+
+/* دکمه‌های تریگر - هماهنگ با استایل مودال */
+.rzk-trigger-solid { background: var(--rzk-accent); color: #fff; border-radius: 10px; padding: 9px 18px; }
+.rzk-trigger-solid:hover { color: #fff; filter: brightness(0.9); }
+.rzk-trigger-outline { border: 2px solid var(--rzk-accent); color: var(--rzk-accent); border-radius: 10px; padding: 7px 16px; }
+.rzk-trigger-outline:hover { background: var(--rzk-accent); color: #fff; }
+.rzk-trigger-dark { background: #1d2327; color: #fff; border-radius: 10px; padding: 9px 18px; }
+.rzk-trigger-dark:hover { color: #fff; filter: brightness(1.3); }
+
+/* ============ Variation: تک‌رنگ (solid) ============ */
+.rzk-style-solid {
+    background: #fff;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+#rzk-modal-overlay:has(.rzk-style-solid) {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* ============ Variation: خط‌دار (outline) ============ */
+.rzk-style-outline {
+    background: #fff;
+    border: 3px solid var(--rzk-accent);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25);
+    border-radius: 16px;
+}
+.rzk-style-outline .rzk-modal-box button {
+    background: transparent;
+    color: var(--rzk-accent);
+    border: 2px solid var(--rzk-accent);
+}
+.rzk-style-outline .rzk-modal-box button:hover:not(:disabled) {
+    background: var(--rzk-accent);
+    color: #fff;
+}
+
+/* ============ Variation: تیره (dark) ============ */
+.rzk-style-dark {
+    background: #1d2327;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+.rzk-style-dark .rzk-step h3 { color: #f0f0f1; }
+.rzk-style-dark .rzk-step p { color: #c3c4c7; }
+.rzk-style-dark .rzk-step p small { color: #8c8f94; }
+.rzk-style-dark .rzk-slogan { color: #a7aaad; }
+.rzk-style-dark input {
+    background: rgba(255, 255, 255, 0.08);
+    border-bottom: 2px solid #3c434a;
+    color: #f0f0f1;
+}
+.rzk-style-dark input::placeholder { color: #8c8f94; }
+.rzk-style-dark input:focus { border-bottom-color: var(--rzk-accent); }
+.rzk-style-dark .rzk-close { color: #c3c4c7; }
+.rzk-style-dark .rzk-close:hover { color: #fff; }
+.rzk-style-dark .rzk-back-link { color: #a7aaad; }
+.rzk-style-dark .rzk-resend-row { color: #a7aaad; }
+.rzk-style-dark .rzk-alt-link { color: var(--rzk-accent); }
+
+/* ============ انیمیشن تیک موفقیت (Success Step) ============ */
+.rzk-success-wrapper {
+    margin: 10px auto 20px;
+    width: 64px;
+    height: 64px;
+}
+.rzk-checkmark {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: block;
+    stroke-width: 3;
+    stroke: #10b981;
+    stroke-miterlimit: 10;
+    box-shadow: inset 0px 0px 0px #10b981;
+    animation: rzk-fill 0.4s ease-in-out 0.4s forwards, rzk-scale 0.3s ease-in-out 0.9s both;
+}
+.rzk-checkmark-circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 3;
+    stroke-miterlimit: 10;
+    stroke: #10b981;
+    fill: none;
+    animation: rzk-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+.rzk-checkmark-check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    stroke: #10b981;
+    animation: rzk-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+@keyframes rzk-stroke {
+    100% { stroke-dashoffset: 0; }
+}
+@keyframes rzk-scale {
+    0%, 100% { transform: none; }
+    50% { transform: scale3d(1.1, 1.1, 1); }
+}
+@keyframes rzk-fill {
+    100% { box-shadow: inset 0px 0px 0px 30px rgba(16, 185, 129, 0.12); }
+}
+.rzk-success-title {
+    color: #10b981 !important;
+    margin-bottom: 8px !important;
+    font-size: 20px;
+}
+.rzk-success-desc {
+    color: #666;
+    font-size: 14px;
+}
+.rzk-style-dark .rzk-success-desc {
+    color: #aaa;
+}
+
+/* ============ دکمه ورود با حساب گوگل ============ */
+.rzk-google-wrap {
+    margin-bottom: 16px;
+}
+.rzk-btn-google {
+    width: 100%;
+    background: #ffffff !important;
+    color: #3c4043 !important;
+    border: 1px solid #dadce0 !important;
+    border-radius: var(--rzk-btn-radius, 12px) !important;
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all var(--rzk-transition) ease;
+}
+.rzk-btn-google:hover:not(:disabled) {
+    background: #f8fafd !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
+    transform: translateY(-1px);
+}
+.rzk-google-icon {
+    flex-shrink: 0;
+}
+
+/* ============ جداکننده (Divider) ============ */
+.rzk-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 14px 0 10px;
+    color: #999;
+    font-size: 12px;
+}
+.rzk-divider::before,
+.rzk-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.rzk-divider span {
+    padding: 0 10px;
+    opacity: 0.8;
+}
+
+/* ============ کپچای ریاضی شیشه‌ای ============ */
+.rzk-captcha-wrap {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.rzk-captcha-badge {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 15px;
+    font-weight: bold;
+    direction: ltr;
+    flex-shrink: 0;
+    min-width: 105px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+.rzk-captcha-question {
+    letter-spacing: 2px;
+    color: #333;
+}
+.rzk-captcha-refresh {
+    background: transparent !important;
+    border: none !important;
+    color: #666 !important;
+    padding: 0 !important;
+    width: auto !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+    cursor: pointer;
+    box-shadow: none !important;
+    transition: transform 0.3s ease;
+}
+.rzk-captcha-refresh:hover {
+    color: var(--rzk-accent) !important;
+    transform: rotate(90deg);
+}
+.rzk-captcha-refresh.spinning {
+    animation: rzk-spin 0.6s linear infinite;
+}
+.rzk-captcha-wrap input {
+    margin-bottom: 0 !important;
+    text-align: center;
+}
+
+/* ============ چک‌باکس شرایط و قوانین ============ */
+.rzk-terms-wrap {
+    margin: 8px 0 16px;
+    text-align: right;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.6;
+}
+.rzk-terms-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    cursor: pointer;
+}
+.rzk-terms-label input[type="checkbox"] {
+    width: 16px !important;
+    height: 16px !important;
+    margin: 3px 0 0 0 !important;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.rzk-terms-text a {
+    color: var(--rzk-accent);
+    text-decoration: underline;
+}
+
+/* ============ تطبیق با دارک مود (Dark Mode Overrides) ============ */
+.rzk-style-dark .rzk-btn-google {
+    background: #2b3035 !important;
+    color: #e2e8f0 !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
+.rzk-style-dark .rzk-btn-google:hover:not(:disabled) {
+    background: #363c42 !important;
+}
+.rzk-style-dark .rzk-divider {
+    color: #718096;
+}
+.rzk-style-dark .rzk-divider::before,
+.rzk-style-dark .rzk-divider::after {
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+.rzk-style-dark .rzk-captcha-badge {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.rzk-style-dark .rzk-captcha-question {
+    color: #f0f0f1;
+}
+.rzk-style-dark .rzk-captcha-refresh {
+    color: #a0aec0 !important;
+}
+.rzk-style-dark .rzk-terms-wrap {
+    color: #a0aec0;
+}
+

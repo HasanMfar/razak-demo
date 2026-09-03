@@ -730,6 +730,11 @@
       background-size: cover !important;
       background-position: center !important;
       background-repeat: no-repeat !important;
+      background-image: linear-gradient(rgba(10, 15, 28, 0.72), rgba(10, 15, 28, 0.72)), var(--rzk-modal-bg, none) !important;
+      backdrop-filter: blur(var(--rzk-blur, 20px)) saturate(190%) !important;
+      -webkit-backdrop-filter: blur(var(--rzk-blur, 20px)) saturate(190%) !important;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+      border: 1px solid rgba(255, 255, 255, 0.28) !important;
     }
 
     /* Brand Header */
@@ -1719,23 +1724,46 @@
       var demoModalBox = document.getElementById('demo-modal-box');
       var popupModalBox = document.getElementById('popup-modal-box');
 
+      function applyModalBg(bgVal) {
+        if (!bgVal || bgVal === 'none') {
+          demoModalBox.classList.remove('has-custom-bg');
+          popupModalBox.classList.remove('has-custom-bg');
+          demoModalBox.style.removeProperty('--rzk-modal-bg');
+          popupModalBox.style.removeProperty('--rzk-modal-bg');
+        } else {
+          demoModalBox.classList.add('has-custom-bg');
+          popupModalBox.classList.add('has-custom-bg');
+          demoModalBox.style.setProperty('--rzk-modal-bg', bgVal);
+          popupModalBox.style.setProperty('--rzk-modal-bg', bgVal);
+        }
+      }
+
       document.querySelectorAll('.bg-preset-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           document.querySelectorAll('.bg-preset-btn').forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
           var bg = btn.getAttribute('data-bg');
 
-          // Reset custom image on modal
-          demoModalBox.style.backgroundImage = '';
-          demoModalBox.classList.remove('has-custom-bg');
-          popupModalBox.style.backgroundImage = '';
-
           stageBackdrop.className = 'stage-backdrop';
           if (bg === 'none') {
             stageBackdrop.style.background = '#0a0f1d';
-          } else {
+            applyModalBg('none');
+          } else if (bg === 'razak') {
             stageBackdrop.style.background = '';
-            stageBackdrop.classList.add('bg-' + bg);
+            stageBackdrop.classList.add('bg-razak');
+            applyModalBg('url(assets/razak-bg.jpg)');
+          } else if (bg === 'aurora') {
+            stageBackdrop.style.background = '';
+            stageBackdrop.classList.add('bg-aurora');
+            applyModalBg('radial-gradient(at 10% 20%, #1e1b4b, #064e3b)');
+          } else if (bg === 'neon') {
+            stageBackdrop.style.background = '';
+            stageBackdrop.classList.add('bg-neon');
+            applyModalBg('radial-gradient(at 30% 30%, #312e81, #0f766e)');
+          } else if (bg === 'store') {
+            stageBackdrop.style.background = '';
+            stageBackdrop.classList.add('bg-store');
+            applyModalBg('linear-gradient(135deg, #1e293b, #0f172a)');
           }
         });
       });
@@ -1749,15 +1777,18 @@
             var reader = new FileReader();
             reader.onload = function (evt) {
               var dataUrl = evt.target.result;
-              demoModalBox.style.backgroundImage = 'url(' + dataUrl + ')';
-              demoModalBox.classList.add('has-custom-bg');
-              popupModalBox.style.backgroundImage = 'url(' + dataUrl + ')';
-              popupModalBox.classList.add('has-custom-bg');
+              applyModalBg('url(' + dataUrl + ')');
+              stageBackdrop.style.backgroundImage = 'url(' + dataUrl + ')';
+              stageBackdrop.style.backgroundSize = 'cover';
+              document.querySelectorAll('.bg-preset-btn').forEach(function (b) { b.classList.remove('active'); });
             };
             reader.readAsDataURL(file);
           }
         });
       }
+
+      // Initial apply of natural hop background to modal
+      applyModalBg('url(assets/razak-bg.jpg)');
 
       // 4. Logo Controls & Custom Upload
       var demoLogoImg = document.getElementById('demo-logo-img');
