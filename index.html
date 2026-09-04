@@ -729,8 +729,9 @@
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7) !important;
     }
 
-    /* Custom Background Image for Modal (JS sets backgroundImage directly on element) */
+    /* Custom Background Mode (Darkens modal slightly to ensure text legibility over busy backgrounds) */
     .rzk-modal-box.has-custom-bg {
+      background-color: rgba(10, 15, 28, 0.45) !important;
       backdrop-filter: blur(var(--rzk-blur, 20px)) saturate(190%);
       -webkit-backdrop-filter: blur(var(--rzk-blur, 20px)) saturate(190%);
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.3);
@@ -1726,16 +1727,29 @@
 
 
       function applyModalBg(bgVal) {
-        var overlay = 'linear-gradient(rgba(5, 10, 20, 0.70), rgba(5, 10, 20, 0.70))';
         var boxes = [demoModalBox, popupModalBox];
+        var overlay = document.getElementById('rzk-modal-overlay');
+        
+        if (overlay) {
+          if (!bgVal || bgVal === 'none') {
+             overlay.style.backgroundImage = 'none';
+          } else {
+             overlay.style.backgroundImage = bgVal;
+             overlay.style.backgroundSize = 'cover';
+             overlay.style.backgroundPosition = 'center';
+          }
+        }
+
         boxes.forEach(function (box) {
           if (!box) return;
+          box.style.backgroundImage = 'none'; // Ensure true glass effect, no direct image
+          
           if (!bgVal || bgVal === 'none') {
-            box.style.backgroundImage = 'none';
+            box.classList.remove('has-custom-bg');
             box.style.backgroundColor = 'rgba(255, 255, 255, 0.12)';
           } else {
-            box.style.backgroundImage = overlay + ', ' + bgVal;
-            box.style.backgroundColor = 'transparent';
+            box.classList.add('has-custom-bg');
+            box.style.backgroundColor = 'rgba(10, 15, 28, 0.45)';
           }
         });
       }
