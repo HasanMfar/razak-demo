@@ -1319,13 +1319,16 @@
 
       <!-- Background Image Preset & Upload -->
       <div class="panel-group">
-        <label class="group-label">تصویر و افکت پس‌زمینه مودال (Background):</label>
+        <label class="group-label">پس‌زمینه مودال (Background):</label>
         <div class="bg-presets">
-          <button type="button" class="bg-preset-btn active" data-bg="razak">طبیعت رازک</button>
-          <button type="button" class="bg-preset-btn" data-bg="aurora">شفق قطبی</button>
-          <button type="button" class="bg-preset-btn" data-bg="neon">نئون سایبر</button>
-          <button type="button" class="bg-preset-btn" data-bg="store">مینیمال دارک</button>
-          <button type="button" class="bg-preset-btn" data-bg="none">بدون تصویر</button>
+          <button type="button" class="bg-preset-btn active" data-bg="razak">رازک</button>
+          <button type="button" class="bg-preset-btn" data-bg="ember">آتش</button>
+          <button type="button" class="bg-preset-btn" data-bg="ocean">اقیانوس</button>
+          <button type="button" class="bg-preset-btn" data-bg="aurora">شفق</button>
+          <button type="button" class="bg-preset-btn" data-bg="neon">نئون</button>
+          <button type="button" class="bg-preset-btn" data-bg="dusk">غروب</button>
+          <button type="button" class="bg-preset-btn" data-bg="obsidian">مشکی</button>
+          <button type="button" class="bg-preset-btn" data-bg="none">بدون</button>
         </div>
         <div class="upload-row">
           <label class="btn-upload" for="file-bg-upload">
@@ -1353,8 +1356,8 @@
       <div class="panel-group">
         <label class="group-label">شدت ماتی شیشه (Blur Level):</label>
         <div class="slider-row">
-          <input type="range" class="slider-input" id="slider-blur" min="0" max="30" value="20">
-          <span class="slider-val" id="val-blur">20px</span>
+          <input type="range" class="slider-input" id="slider-blur" min="0" max="60" value="24">
+          <span class="slider-val" id="val-blur">24px</span>
         </div>
       </div>
 
@@ -1737,31 +1740,46 @@
         });
       }
 
+      // Gradient preset definitions — background for both stage and modal
+      var PRESETS = {
+        'razak':    { modal: 'url(assets/razak-bg.jpg)',         stage: 'url(assets/razak-bg.jpg)' },
+        'ember':    { modal: 'radial-gradient(ellipse at 20% 50%, #7c1010 0%, #1a0505 60%), radial-gradient(ellipse at 80% 20%, #c2410c 0%, transparent 50%)',
+                      stage: 'radial-gradient(ellipse at 20% 50%, #7c1010 0%, #1a0505 60%), radial-gradient(ellipse at 80% 20%, #c2410c 0%, transparent 50%)' },
+        'ocean':    { modal: 'radial-gradient(ellipse at 50% 0%, #0e4d6e 0%, #020c16 70%), radial-gradient(ellipse at 80% 100%, #0891b2 0%, transparent 50%)',
+                      stage: 'radial-gradient(ellipse at 50% 0%, #0e4d6e 0%, #020c16 70%), radial-gradient(ellipse at 80% 100%, #0891b2 0%, transparent 50%)' },
+        'aurora':   { modal: 'radial-gradient(ellipse at 10% 80%, #14532d 0%, transparent 50%), radial-gradient(ellipse at 90% 20%, #312e81 0%, transparent 55%), radial-gradient(ellipse at 50% 50%, #0a0a1a 0%, #0a0a1a 100%)',
+                      stage: 'radial-gradient(ellipse at 10% 80%, #14532d 0%, transparent 50%), radial-gradient(ellipse at 90% 20%, #312e81 0%, transparent 55%), #08080f' },
+        'neon':     { modal: 'radial-gradient(ellipse at 25% 25%, #4f46e5 0%, transparent 50%), radial-gradient(ellipse at 75% 75%, #0d9488 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, #09090b 0%, #09090b 100%)',
+                      stage: 'radial-gradient(ellipse at 25% 25%, #4f46e5 0%, transparent 50%), radial-gradient(ellipse at 75% 75%, #0d9488 0%, transparent 50%), #09090b' },
+        'dusk':     { modal: 'linear-gradient(160deg, #1a0533 0%, #7c1d6f 40%, #e25822 75%, #f59e0b 100%)',
+                      stage: 'linear-gradient(160deg, #1a0533 0%, #7c1d6f 40%, #e25822 75%, #f59e0b 100%)' },
+        'obsidian': { modal: 'radial-gradient(ellipse at 40% 40%, #1c1c1e 0%, #000000 100%)',
+                      stage: '#0a0a0a' },
+        'none':     null
+      };
+
       document.querySelectorAll('.bg-preset-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
           document.querySelectorAll('.bg-preset-btn').forEach(function (b) { b.classList.remove('active'); });
           btn.classList.add('active');
           var bg = btn.getAttribute('data-bg');
+          var preset = PRESETS[bg];
 
           stageBackdrop.className = 'stage-backdrop';
           stageBackdrop.style.background = '';
           stageBackdrop.style.backgroundImage = '';
 
-          if (bg === 'none') {
+          if (!preset) {
             stageBackdrop.style.background = '#0a0f1d';
             applyModalBg('none');
-          } else if (bg === 'razak') {
-            stageBackdrop.classList.add('bg-razak');
-            applyModalBg('url(assets/razak-bg.jpg)');
-          } else if (bg === 'aurora') {
-            stageBackdrop.classList.add('bg-aurora');
-            applyModalBg('radial-gradient(ellipse at 15% 25%, #1e1b4b 0%, transparent 55%), radial-gradient(ellipse at 85% 80%, #064e3b 0%, transparent 55%)');
-          } else if (bg === 'neon') {
-            stageBackdrop.classList.add('bg-neon');
-            applyModalBg('radial-gradient(ellipse at 30% 30%, #312e81 0%, transparent 55%), radial-gradient(ellipse at 70% 70%, #0f766e 0%, transparent 55%)');
-          } else if (bg === 'store') {
-            stageBackdrop.classList.add('bg-store');
-            applyModalBg('linear-gradient(135deg, #1e293b, #0f172a)');
+          } else if (preset.modal.indexOf('url(') === 0) {
+            stageBackdrop.style.backgroundImage = preset.stage;
+            stageBackdrop.style.backgroundSize = 'cover';
+            stageBackdrop.style.backgroundPosition = 'center';
+            applyModalBg(preset.modal);
+          } else {
+            stageBackdrop.style.background = preset.stage;
+            applyModalBg(preset.modal);
           }
         });
       });
