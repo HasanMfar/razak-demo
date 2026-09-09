@@ -1,40 +1,49 @@
-﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
   <defs>
-    <!-- Premium Gradient -->
-    <linearGradient id="main-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="grad-dark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#047857" />
+      <stop offset="100%" stop-color="#022c22" />
+    </linearGradient>
+    <linearGradient id="grad-mid" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#064e3b" />
+    </linearGradient>
+    <linearGradient id="grad-light" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="grad-accent" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#34d399" />
-      <stop offset="50%" stop-color="#0ea5e9" />
-      <stop offset="100%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#059669" />
     </linearGradient>
-    
-    <linearGradient id="shackle-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#6ee7b7" />
-      <stop offset="100%" stop-color="#7dd3fc" />
+    <linearGradient id="grad-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
     </linearGradient>
-
-    <!-- Drop Shadow -->
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0369a1" flood-opacity="0.35" />
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#022c22" flood-opacity="0.4" />
     </filter>
   </defs>
 
-  <g filter="url(#shadow)">
-    <!-- Lock Shackle -->
-    <path d="M 36 45 V 32 C 36 15, 84 15, 84 32 V 45" fill="none" stroke="url(#shackle-grad)" stroke-width="14" stroke-linecap="round" />
-
-    <!-- Shield/Leaf Body -->
-    <path d="M 60 115 C 108 100, 114 65, 114 45 C 114 36, 108 30, 96 30 H 24 C 12 30, 6 36, 6 45 C 6 65, 12 100, 60 115 Z" fill="url(#main-grad)" />
+  <g filter="url(#glow)">
+    <!-- Base large back leaves -->
+    <path d="M 60 110 C 20 95, 15 50, 45 20 C 55 10, 65 10, 75 20 C 105 50, 100 95, 60 110 Z" fill="url(#grad-dark)" />
     
-    <!-- Layered Leaf Detail (Hop Cone) -->
-    <path d="M 60 115 C 88 100, 94 65, 94 45 H 26 C 26 65, 32 100, 60 115 Z" fill="#ffffff" opacity="0.15" />
-    <path d="M 60 115 C 76 100, 80 65, 80 45 H 40 C 40 65, 44 100, 60 115 Z" fill="#ffffff" opacity="0.25" />
+    <!-- Mid-level leaves (left and right) -->
+    <path d="M 60 95 C 25 80, 20 40, 50 20 C 55 16, 60 20, 60 30 Z" fill="url(#grad-mid)" />
+    <path d="M 60 95 C 95 80, 100 40, 70 20 C 65 16, 60 20, 60 30 Z" fill="url(#grad-mid)" />
+    
+    <!-- Front-level leaves (left and right) -->
+    <path d="M 60 80 C 35 70, 30 40, 55 30 C 58 28, 60 31, 60 40 Z" fill="url(#grad-light)" />
+    <path d="M 60 80 C 85 70, 90 40, 65 30 C 62 28, 60 31, 60 40 Z" fill="url(#grad-light)" />
+    
+    <!-- Center top leaf -->
+    <path d="M 60 65 C 45 55, 42 30, 60 20 C 78 30, 75 55, 60 65 Z" fill="url(#grad-accent)" />
   </g>
 
-  <!-- Glowing Keyhole -->
-  <circle cx="60" cy="62" r="8" fill="#ffffff" />
-  <path d="M 55 67 L 65 67 L 69 90 L 51 90 Z" fill="#ffffff" />
+  <!-- Security Seal / Star inside the Hop -->
+  <path d="M 60 48 L 62.5 54.5 L 69.5 55 L 64 59.5 L 65.5 66.5 L 60 62.5 L 54.5 66.5 L 56 59.5 L 50.5 55 L 57.5 54.5 Z" fill="url(#grad-gold)" />
   
-  <!-- Subtle Reflections -->
-  <path d="M 14 45 C 14 62, 20 85, 45 102" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.5" />
-  <circle cx="98" cy="42" r="2.5" fill="#ffffff" opacity="0.8" />
+  <!-- Subtle glass shine on top -->
+  <path d="M 45 20 C 55 10, 65 10, 75 20 C 85 30, 80 50, 60 60 C 40 50, 35 30, 45 20 Z" fill="#ffffff" opacity="0.1" />
 </svg>

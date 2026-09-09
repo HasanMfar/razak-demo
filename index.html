@@ -250,6 +250,11 @@
       margin: 0 auto 20px;
       line-height: 1.8;
     }
+    .hero p.hero-noredirect {
+      color: #34d399;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
 
     /* ==========================================================================
        Studio Layout: Controls (Right) + Interactive Modal (Left)
@@ -1079,8 +1084,8 @@
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, var(--rzk-overlay, 0.65));
-      backdrop-filter: blur(var(--rzk-blur, 20px));
-      -webkit-backdrop-filter: blur(var(--rzk-blur, 20px));
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
       z-index: 99999;
       display: flex;
       justify-content: center;
@@ -1282,6 +1287,7 @@
     <div class="hero-badge"><span class="pulse-dot"></span> پیش‌نمایش زنده نسخه ۱.۰</div>
     <h1>احراز هویت OTP و ورود با گوگل <span>برای وردپرس و ووکامرس</span></h1>
     <p>ورود بدون رمز عبور از طریق پیامک یا حساب گوگل — با رابط شیشه‌ای قابل شخصی‌سازی.</p>
+    <p class="hero-noredirect">⚡ ورود درجا با پاپ‌آپ مودال؛ برخلاف افزونه‌های رایج، کاربر هرگز به صفحه‌ی لاگین ریدایرکت نمی‌شود.</p>
   </section>
 
   <!-- ==========================================================================
@@ -1323,12 +1329,14 @@
         <label class="group-label">پس‌زمینه مودال (Background):</label>
         <div class="bg-presets">
           <button type="button" class="bg-preset-btn active" data-bg="razak">رازک</button>
-          <button type="button" class="bg-preset-btn" data-bg="ember">آتش</button>
+          <button type="button" class="bg-preset-btn" data-bg="ember">اخگر</button>
           <button type="button" class="bg-preset-btn" data-bg="ocean">اقیانوس</button>
-          <button type="button" class="bg-preset-btn" data-bg="aurora">شفق</button>
-          <button type="button" class="bg-preset-btn" data-bg="neon">نئون</button>
-          <button type="button" class="bg-preset-btn" data-bg="dusk">غروب</button>
-          <button type="button" class="bg-preset-btn" data-bg="obsidian">مشکی</button>
+          <button type="button" class="bg-preset-btn" data-bg="dusk">شفق</button>
+          <button type="button" class="bg-preset-btn" data-bg="obsidian">ابسیدین</button>
+          <button type="button" class="bg-preset-btn" data-bg="amethyst">آمتیست</button>
+          <button type="button" class="bg-preset-btn" data-bg="aurora">شفق قطبی</button>
+          <button type="button" class="bg-preset-btn" data-bg="crimson">زرشکی</button>
+          <button type="button" class="bg-preset-btn" data-bg="midnight">نیمه‌شب</button>
           <button type="button" class="bg-preset-btn" data-bg="none">بدون</button>
         </div>
         <div class="upload-row">
@@ -1548,7 +1556,7 @@
 
       <div class="comp-grid">
         <div class="comp-item">
-          <div class="comp-number">&lt; 32 KB</div>
+          <div class="comp-number">&lt; 34 KB</div>
           <div class="comp-label">حجم بسته کلاینت (CSS + JS)</div>
         </div>
         <div class="comp-item">
@@ -1563,6 +1571,10 @@
           <div class="comp-number">0 jQuery</div>
           <div class="comp-label">فناوری نوین Vanilla JS خالص</div>
         </div>
+        <div class="comp-item">
+          <div class="comp-number">0 Redirect</div>
+          <div class="comp-label">ورود درجا با پاپ‌آپ؛ بدون ریدایرکت به صفحه لاگین</div>
+        </div>
       </div>
     </div>
 
@@ -1573,6 +1585,18 @@
     </div>
 
     <div class="features-grid">
+      <div class="f-card">
+        <div class="f-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <line x1="9" y1="9" x2="15" y2="15"/>
+            <line x1="15" y1="9" x2="9" y2="15"/>
+          </svg>
+        </div>
+        <h3>ورود درجا، بدون ریدایرکت (No Redirect)</h3>
+        <p>برخلاف افزونه‌های رایج که کاربر را به صفحه‌ی لاگین جداگانه می‌فرستند، کل فرآیند ورود داخل یک پاپ‌آپ مودال فوق‌سبک روی همین صفحه انجام می‌شود؛ بدون رفرش و بدون ترک صفحه.</p>
+      </div>
+
       <div class="f-card">
         <div class="f-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1759,14 +1783,18 @@
                       stage: 'radial-gradient(ellipse at 20% 50%, #7c1010 0%, #1a0505 60%), radial-gradient(ellipse at 80% 20%, #c2410c 0%, transparent 50%)' },
         'ocean':    { modal: 'radial-gradient(ellipse at 50% 0%, #0e4d6e 0%, #020c16 70%), radial-gradient(ellipse at 80% 100%, #0891b2 0%, transparent 50%)',
                       stage: 'radial-gradient(ellipse at 50% 0%, #0e4d6e 0%, #020c16 70%), radial-gradient(ellipse at 80% 100%, #0891b2 0%, transparent 50%)' },
-        'aurora':   { modal: 'radial-gradient(ellipse at 10% 80%, #14532d 0%, transparent 50%), radial-gradient(ellipse at 90% 20%, #312e81 0%, transparent 55%), radial-gradient(ellipse at 50% 50%, #0a0a1a 0%, #0a0a1a 100%)',
-                      stage: 'radial-gradient(ellipse at 10% 80%, #14532d 0%, transparent 50%), radial-gradient(ellipse at 90% 20%, #312e81 0%, transparent 55%), #08080f' },
-        'neon':     { modal: 'radial-gradient(ellipse at 25% 25%, #4f46e5 0%, transparent 50%), radial-gradient(ellipse at 75% 75%, #0d9488 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, #09090b 0%, #09090b 100%)',
-                      stage: 'radial-gradient(ellipse at 25% 25%, #4f46e5 0%, transparent 50%), radial-gradient(ellipse at 75% 75%, #0d9488 0%, transparent 50%), #09090b' },
         'dusk':     { modal: 'linear-gradient(160deg, #1a0533 0%, #7c1d6f 40%, #e25822 75%, #f59e0b 100%)',
                       stage: 'linear-gradient(160deg, #1a0533 0%, #7c1d6f 40%, #e25822 75%, #f59e0b 100%)' },
         'obsidian': { modal: 'radial-gradient(ellipse at 40% 40%, #1c1c1e 0%, #000000 100%)',
                       stage: '#0a0a0a' },
+        'amethyst': { modal: 'radial-gradient(ellipse at 20% 0%, #4c1d95 0%, #2e1065 60%), radial-gradient(ellipse at 80% 100%, #8b5cf6 0%, transparent 50%)',
+                      stage: 'radial-gradient(ellipse at 20% 0%, #4c1d95 0%, #2e1065 60%), radial-gradient(ellipse at 80% 100%, #8b5cf6 0%, transparent 50%)' },
+        'aurora':   { modal: 'linear-gradient(135deg, #064e3b 0%, #047857 50%, #0284c7 100%)',
+                      stage: 'linear-gradient(135deg, #064e3b 0%, #047857 50%, #0284c7 100%)' },
+        'crimson':  { modal: 'radial-gradient(circle at top right, #991b1b 0%, #450a0a 100%)',
+                      stage: 'radial-gradient(circle at top right, #991b1b 0%, #450a0a 100%)' },
+        'midnight': { modal: 'linear-gradient(to bottom, #1e3a8a 0%, #0f172a 100%)',
+                      stage: 'linear-gradient(to bottom, #1e3a8a 0%, #0f172a 100%)' },
         'none':     null
       };
 

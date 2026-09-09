@@ -27,24 +27,31 @@
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, var(--rzk-overlay, 0.4));
-    backdrop-filter: blur(var(--rzk-blur, 8px));
-    -webkit-backdrop-filter: blur(var(--rzk-blur, 8px));
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
     z-index: 99999;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* مخفی: از pointer-events + visibility استفاده می‌کنیم تا display:none inline بلاک نکند */
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: opacity var(--rzk-transition) ease, visibility var(--rzk-transition) ease;
 }
 #rzk-modal-overlay.rzk-open {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
 }
 
-/* باکس مودال شیشه‌ای */
+/* باکس مودال شیشه‌ای — background را تقسیم می‌کنیم تا background-image override پذیر بماند */
 .rzk-modal-box {
-    background: rgba(255, 255, 255, 0.25);
+    background-color: rgba(255, 255, 255, 0.25);
+    background-image: none;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(180%);
     -webkit-backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(180%);
     width: var(--rzk-width, 380px);
@@ -55,9 +62,9 @@
     border: 1px solid rgba(255, 255, 255, 0.35);
     position: relative;
     text-align: center;
-    font-family: inherit; /* ارث‌بری فونت قالب */
+    font-family: inherit;
     transform: translateY(12px) scale(0.98);
-    transition: transform var(--rzk-transition) ease, background var(--rzk-transition) ease;
+    transition: transform var(--rzk-transition) ease, background-color var(--rzk-transition) ease;
     box-sizing: border-box;
     color: #ffffff;
 }
@@ -65,17 +72,17 @@
     transform: translateY(0) scale(1);
 }
 
-/* پس‌زمینه تصویری مودال (شیشه‌ای و هماهنگ با تصویر انتخابی) */
-#rzk-modal-overlay[style*="--rzk-bg"] .rzk-modal-box,
-.rzk-modal-box.has-custom-bg {
-    background-image: linear-gradient(rgba(10, 15, 28, 0.72), rgba(10, 15, 28, 0.72)), var(--rzk-bg) !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
-    border: 1px solid rgba(255, 255, 255, 0.25) !important;
-    backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(190%) !important;
-    -webkit-backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(190%) !important;
+/* پس‌زمینه تصویری مستقیماً داخل باکس مودال */
+#rzk-modal-overlay[style*="--rzk-bg"] .rzk-modal-box {
+    background-image: linear-gradient(rgba(10, 15, 28, 0.72), rgba(10, 15, 28, 0.72)), var(--rzk-bg);
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(190%);
+    -webkit-backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(190%);
 }
 
 /* بخش برندینگ: لوگو و شعار */
