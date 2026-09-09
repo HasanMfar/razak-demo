@@ -22,7 +22,7 @@
       --rzk-radius: 24px;
       --rzk-btn-radius: 12px;
       --rzk-blur: 20px;
-      --rzk-overlay: 0.6;
+      --rzk-overlay: 0.35;
       --rzk-logo-h: 46px;
       --rzk-width: 380px;
       --rzk-transition: 0.3s;
@@ -667,7 +667,7 @@
     .rzk-modal-box {
       /* PURE FROSTED GLASS — split into color + image so JS can override image layer */
       background-color: rgba(255, 255, 255, 0.12);
-      background-image: none;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -1083,7 +1083,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, var(--rzk-overlay, 0.65));
+      background: rgba(0, 0, 0, var(--rzk-overlay, 0.45));
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
       z-index: 99999;
@@ -1765,10 +1765,12 @@
             box.classList.remove('has-custom-bg');
             box.style.backgroundColor = 'rgba(255, 255, 255, 0.12)';
             box.style.backgroundImage = 'none';
+            box.style.backdropFilter = 'blur(20px) saturate(160%)';
+            box.style.webkitBackdropFilter = 'blur(20px) saturate(160%)';
           } else {
             box.classList.add('has-custom-bg');
             box.style.backgroundColor = 'transparent';
-            box.style.backgroundImage = 'linear-gradient(rgba(10, 15, 28, 0.72), rgba(10, 15, 28, 0.72)), ' + bgVal;
+            box.style.backgroundImage = 'linear-gradient(rgba(10, 15, 28, 0.22), rgba(10, 15, 28, 0.38)), ' + bgVal;
             box.style.backgroundSize = 'cover';
             box.style.backgroundPosition = 'center';
             box.style.backgroundRepeat = 'no-repeat';
