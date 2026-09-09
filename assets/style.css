@@ -48,7 +48,8 @@
 /* باکس مودال شیشه‌ای — background را تقسیم می‌کنیم تا background-image override پذیر بماند */
 .rzk-modal-box {
     background-color: rgba(255, 255, 255, 0.25);
-    background-image: none;
+    /* لایه‌ی شیشه‌ای فاقد تیرگی: متن سفید با بلور و پرده‌ی بسیار ملایم خوانا می‌ماند */
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -72,9 +73,9 @@
     transform: translateY(0) scale(1);
 }
 
-/* پس‌زمینه تصویری مستقیماً داخل باکس مودال */
+/* پس‌زمینه‌ی تصویری مودال: شیشه‌ی یخزدهٔ ملایم؛ تصویر از پشت با تینت کم دیده می‌شود */
 #rzk-modal-overlay[style*="--rzk-bg"] .rzk-modal-box {
-    background-image: linear-gradient(rgba(10, 15, 28, 0.72), rgba(10, 15, 28, 0.72)), var(--rzk-bg);
+    background-image: linear-gradient(rgba(10, 15, 28, 0.16), rgba(10, 15, 28, 0.30)), var(--rzk-bg);
     background-color: transparent;
     background-size: cover;
     background-position: center;
@@ -100,7 +101,7 @@
 }
 .rzk-slogan {
     font-size: 13px;
-    color: #666;
+    color: rgba(255, 255, 255, 0.85);
     margin: -4px 0 16px;
     font-weight: 500;
     line-height: 1.5;
@@ -112,11 +113,11 @@
     top: 10px; left: 15px;
     font-size: 24px;
     cursor: pointer;
-    color: #666;
+    color: rgba(255, 255, 255, 0.85);
     line-height: 1;
     transition: color 0.2s ease;
 }
-.rzk-close:hover { color: #111; }
+.rzk-close:hover { color: #fff; }
 
 /* مراحل مودال - انیمیشن ورود نرم */
 .rzk-step { animation: rzk-fade-in var(--rzk-transition) ease; }
@@ -126,8 +127,8 @@
 }
 
 .rzk-step h3 { margin-bottom: 18px; font-size: 20px; }
-.rzk-step p { font-size: 14px; color: #555; margin-bottom: 15px; }
-.rzk-step p small { color: #999; }
+.rzk-step p { font-size: 14px; color: rgba(255, 255, 255, 0.82); margin-bottom: 15px; }
+.rzk-step p small { color: rgba(255, 255, 255, 0.55); }
 
 /* ورودی‌ها */
 .rzk-modal-box input {
@@ -136,6 +137,7 @@
     margin-bottom: 15px;
     border: none;
     background: rgba(255, 255, 255, 0.9);
+    color: #1d2327;
     border-bottom: 2px solid #ddd;
     border-radius: 8px;
     outline: none;
@@ -146,6 +148,7 @@
     font-family: inherit;
 }
 .rzk-modal-box input:focus { border-bottom-color: var(--rzk-accent); }
+.rzk-modal-box input::placeholder { color: #8c8f94; opacity: 1; }
 
 #rzk-phone {
     letter-spacing: 1px;
@@ -159,8 +162,6 @@
     direction: ltr;
     text-align: center;
 }
-
-#otp-dest-display { direction: ltr; unicode-bidi: embed; font-weight: bold; }
 
 /* دکمه‌ها */
 .rzk-modal-box button {
@@ -207,23 +208,23 @@
     display: block;
     margin-top: 12px;
     font-size: 12px;
-    color: #888;
+    color: rgba(255, 255, 255, 0.7);
     cursor: pointer;
     text-decoration: underline;
 }
 .rzk-alt-link { color: var(--rzk-accent); font-size: 13px; }
-.rzk-alt-link:hover { filter: brightness(0.85); }
+.rzk-alt-link:hover { filter: brightness(1.25); }
 
 /* ارسال مجدد کد + شمارش معکوس */
-.rzk-resend-row { font-size: 13px; color: #666; margin-top: 10px; }
+.rzk-resend-row { font-size: 13px; color: rgba(255, 255, 255, 0.82); margin-top: 10px; }
 #rzk-resend {
     color: var(--rzk-accent);
     cursor: pointer;
     text-decoration: underline;
 }
-#rzk-countdown { color: #aaa; }
+#rzk-countdown { color: rgba(255, 255, 255, 0.55); }
 
-.rzk-msg { margin-top: 10px; font-size: 13px; color: #d63638; min-height: 0; }
+.rzk-msg { margin-top: 10px; font-size: 13px; color: #ffb4b6; min-height: 0; }
 
 /* دکمه‌های تریگر - هماهنگ با استایل مودال */
 .rzk-trigger-solid { background: var(--rzk-accent); color: #fff; border-radius: 10px; padding: 9px 18px; }
@@ -233,7 +234,56 @@
 .rzk-trigger-dark { background: #1d2327; color: #fff; border-radius: 10px; padding: 9px 18px; }
 .rzk-trigger-dark:hover { color: #fff; filter: brightness(1.3); }
 
-/* ============ Variation: تک‌رنگ (solid) ============ */
+/* ============ Variation: تک‌رنگ (solid) و خط‌دار (outline) — پس‌زمینه روشن ============ */
+/* متن‌ها به تیره برمی‌گردند چون پس‌زمینه شیشه‌ای/تیره نیست */
+.rzk-style-solid,
+.rzk-style-outline {
+    color: #1d2327;
+}
+.rzk-style-solid .rzk-step p,
+.rzk-style-outline .rzk-step p { color: #555; }
+.rzk-style-solid .rzk-step p small,
+.rzk-style-outline .rzk-step p small { color: #999; }
+.rzk-style-solid .rzk-slogan,
+.rzk-style-outline .rzk-slogan { color: #666; }
+.rzk-style-solid .rzk-close,
+.rzk-style-outline .rzk-close { color: #666; }
+.rzk-style-solid .rzk-close:hover,
+.rzk-style-outline .rzk-close:hover { color: #111; }
+.rzk-style-solid .rzk-back-link,
+.rzk-style-solid .rzk-resend-row,
+.rzk-style-outline .rzk-back-link,
+.rzk-style-outline .rzk-resend-row { color: #888; }
+.rzk-style-solid #rzk-countdown,
+.rzk-style-outline #rzk-countdown { color: #aaa; }
+.rzk-style-solid .rzk-msg,
+.rzk-style-outline .rzk-msg { color: #d63638; }
+.rzk-style-solid .rzk-terms-wrap,
+.rzk-style-outline .rzk-terms-wrap { color: #666; }
+.rzk-style-solid .rzk-terms-text a,
+.rzk-style-outline .rzk-terms-text a { filter: none; }
+.rzk-style-solid .rzk-alt-link,
+.rzk-style-outline .rzk-alt-link { filter: none; }
+.rzk-style-solid .rzk-success-desc,
+.rzk-style-outline .rzk-success-desc { color: #666; }
+.rzk-style-solid .rzk-captcha-badge,
+.rzk-style-outline .rzk-captcha-badge {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+.rzk-style-solid .rzk-captcha-question,
+.rzk-style-outline .rzk-captcha-question { color: #333; }
+.rzk-style-solid .rzk-captcha-refresh,
+.rzk-style-outline .rzk-captcha-refresh { color: #666 !important; }
+.rzk-style-solid .rzk-divider,
+.rzk-style-outline .rzk-divider { color: #999; }
+.rzk-style-solid .rzk-divider::before,
+.rzk-style-solid .rzk-divider::after,
+.rzk-style-outline .rzk-divider::before,
+.rzk-style-outline .rzk-divider::after {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
 .rzk-style-solid {
     background: #fff;
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.22);
@@ -251,6 +301,10 @@
     border: 3px solid var(--rzk-accent);
     box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25);
     border-radius: 16px;
+    /* پس‌زمینه روشن است؛ پرده کنتراست شیشه‌ای نباید اعمال شود */
+    background-image: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 .rzk-style-outline .rzk-modal-box button {
     background: transparent;
@@ -334,7 +388,7 @@
     font-size: 20px;
 }
 .rzk-success-desc {
-    color: #666;
+    color: rgba(255, 255, 255, 0.82);
     font-size: 14px;
 }
 .rzk-style-dark .rzk-success-desc {
@@ -377,14 +431,14 @@
     align-items: center;
     text-align: center;
     margin: 14px 0 10px;
-    color: #999;
+    color: rgba(255, 255, 255, 0.6);
     font-size: 12px;
 }
 .rzk-divider::before,
 .rzk-divider::after {
     content: '';
     flex: 1;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
 }
 .rzk-divider span {
     padding: 0 10px;
@@ -403,8 +457,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 6px;
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 8px;
     padding: 8px 12px;
     font-size: 15px;
@@ -417,12 +471,12 @@
 }
 .rzk-captcha-question {
     letter-spacing: 2px;
-    color: #333;
+    color: #fff;
 }
 .rzk-captcha-refresh {
     background: transparent !important;
     border: none !important;
-    color: #666 !important;
+    color: rgba(255, 255, 255, 0.75) !important;
     padding: 0 !important;
     width: auto !important;
     font-size: 18px !important;
@@ -448,7 +502,7 @@
     margin: 8px 0 16px;
     text-align: right;
     font-size: 12px;
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
     line-height: 1.6;
 }
 .rzk-terms-label {
@@ -467,6 +521,7 @@
 .rzk-terms-text a {
     color: var(--rzk-accent);
     text-decoration: underline;
+    filter: brightness(1.3);
 }
 
 /* ============ تطبیق با دارک مود (Dark Mode Overrides) ============ */

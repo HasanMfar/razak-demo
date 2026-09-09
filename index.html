@@ -734,9 +734,9 @@
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7) !important;
     }
 
-    /* Custom Background Mode (Darkens modal slightly to ensure text legibility over busy backgrounds) */
+    /* Custom Background Mode (frosted dark glass: see-through but keeps white text legible) */
     .rzk-modal-box.has-custom-bg {
-      background-color: rgba(10, 15, 28, 0.45) !important;
+      background-color: rgba(10, 15, 28, 0.22) !important;
       backdrop-filter: blur(var(--rzk-blur, 20px)) saturate(190%);
       -webkit-backdrop-filter: blur(var(--rzk-blur, 20px)) saturate(190%);
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.3);
@@ -1769,9 +1769,9 @@
             box.style.webkitBackdropFilter = 'blur(20px) saturate(160%)';
           } else {
             box.classList.add('has-custom-bg');
-            // شیشهٔ واقعی: تصویرِ پس‌زمینه از پشت تینت بسیار روشن دیده می‌شود (نه باکس تیره)
-            box.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
-            box.style.backgroundImage = bgVal;
+            // شیشهٔ تیرهٔ یخزده: تصویر از پشت تینت ملایم دیده می‌شود + متن سفید خوانا می‌ماند
+            box.style.backgroundColor = 'transparent';
+            box.style.backgroundImage = 'linear-gradient(rgba(10, 15, 28, 0.16), rgba(10, 15, 28, 0.30)), ' + bgVal;
             box.style.backgroundSize = 'cover';
             box.style.backgroundPosition = 'center';
             box.style.backgroundRepeat = 'no-repeat';
