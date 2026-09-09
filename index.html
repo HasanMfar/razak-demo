@@ -1769,8 +1769,9 @@
             box.style.webkitBackdropFilter = 'blur(20px) saturate(160%)';
           } else {
             box.classList.add('has-custom-bg');
-            box.style.backgroundColor = 'transparent';
-            box.style.backgroundImage = 'linear-gradient(rgba(10, 15, 28, 0.22), rgba(10, 15, 28, 0.38)), ' + bgVal;
+            // شیشهٔ واقعی: تصویرِ پس‌زمینه از پشت تینت بسیار روشن دیده می‌شود (نه باکس تیره)
+            box.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+            box.style.backgroundImage = bgVal;
             box.style.backgroundSize = 'cover';
             box.style.backgroundPosition = 'center';
             box.style.backgroundRepeat = 'no-repeat';
