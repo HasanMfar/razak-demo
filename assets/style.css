@@ -73,6 +73,42 @@
     transform: translateY(0) scale(1);
 }
 
+/* جلای مورب شیشه: نوار نور که هنگام باز شدن مودال یک بار می‌گذرد */
+.rzk-modal-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(115deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.16) 44%,
+        rgba(255, 255, 255, 0.05) 50%,
+        transparent 62%);
+    transform: translateX(-130%);
+    transition: none;
+    z-index: 0;
+}
+#rzk-modal-overlay.rzk-open .rzk-modal-box::before {
+    transform: translateX(130%);
+    transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+}
+
+/* حجم‌دار شدن لبه‌ی شیشه: نور از بالا-راست، سایه از پایین-چپ */
+.rzk-modal-box::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.14), transparent 26%),
+        linear-gradient(to top, rgba(0, 0, 0, 0.16), transparent 30%),
+        linear-gradient(to left, rgba(255, 255, 255, 0.08), transparent 34%),
+        linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent 34%);
+    z-index: 0;
+}
+
 /* پس‌زمینه‌ی تصویری مودال: شیشه‌ی یخزدهٔ ملایم؛ تصویر از پشت با تینت کم دیده می‌شود */
 #rzk-modal-overlay[style*="--rzk-bg"] .rzk-modal-box {
     background-image: linear-gradient(rgba(10, 15, 28, 0.16), rgba(10, 15, 28, 0.30)), var(--rzk-bg);
@@ -120,7 +156,7 @@
 .rzk-close:hover { color: #fff; }
 
 /* مراحل مودال - انیمیشن ورود نرم */
-.rzk-step { animation: rzk-fade-in var(--rzk-transition) ease; }
+.rzk-step { animation: rzk-fade-in var(--rzk-transition) ease; position: relative; z-index: 1; }
 @keyframes rzk-fade-in {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
