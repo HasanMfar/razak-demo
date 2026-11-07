@@ -1,1461 +1,436 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>رازک (Razak) | پیش‌نمایش آنلاین و استودیوی زنده ورود پیامکی وردپرس</title>
-  <meta name="description" content="دموی تعاملی و آنلاین افزونه ورود پیامکی شیشه‌ای و احراز هویت با گوگل رازک برای وردپرس و ووکامرس">
-  <link rel="icon" type="image/svg+xml" href="assets/logo.svg?v=5.0">
-  <style>
-    /* ==========================================================================
-       Razak Showcase & Interactive Studio - Modern Luxury Dark UI
-       ========================================================================== */
-    :root {
-      --bg: #060911;
-      --bg-card: rgba(15, 23, 42, 0.65);
-      --border: rgba(255, 255, 255, 0.1);
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --rzk-accent: #10b981;
-      --rzk-accent-hover: #059669;
-      --rzk-accent-glow: rgba(16, 185, 129, 0.4);
-      --rzk-radius: 24px;
-      --rzk-btn-radius: 12px;
-      --rzk-blur: 20px;
-      --rzk-overlay: 0.35;
-      --rzk-logo-h: 46px;
-      --rzk-width: 380px;
-      --rzk-transition: 0.3s;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Vazirmatn', Helvetica, Arial, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.6;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Ambient Floating Glow (Subtle and Organic) */
-    .ambient-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(90px);
-      z-index: 0;
-      pointer-events: none;
-      animation: floatPulse 14s ease-in-out infinite alternate;
-    }
-
-    .orb-1 {
-      top: -120px;
-      right: 15%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
-    }
-
-    .orb-2 {
-      top: 35%;
-      left: 5%;
-      width: 450px;
-      height: 450px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
-      animation-delay: -5s;
-    }
-
-    .orb-3 {
-      bottom: -120px;
-      right: 25%;
-      width: 550px;
-      height: 550px;
-      background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
-      animation-delay: -9s;
-    }
-
-    @keyframes floatPulse {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(25px, -15px) scale(1.05); }
-      100% { transform: translate(-15px, 25px) scale(0.97); }
-    }
-
-    /* Professional Status Pulse Dot (Replaces emoji sparkles) */
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #10b981;
-      display: inline-block;
-      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-      animation: pulseDot 2s infinite;
-      margin-left: 2px;
-    }
-    @keyframes pulseDot {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-    }
-
-    /* ==========================================================================
-       Header & Navigation
-       ========================================================================== */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(6, 9, 17, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-
-    .brand-logo-wrap {
-      width: 36px;
-      height: 36px;
-      filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.5));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .brand-name {
-      font-size: 20px;
-      font-weight: 900;
-      color: #fff;
-    }
-
-    .brand-tag {
-      font-size: 11px;
-      font-weight: 700;
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      padding: 2px 8px;
-      border-radius: 20px;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn-popup-test {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #f1f5f9;
-      padding: 8px 18px;
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-      transition: all 0.2s ease;
-    }
-
-    .btn-popup-test:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.35);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .btn-rtltheme {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: #fff;
-      padding: 8px 22px;
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 800;
-      text-decoration: none;
-      box-shadow: 0 4px 18px var(--rzk-accent-glow);
-      transition: all 0.2s ease;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-    }
-
-    .btn-rtltheme:hover {
-      background: linear-gradient(135deg, #34d399 0%, #059669 100%);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.6);
-    }
-
-    /* ==========================================================================
-       Hero Section
-       ========================================================================== */
-    .hero {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 40px 20px 15px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: #34d399;
-      padding: 6px 18px;
-      border-radius: 30px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-
-    .hero h1 {
-      font-size: 36px;
-      font-weight: 900;
-      line-height: 1.35;
-      margin-bottom: 14px;
-      color: #fff;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(135deg, #34d399 0%, #38bdf8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      font-size: 16px;
-      color: var(--text-muted);
-      max-width: 720px;
-      margin: 0 auto 20px;
-      line-height: 1.8;
-    }
-    .hero p.hero-noredirect {
-      color: #34d399;
-      font-weight: 600;
-      margin-bottom: 0;
-    }
-
-    /* ==========================================================================
-       Studio Layout: Controls (Right) + Interactive Modal (Left)
-       ========================================================================== */
-    .studio-container {
-      position: relative;
-      z-index: 1;
-      max-width: 1200px;
-      margin: 20px auto 60px;
-      padding: 0 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 36px;
-      align-items: start;
-    }
-
-    @media (max-width: 980px) {
-      .studio-container {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Control Panel Card */
-    .control-panel {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 28px;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .panel-title {
-      font-size: 18px;
-      font-weight: 800;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 22px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .panel-group {
-      margin-bottom: 22px;
-    }
-
-    .group-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      color: #e2e8f0;
-      margin-bottom: 10px;
-    }
-
-    /* Style Selector Buttons */
-    .style-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .style-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      color: #e2e8f0;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s ease;
-    }
-
-    .style-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.25);
-    }
-
-    .style-btn.active {
-      background: rgba(16, 185, 129, 0.2);
-      border-color: var(--rzk-accent);
-      color: #34d399;
-      box-shadow: 0 0 16px rgba(16, 185, 129, 0.3);
-    }
-
-    /* Color Swatches */
-    .color-swatches {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .color-swatch {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .color-swatch:hover {
-      transform: scale(1.15);
-    }
-
-    .color-swatch.active {
-      border-color: #fff;
-      transform: scale(1.15);
-      box-shadow: 0 0 16px var(--swatch-color);
-    }
-
-    /* Background Selector Tabs */
-    .bg-presets {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .bg-preset-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 8px 4px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #cbd5e1;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s ease;
-    }
-
-    .bg-preset-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .bg-preset-btn.active {
-      background: rgba(16, 185, 129, 0.2);
-      border-color: var(--rzk-accent);
-      color: #34d399;
-    }
-
-    .upload-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .btn-upload {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px dashed rgba(255, 255, 255, 0.25);
-      color: #cbd5e1;
-      padding: 8px 12px;
-      border-radius: 10px;
-      font-size: 12px;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s ease;
-    }
-
-    .btn-upload:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--rzk-accent);
-      color: #fff;
-    }
-
-    /* Logo Controls */
-    .logo-controls {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .logo-opt-btn {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border);
-      color: #cbd5e1;
-      padding: 8px 10px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s ease;
-    }
-
-    .logo-opt-btn.active {
-      background: rgba(16, 185, 129, 0.2);
-      border-color: var(--rzk-accent);
-      color: #34d399;
-    }
-
-    .slogan-input {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      color: #fff;
-      padding: 8px 12px;
-      border-radius: 10px;
-      font-size: 13px;
-      outline: none;
-      transition: border-color 0.2s ease;
-    }
-
-    .slogan-input:focus {
-      border-color: var(--rzk-accent);
-    }
-
-    /* Sliders */
-    .slider-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .slider-input {
-      flex: 1;
-      accent-color: var(--rzk-accent);
-      height: 6px;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-
-    .slider-val {
-      font-size: 13px;
-      font-weight: 700;
-      color: #34d399;
-      min-width: 45px;
-      text-align: left;
-    }
-
-    /* Toggle Switches */
-    .toggle-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .toggle-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.03);
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .toggle-item:hover {
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    .toggle-text {
-      font-size: 13px;
-      color: #e2e8f0;
-      font-weight: 500;
-    }
-
-    .switch {
-      position: relative;
-      width: 40px;
-      height: 22px;
-      background: #334155;
-      border-radius: 20px;
-      transition: background 0.2s ease;
-    }
-
-    .switch::after {
-      content: '';
-      position: absolute;
-      top: 2px;
-      right: 2px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #fff;
-      transition: transform 0.2s ease;
-    }
-
-    .toggle-item.checked .switch {
-      background: var(--rzk-accent);
-    }
-
-    .toggle-item.checked .switch::after {
-      transform: translateX(-18px);
-    }
-
-    .btn-reset-demo {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px dashed rgba(255, 255, 255, 0.2);
-      color: #94a3b8;
-      padding: 10px;
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 14px;
-      transition: all 0.2s ease;
-    }
-
-    .btn-reset-demo:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.35);
-    }
-
-    /* ==========================================================================
-       Stage Display: The TRUE FROSTED GLASS Modal
-       ========================================================================== */
-    .stage-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      width: 100%;
-    }
-
-    /* Visual Background Backstage for Embedded Preview */
-    .stage-backdrop {
-      width: 100%;
-      min-height: 580px;
-      border-radius: 28px;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 30px 15px;
-      overflow: hidden;
-      background-size: cover;
-      background-position: center;
-      transition: background 0.4s ease;
-    }
-
-    /* Floating Colorful Background Elements to Prove Glass Refraction */
-    .stage-bg-art {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .art-circle {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(40px);
-      opacity: 0.85;
-    }
-
-    .art-c1 {
-      width: 220px;
-      height: 220px;
-      background: linear-gradient(135deg, #10b981, #06b6d4);
-      top: 10%;
-      right: 15%;
-    }
-
-    .art-c2 {
-      width: 260px;
-      height: 260px;
-      background: linear-gradient(135deg, #6366f1, #ec4899);
-      bottom: 8%;
-      left: 10%;
-    }
-
-    .art-c3 {
-      width: 180px;
-      height: 180px;
-      background: linear-gradient(135deg, #f59e0b, #ef4444);
-      top: 45%;
-      right: 35%;
-    }
-
-    /* Background preset themes for stage-backdrop */
-    .stage-backdrop.bg-razak {
-      background: #060911 url('assets/razak-bg.jpg') center center / cover no-repeat !important;
-    }
-
-    .stage-backdrop.bg-aurora {
-      background: radial-gradient(at 10% 20%, #1e1b4b 0px, transparent 50%),
-                  radial-gradient(at 90% 80%, #064e3b 0px, transparent 50%),
-                  #070a12;
-    }
-
-    .stage-backdrop.bg-neon {
-      background: radial-gradient(at 30% 30%, #312e81 0px, transparent 50%),
-                  radial-gradient(at 70% 70%, #0f766e 0px, transparent 50%),
-                  #090d16;
-    }
-
-    .stage-backdrop.bg-store {
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    }
-
-    /* ==========================================================================
-       TRUE FROSTED GLASS MODAL BOX (.rzk-modal-box)
-       ========================================================================== */
-    .rzk-modal-box {
-      /* PURE FROSTED GLASS — split into color + image so JS can override image layer */
-      background-color: rgba(255, 255, 255, 0.12);
-      background-image: linear-gradient(rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      backdrop-filter: blur(var(--rzk-blur, 20px)) saturate(190%);
-      -webkit-backdrop-filter: blur(var(--rzk-blur, 20px)) saturate(190%);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.35);
-      width: var(--rzk-width, 380px);
-      max-width: 100%;
-      padding: 32px 28px;
-      border-radius: var(--rzk-radius, 24px);
-      position: relative;
-      text-align: center;
-      box-sizing: border-box;
-      color: #ffffff;
-      z-index: 1;
-      transition: background-color 0.35s ease, background-image 0.35s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* Style Variants */
-    .rzk-modal-box.rzk-style-solid {
-      background: #ffffff !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      border: 1px solid #e2e8f0 !important;
-      color: #0f172a !important;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35) !important;
-    }
-
-    .rzk-modal-box.rzk-style-solid .rzk-slogan { color: #64748b !important; }
-    .rzk-modal-box.rzk-style-solid h3 { color: #0f172a !important; }
-    .rzk-modal-box.rzk-style-solid input[type="tel"],
-    .rzk-modal-box.rzk-style-solid input[type="text"] {
-      background: #f8fafc !important;
-      border: 1px solid #cbd5e1 !important;
-      color: #0f172a !important;
-    }
-    .rzk-modal-box.rzk-style-solid .rzk-captcha-badge {
-      background: #f1f5f9 !important;
-      border: 1px solid #cbd5e1 !important;
-      color: #0f172a !important;
-    }
-    .rzk-modal-box.rzk-style-solid .rzk-terms-label { color: #475569 !important; }
-    .rzk-modal-box.rzk-style-solid .rzk-resend-row { color: #64748b !important; }
-    .rzk-modal-box.rzk-style-solid .rzk-divider::before,
-    .rzk-modal-box.rzk-style-solid .rzk-divider::after { border-bottom-color: #e2e8f0 !important; }
-    .rzk-modal-box.rzk-style-solid .rzk-divider span { color: #94a3b8 !important; }
-
-    .rzk-modal-box.rzk-style-outline {
-      background: rgba(15, 23, 42, 0.5) !important;
-      border: 2px solid var(--rzk-accent) !important;
-      backdrop-filter: blur(16px) !important;
-      -webkit-backdrop-filter: blur(16px) !important;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) !important;
-      color: #ffffff !important;
-    }
-
-    .rzk-modal-box.rzk-style-dark {
-      background: rgba(10, 14, 26, 0.78) !important;
-      border: 1px solid rgba(255, 255, 255, 0.12) !important;
-      backdrop-filter: blur(24px) !important;
-      -webkit-backdrop-filter: blur(24px) !important;
-      color: #f8fafc !important;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7) !important;
-    }
-
-        /* Custom Background Mode (frosted dark glass: see-through but keeps white text legible) */
-    .rzk-modal-box.has-custom-bg {
-      background-color: rgba(10, 15, 28, 0.22) !important;
-      backdrop-filter: blur(var(--rzk-blur, 20px)) saturate(190%);
-      -webkit-backdrop-filter: blur(var(--rzk-blur, 20px)) saturate(190%);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.28);
-    }
-
-    /* جلای مورب شیشه: نوار نور که هنگام باز شدن یک بار می‌گذرد */
-    .rzk-modal-box::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      background: linear-gradient(115deg,
-        transparent 30%,
-        rgba(255, 255, 255, 0.16) 44%,
-        rgba(255, 255, 255, 0.05) 50%,
-        transparent 62%);
-      transform: translateX(-130%);
-      transition: none;
-      z-index: 0;
-    }
-    #rzk-modal-overlay.rzk-open .rzk-modal-box::before {
-      transform: translateX(130%);
-      transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
-    }
-
-    /* حجم‌دار شدن لبه‌ی شیشه: نور از بالا-راست، سایه از پایین-چپ */
-    .rzk-modal-box::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      background:
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.14), transparent 26%),
-        linear-gradient(to top, rgba(0, 0, 0, 0.16), transparent 30%),
-        linear-gradient(to left, rgba(255, 255, 255, 0.08), transparent 34%),
-        linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent 34%);
-      z-index: 0;
-    }
-    .rzk-step, .rzk-brand-header { position: relative; z-index: 1; }
-
-    /* Brand Header */
-    .rzk-brand-header {
-      margin: 0 0 16px;
-      text-align: center;
-    }
-
-    .rzk-logo-img {
-      height: var(--rzk-logo-h, 46px);
-      max-width: 80%;
-      width: auto;
-      margin: 0 auto 10px;
-      display: block;
-      object-fit: contain;
-      filter: drop-shadow(0 4px 12px var(--rzk-accent-glow));
-      transition: height 0.2s ease;
-    }
-
-    .rzk-slogan {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.75);
-      margin: 0 0 16px;
-      font-weight: 500;
-    }
-
-    /* Step Views */
-    .rzk-step {
-      display: none;
-      animation: rzkFadeIn 0.25s ease;
-    }
-
-    .rzk-step.active {
-      display: block;
-    }
-
-    @keyframes rzkFadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .rzk-step h3 {
-      font-size: 17px;
-      font-weight: 800;
-      margin-bottom: 16px;
-      color: inherit;
-    }
-
-    /* Google Button */
-    .rzk-google-wrap {
-      margin-bottom: 14px;
-    }
-
-    .rzk-btn-google {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: #ffffff !important;
-      border: 1px solid rgba(255, 255, 255, 0.3) !important;
-      color: #1e293b !important;
-      padding: 10px 14px;
-      border-radius: var(--rzk-btn-radius, 12px);
-      font-size: 13.5px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
-    }
-
-    .rzk-btn-google:hover {
-      background: #f8fafc !important;
-      transform: translateY(-1px);
-      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18);
-    }
-
-    /* Clean Seamless Divider (NO Ugly Box or Square!) */
-    .rzk-divider {
-      display: flex;
-      align-items: center;
-      text-align: center;
-      margin: 16px 0;
-      gap: 12px;
-    }
-
-    .rzk-divider::before,
-    .rzk-divider::after {
-      content: '';
-      flex: 1;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-    }
-
-    .rzk-divider span {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.6);
-      font-weight: 600;
-      background: transparent !important;
-      padding: 0;
-      white-space: nowrap;
-    }
-
-    /* Frosted Inputs */
-    .rzk-modal-box input[type="tel"],
-    .rzk-modal-box input[type="text"],
-    .rzk-modal-box input[type="password"] {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: var(--rzk-btn-radius, 12px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      font-size: 15px;
-      font-weight: 700;
-      color: #ffffff;
-      direction: ltr;
-      text-align: left;
-      margin-bottom: 12px;
-      transition: all 0.2s ease;
-      box-sizing: border-box;
-    }
-
-    .rzk-modal-box input::placeholder {
-      color: rgba(255, 255, 255, 0.45);
-      font-weight: 500;
-    }
-
-    .rzk-modal-box input:focus {
-      outline: none;
-      border-color: var(--rzk-accent);
-      box-shadow: 0 0 0 3px var(--rzk-accent-glow);
-      background: rgba(255, 255, 255, 0.14);
-    }
-
-    /* Captcha Section (Clean Frosted Style) */
-    .rzk-captcha-wrap {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 14px;
-      align-items: center;
-    }
-
-    .rzk-captcha-badge {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(8px);
-      padding: 9px 14px;
-      border-radius: var(--rzk-btn-radius, 12px);
-      font-size: 15px;
-      font-weight: 800;
-      color: #ffffff;
-      white-space: nowrap;
-      direction: ltr;
-    }
-
-    .rzk-captcha-refresh {
-      background: none !important;
-      border: none !important;
-      cursor: pointer;
-      font-size: 17px;
-      color: var(--rzk-accent);
-      transition: transform 0.3s ease;
-      display: flex;
-      align-items: center;
-      padding: 0 !important;
-      width: auto !important;
-      box-shadow: none !important;
-    }
-
-    .rzk-captcha-refresh:hover {
-      transform: rotate(180deg);
-    }
-
-    .rzk-captcha-wrap input {
-      margin-bottom: 0 !important;
-      text-align: center !important;
-    }
-
-    /* Terms */
-    .rzk-terms-wrap {
-      text-align: right;
-      margin-bottom: 16px;
-      font-size: 12.5px;
-    }
-
-    .rzk-terms-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .rzk-terms-label a {
-      color: #34d399;
-      text-decoration: underline;
-    }
-
-    /* Action Buttons */
-    .rzk-modal-box button[type="button"]:not(.rzk-btn-google):not(.rzk-captcha-refresh) {
-      width: 100%;
-      padding: 13px;
-      border-radius: var(--rzk-btn-radius, 12px);
-      border: none;
-      background: var(--rzk-accent);
-      color: #ffffff;
-      font-size: 14.5px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 18px var(--rzk-accent-glow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .rzk-modal-box button[type="button"]:not(.rzk-btn-google):hover {
-      filter: brightness(1.1);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 22px var(--rzk-accent-glow);
-    }
-
-    .rzk-msg {
-      font-size: 12.5px;
-      margin-top: 12px;
-      font-weight: 700;
-      min-height: 18px;
-    }
-
-    .rzk-msg.error { color: #f87171; }
-    .rzk-msg.success { color: #34d399; }
-
-    /* OTP 6-Digit Segmented Boxes */
-    .rzk-otp-boxes {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin: 18px 0;
-      direction: ltr;
-    }
-
-    .rzk-otp-digit {
-      width: 45px;
-      height: 50px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(8px);
-      font-size: 22px;
-      font-weight: 900;
-      color: #ffffff;
-      text-align: center;
-      box-sizing: border-box;
-      transition: all 0.2s ease;
-    }
-
-    .rzk-otp-digit:focus {
-      outline: none;
-      border-color: var(--rzk-accent);
-      box-shadow: 0 0 0 3px var(--rzk-accent-glow);
-      background: rgba(255, 255, 255, 0.18);
-    }
-
-    .rzk-resend-row {
-      font-size: 12.5px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-top: 14px;
-    }
-
-    .rzk-resend-row span {
-      color: #34d399;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .rzk-back-link {
-      font-size: 12.5px;
-      color: rgba(255, 255, 255, 0.6);
-      margin-top: 10px;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-
-    .rzk-back-link:hover {
-      color: #ffffff;
-    }
-
-    /* Success Screen */
-    .rzk-success-wrapper {
-      margin: 16px auto;
-      width: 72px;
-      height: 72px;
-    }
-
-    .rzk-checkmark {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      display: block;
-      stroke-width: 3;
-      stroke: var(--rzk-accent);
-      stroke-miterlimit: 10;
-      box-shadow: inset 0px 0px 0px var(--rzk-accent);
-      animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
-    }
-
-    .rzk-checkmark-circle {
-      stroke-dasharray: 166;
-      stroke-dashoffset: 166;
-      stroke-width: 3;
-      stroke-miterlimit: 10;
-      stroke: var(--rzk-accent);
-      fill: none;
-      animation: stroke .6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-    }
-
-    .rzk-checkmark-check {
-      transform-origin: 50% 50%;
-      stroke-dasharray: 48;
-      stroke-dashoffset: 48;
-      stroke: #fff;
-      animation: stroke .3s cubic-bezier(0.65, 0, 0.45, 1) .8s forwards;
-    }
-
-    @keyframes stroke { 100% { stroke-dashoffset: 0; } }
-    @keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
-    @keyframes fill { 100% { box-shadow: inset 0px 0px 0px 40px var(--rzk-accent); } }
-
-    /* ==========================================================================
-       REAL FULLSCREEN POPUP OVERLAY (#rzk-modal-overlay)
-       ========================================================================== */
-    #rzk-modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, var(--rzk-overlay, 0.45));
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      z-index: 99999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity var(--rzk-transition) ease, visibility var(--rzk-transition) ease;
-      padding: 20px;
-    }
-
-    #rzk-modal-overlay.rzk-open {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .rzk-close {
-      position: absolute;
-      top: 14px;
-      left: 18px;
-      font-size: 26px;
-      cursor: pointer;
-      color: rgba(255, 255, 255, 0.6);
-      line-height: 1;
-      transition: color 0.2s ease;
-    }
-
-    .rzk-close:hover {
-      color: #ffffff;
-    }
-
-    /* ==========================================================================
-       Features & Comparison Section
-       ========================================================================== */
-    .features-section {
-      position: relative;
-      z-index: 1;
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    .section-title-wrap {
-      text-align: center;
-      margin-bottom: 36px;
-    }
-
-    .section-title-wrap h2 {
-      font-size: 26px;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 8px;
-    }
-
-    .section-title-wrap p {
-      color: var(--text-muted);
-      font-size: 15px;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 50px;
-    }
-
-    .f-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px;
-      backdrop-filter: blur(16px);
-      transition: all 0.2s ease;
-    }
-
-    .f-card:hover {
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .f-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      color: #34d399;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
-    }
-
-    .f-icon svg {
-      width: 22px;
-      height: 22px;
-      stroke: currentColor;
-    }
-
-    .f-card h3 {
-      font-size: 17px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 8px;
-    }
-
-    .f-card p {
-      font-size: 13.5px;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    /* Speed Comparison Card */
-    .comparison-card {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(15, 23, 42, 0.95) 100%);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      border-radius: 24px;
-      padding: 34px;
-      margin-bottom: 50px;
-      backdrop-filter: blur(20px);
-    }
-
-    .comp-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
-      text-align: center;
-      margin-top: 24px;
-    }
-
-    .comp-item {
-      background: rgba(0, 0, 0, 0.3);
-      padding: 20px;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-    }
-
-    .comp-number {
-      font-size: 32px;
-      font-weight: 900;
-      color: #34d399;
-      margin-bottom: 4px;
-    }
-
-    .comp-label {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 30px 20px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 13px;
-    }
-
-    footer a {
-      color: #34d399;
-      text-decoration: none;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>رازک — همان پنجره‌ای که روی سایت شما نصب می‌شود</title>
+<style>
+  /* ---------- فونت‌های لوکال (بدون CDN) ---------- */
+  @font-face { font-family: 'Peyda'; src: url('assets/fonts/Peyda-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('assets/fonts/Peyda-Medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('assets/fonts/Peyda-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('assets/fonts/Peyda-Black.ttf') format('truetype'); font-weight: 900; font-display: swap; }
+  @font-face { font-family: 'Lalezar'; src: url('assets/fonts/Lalezar-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+
+  /* ---------- توکن‌ها ---------- */
+  :root {
+    --bg: #0a0f14;
+    --ink: #eaf3ee;
+    --muted: #8fa79b;
+    --line: rgba(255, 255, 255, 0.09);
+    --accent: #10b981;
+    --accent-bright: #34d399;
+    --radius: 20px;
+    --rzk-blur: 24px;
+    --rzk-accent: #10b981;
+    --rzk-accent-glow: #10b98166;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scrollbar-width: thin; scrollbar-color: #22302a transparent; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Peyda', Tahoma, sans-serif;
+    font-size: 15px;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: rgba(52, 211, 153, 0.3); }
+
+  /* ---------- سربرگ: برند + دو کنش، بدون بنر ---------- */
+  .masthead {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 26px 24px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .brand { display: flex; align-items: center; gap: 13px; }
+  .brand img { width: 44px; height: 44px; }
+  .brand-name { font-family: 'Lalezar'; font-size: 30px; line-height: 1; display: block; }
+  .brand-sub { font-size: 12.5px; color: var(--muted); display: block; margin-top: 2px; }
+  .brand-ver { font-size: 11px; color: var(--accent-bright); border: 1px solid rgba(52,211,153,.35); border-radius: 999px; padding: 0 8px; margin-right: 8px; vertical-align: 3px; }
+  .masthead-actions { display: flex; align-items: center; gap: 14px; }
+  .btn-solid {
+    font-family: inherit; font-size: 14px; font-weight: 700;
+    color: #052018; background: var(--accent-bright);
+    border: 0; border-radius: 10px; padding: 10px 20px; cursor: pointer;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+  .btn-solid:hover { background: #2ddba4; }
+  .btn-solid:active { transform: translateY(1px); }
+  .btn-text { color: var(--muted); font-size: 14px; text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+  .btn-text:hover { color: var(--ink); border-color: var(--accent); }
+
+  .intro {
+    max-width: 1180px; margin: 0 auto; padding: 26px 24px 22px;
+  }
+  .intro h1 { font-size: 30px; font-weight: 900; line-height: 1.5; max-width: 640px; }
+  .intro h1 em { font-style: normal; color: var(--accent-bright); }
+  .intro p { color: var(--muted); max-width: 560px; margin-top: 6px; font-size: 14.5px; }
+
+  /* ---------- میز آزمایش: استیج + نوار کنترل ---------- */
+  .bench { max-width: 1180px; margin: 0 auto; padding: 6px 24px 0; }
+  .stage-container {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    min-height: 640px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 56px 20px;
+    box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.55);
+  }
+  .stage-backdrop {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(rgba(5, 10, 8, 0.45), rgba(5, 10, 8, 0.45)),
+      url('assets/razak-bg.jpg') center / cover no-repeat;
+  }
+  .stage-backdrop::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 55% at 50% 0%, rgba(16, 185, 129, 0.1), transparent 65%);
+  }
+  .stage-note {
+    position: absolute; bottom: 14px; right: 20px;
+    font-size: 11.5px; color: rgba(234, 243, 238, 0.55); z-index: 3;
+  }
+
+  /* ---------- مودال زنده (شیشه واقعی) ---------- */
+  .rzk-modal-box {
+    position: relative;
+    width: var(--rzk-width, 380px);
+    max-width: 94%;
+    background-color: rgba(13, 19, 30, 0.74);
+    background-image: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(var(--rzk-blur, 24px)) saturate(1.5);
+    -webkit-backdrop-filter: blur(var(--rzk-blur, 24px)) saturate(1.5);
+    padding: 30px 26px 24px;
+    text-align: center;
+    color: #fff;
+    z-index: 2;
+  }
+  .rzk-modal-box.rzk-style-solid {
+    background-color: #ffffff !important;
+    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+    color: #0f172a; border-color: #e2e8f0;
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
+  }
+  .rzk-modal-box.rzk-style-outline {
+    background-color: rgba(10, 15, 24, 0.6) !important;
+    border: 1.5px solid var(--rzk-accent, #10b981);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 24px 50px rgba(0,0,0,0.5);
+  }
+  .rzk-modal-box.rzk-style-dark {
+    background-color: rgba(8, 11, 18, 0.92) !important;
+    border-color: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px) !important; -webkit-backdrop-filter: blur(10px) !important;
+  }
+
+  .rzk-brand-header { margin-bottom: 18px; }
+  .rzk-logo-img { height: var(--rzk-logo-h, 46px); max-width: 70%; width: auto; }
+  .rzk-slogan { font-size: 13px; color: rgba(255,255,255,0.78); margin-top: 4px; min-height: 1em; }
+  .rzk-style-solid .rzk-slogan { color: #64748b; }
+
+  .rzk-step { display: none; }
+  .rzk-step.active { display: block; animation: rise 0.24s ease; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .rzk-step h3 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .rzk-google-wrap { margin-bottom: 4px; }
+  .rzk-btn-google {
+    width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: inherit; font-size: 14px; font-weight: 500;
+    background: #fff; color: #1f2937;
+    border: 0; border-radius: 10px; padding: 11px; cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    transition: transform 0.12s ease;
+  }
+  .rzk-btn-google:hover { transform: translateY(-1px); }
+  .rzk-google-icon { width: 18px; height: 18px; }
+  .rzk-divider { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.5); font-size: 12px; margin: 14px 0; }
+  .rzk-divider::before, .rzk-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.14); }
+  .rzk-style-solid .rzk-divider { color: #94a3b8; }
+  .rzk-style-solid .rzk-divider::before, .rzk-style-solid .rzk-divider::after { background: #e2e8f0; }
+
+  .rzk-modal-box input[type="tel"],
+  .rzk-modal-box input[type="text"],
+  .rzk-modal-box input[type="password"] {
+    width: 100%;
+    font-family: inherit; font-size: 14px;
+    color: #fff; background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 10px; padding: 11px 14px;
+    outline: none; transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .rzk-modal-box input::placeholder { color: rgba(255, 255, 255, 0.42); }
+  .rzk-modal-box input:focus { border-color: var(--rzk-accent, #10b981); background: rgba(255,255,255,0.1); }
+  .rzk-style-solid input[type="tel"], .rzk-style-solid input[type="text"] { color: #0f172a; background: #f8fafc; border-color: #e2e8f0; }
+  .rzk-style-solid input::placeholder { color: #94a3b8; }
+  .rzk-modal-box input[type="tel"] { text-align: center; letter-spacing: 0.5px; }
+
+  #demo-btn-continue, #demo-btn-verify, #popup-btn-submit {
+    width: 100%; font-family: inherit; font-size: 14.5px; font-weight: 700;
+    color: #052018; background: var(--rzk-accent, #10b981);
+    border: 0; border-radius: 10px; padding: 12px; cursor: pointer; margin-top: 14px;
+    box-shadow: 0 6px 18px var(--rzk-accent-glow, #10b98166);
+    transition: transform 0.12s ease, filter 0.15s ease;
+  }
+  #demo-btn-continue:hover, #demo-btn-verify:hover, #popup-btn-submit:hover { filter: brightness(1.08); }
+  #demo-btn-continue:active, #demo-btn-verify:active, #popup-btn-submit:active { transform: translateY(1px); }
+  #demo-btn-continue:disabled, #demo-btn-verify:disabled, #popup-btn-submit:disabled { opacity: 0.65; cursor: default; }
+
+  .rzk-captcha-wrap { margin-top: 12px; }
+  .rzk-captcha-badge {
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px; padding: 9px 14px; margin-bottom: 10px;
+  }
+  .rzk-captcha-q { font-size: 15px; font-weight: 700; letter-spacing: 1px; }
+  .rzk-captcha-refresh {
+    background: none; border: 0; color: rgba(255,255,255,0.6);
+    font-size: 17px; cursor: pointer; line-height: 1;
+    transition: color 0.15s ease, transform 0.3s ease;
+  }
+  .rzk-captcha-refresh:hover { color: #fff; transform: rotate(90deg); }
+  .rzk-captcha-ans { text-align: center; }
+
+  .rzk-terms-wrap { margin-top: 12px; text-align: right; }
+  .rzk-terms-label { display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; color: rgba(255,255,255,0.82); cursor: pointer; }
+  .rzk-terms-label input { accent-color: var(--rzk-accent, #10b981); margin-top: 5px; flex: none; }
+  .rzk-terms-label a { color: var(--accent-bright); }
+
+  .rzk-msg { min-height: 20px; font-size: 12.5px; margin-top: 10px; }
+  .rzk-msg.error { color: #ff9d9d; }
+  .rzk-msg.success { color: #5ad1a8; }
+
+  .rzk-otp-desc { font-size: 13px; color: rgba(255,255,255,0.72); margin-bottom: 14px; }
+  .rzk-otp-boxes { display: flex; gap: 8px; direction: ltr; justify-content: center; margin-bottom: 14px; }
+  .rzk-otp-digit {
+    width: 46px; height: 54px; text-align: center;
+    font-family: inherit; font-size: 20px; font-weight: 700; color: #fff;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 10px; outline: none;
+  }
+  .rzk-otp-digit:focus { border-color: var(--rzk-accent, #10b981); }
+  .rzk-fullname-wrap { margin-top: 12px; }
+
+  .rzk-resend-row { font-size: 12.5px; color: rgba(255,255,255,0.6); margin-top: 14px; }
+  .rzk-resend-row b { color: var(--accent-bright); }
+  .rzk-text-link { background: none; border: 0; color: var(--accent-bright); font-family: inherit; font-size: inherit; cursor: pointer; }
+  .rzk-back-link { display: inline-block; margin-top: 10px; font-size: 12.5px; color: rgba(255,255,255,0.55); }
+  .rzk-back-link:hover { color: #fff; }
+
+  #demo-btn-restart {
+    font-family: inherit; font-size: 13px; color: #fff;
+    background: none; border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 10px; padding: 9px 20px; cursor: pointer; margin-top: 6px;
+    transition: border-color 0.15s ease;
+  }
+  #demo-btn-restart:hover { border-color: var(--accent-bright); }
+  #demo-resend-btn { color: var(--accent-bright); cursor: pointer; }
+  #demo-back-to-phone { cursor: pointer; }
+  #demo-back-to-phone:hover { color: #fff; }
+  .rzk-success-wrapper { padding: 18px 0 8px; }
+  .rzk-checkmark { width: 74px; height: 74px; }
+  .rzk-checkmark-circle { stroke: var(--accent-bright); stroke-width: 2.4; stroke-dasharray: 158; stroke-dashoffset: 158; animation: draw 0.5s ease forwards; }
+  .rzk-checkmark-check { stroke: var(--accent-bright); stroke-width: 3; stroke-dasharray: 36; stroke-dashoffset: 36; animation: draw 0.4s ease 0.4s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  /* ---------- اورلی پاپ‌آپ (پنجره واقعی) ---------- */
+  #rzk-modal-overlay {
+    position: fixed; inset: 0; z-index: 999;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+    background: rgba(3, 7, 12, 0.62);
+    backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity 0.22s ease, visibility 0.22s ease;
+  }
+  #rzk-modal-overlay.rzk-open { opacity: 1; visibility: visible; pointer-events: auto; }
+  #rzk-modal-overlay .rzk-close {
+    position: absolute; top: 13px; left: 16px;
+    width: 30px; height: 30px; display: grid; place-items: center;
+    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8);
+    border: 0; border-radius: 8px; cursor: pointer; font-size: 15px;
+  }
+  #rzk-modal-overlay .rzk-close:hover { background: rgba(255,255,255,0.16); color: #fff; }
+
+  /* ---------- نوار کنترل ---------- */
+  .bench-controls {
+    display: flex; flex-wrap: wrap; gap: 26px 40px;
+    padding: 24px 6px 8px;
+  }
+  .cluster-label {
+    display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.4px;
+    color: var(--muted); margin-bottom: 9px;
+  }
+  .cluster { min-width: 0; }
+
+  .opt-row { display: flex; align-items: center; gap: 4px 14px; flex-wrap: wrap; }
+  .style-btn, .bg-preset-btn, .logo-opt-btn {
+    background: none; border: 0; cursor: pointer;
+    font-family: inherit; font-size: 13.5px; color: var(--muted);
+    padding: 4px 2px 7px; position: relative;
+    transition: color 0.15s ease;
+  }
+  .style-btn::after, .bg-preset-btn::after, .logo-opt-btn::after {
+    content: ''; position: absolute; right: 2px; left: 2px; bottom: 0;
+    height: 2px; border-radius: 2px; background: transparent;
+    transition: background 0.15s ease;
+  }
+  .style-btn:hover, .bg-preset-btn:hover, .logo-opt-btn:hover { color: var(--ink); }
+  .style-btn.active, .bg-preset-btn.active, .logo-opt-btn.active {
+    color: var(--ink); font-weight: 700;
+  }
+  .style-btn.active::after, .bg-preset-btn.active::after, .logo-opt-btn.active::after {
+    background: var(--accent-bright);
+  }
+  .upload-label {
+    font-size: 12.5px; color: var(--muted); cursor: pointer;
+    border-bottom: 1px dashed rgba(143, 167, 155, 0.5); padding-bottom: 1px;
+  }
+  .upload-label:hover { color: var(--ink); }
+  .upload-label input { display: none; }
+
+  .color-swatch {
+    width: 24px; height: 24px; border-radius: 50%; border: 0; cursor: pointer;
+    outline: 2px solid transparent; outline-offset: 3px; transition: outline-color 0.15s ease;
+  }
+  .color-swatch.active { outline-color: var(--accent-bright); }
+
+  .inp-slogan {
+    font-family: inherit; font-size: 13.5px; color: var(--ink);
+    background: none; border: 0; border-bottom: 1px solid var(--line);
+    padding: 4px 2px; width: 190px; outline: none;
+    transition: border-color 0.15s ease;
+  }
+  .inp-slogan:focus { border-color: var(--accent-bright); }
+  .inp-slogan::placeholder { color: rgba(143, 167, 155, 0.6); }
+
+  .blur-row { display: flex; align-items: center; gap: 12px; }
+  .blur-row input[type="range"] { width: 150px; accent-color: var(--accent-bright); }
+  .blur-val { font-size: 12.5px; color: var(--muted); min-width: 40px; }
+
+  .switch-row { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: var(--ink); }
+  .switch {
+    width: 30px; height: 17px; border-radius: 999px; position: relative;
+    background: #1d2a25; transition: background 0.18s ease; flex: none;
+  }
+  .switch::after {
+    content: ''; position: absolute; top: 2px; right: 2px;
+    width: 13px; height: 13px; border-radius: 50%; background: #5a6f65;
+    transition: transform 0.18s ease, background 0.18s ease;
+  }
+  .toggle-item.checked .switch { background: var(--accent); }
+  .toggle-item.checked .switch::after { background: #fff; transform: translateX(-13px); }
+
+  .bench-reset {
+    align-self: flex-start;
+    background: none; border: 0; cursor: pointer;
+    font-family: inherit; font-size: 12.5px; color: var(--muted);
+    border-bottom: 1px dashed rgba(143,167,155,.5); padding-bottom: 1px; margin-top: 22px;
+  }
+  .bench-reset:hover { color: var(--ink); }
+
+  /* ---------- دفتر امکانات: ردیف‌های خط‌کشی‌شده، نه کارت ---------- */
+  .ledger { max-width: 1180px; margin: 72px auto 0; padding: 0 24px; }
+  .ledger h2 { font-size: 24px; font-weight: 900; margin-bottom: 8px; }
+  .ledger-sub { color: var(--muted); font-size: 14px; margin-bottom: 26px; }
+  .ledger-row {
+    display: grid; grid-template-columns: 70px 240px 1fr; gap: 18px;
+    align-items: baseline;
+    border-top: 1px solid var(--line); padding: 22px 4px;
+  }
+  .ledger-no { font-family: 'Lalezar'; font-size: 21px; color: var(--accent-bright); opacity: 0.9; }
+  .ledger-row h3 { font-size: 16.5px; font-weight: 700; }
+  .ledger-row p { color: var(--muted); font-size: 14px; max-width: 60ch; }
+
+  /* ---------- اعداد: تایپوگرافیک، بدون جعبه ---------- */
+  .figures { max-width: 1180px; margin: 64px auto 0; padding: 0 24px; }
+  .figures-row {
+    display: flex; flex-wrap: wrap;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .figure {
+    flex: 1 1 200px; padding: 30px 20px 26px;
+    border-left: 1px solid var(--line);
+  }
+  .figure:last-child { border-left: 0; }
+  .figure b { display: block; font-weight: 900; font-size: 42px; line-height: 1.15; color: var(--ink); direction: ltr; unicode-bidi: isolate; text-align: right; }
+  .figure b small { font-size: 20px; color: var(--accent-bright); font-weight: 700; }
+  .figure span { font-size: 13px; color: var(--muted); }
+
+  .cta-line { max-width: 1180px; margin: 54px auto 0; padding: 0 24px; }
+  .cta-line p { font-size: 15px; }
+  .cta-line a { color: var(--accent-bright); font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(52,211,153,.4); }
+
+  footer {
+    max-width: 1180px; margin: 60px auto 0; padding: 20px 24px 34px;
+    border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 12.5px;
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+
+  /* ---------- واکنش‌گرایی ---------- */
+  @media (max-width: 900px) {
+    .stage-container { min-height: 560px; padding: 44px 12px; }
+    .ledger-row { grid-template-columns: 56px 1fr; }
+    .ledger-row p { grid-column: 2; }
+  }
+  @media (max-width: 640px) {
+    .masthead { padding-top: 20px; }
+    .intro h1 { font-size: 24px; }
+    .stage-container { min-height: 520px; border-radius: 20px; }
+    .ledger-row { grid-template-columns: 1fr; gap: 6px; }
+    .ledger-no { order: -1; }
+    .figure { flex: 1 1 44%; border-left: 0; border-bottom: 1px solid var(--line); }
+    .figure:nth-child(odd) { border-left: 1px solid var(--line); }
+    .figures-row { border-bottom: 0; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- Background Orbs to highlight translucent frosted glass -->
-  <div class="ambient-orb orb-1"></div>
-  <div class="ambient-orb orb-2"></div>
-  <div class="ambient-orb orb-3"></div>
-
-  <!-- ==========================================================================
-       Header
-       ========================================================================== -->
-  <header>
-    <a href="#" class="brand">
-      <div class="brand-logo-wrap">
-        <img src="assets/logo.svg?v=5.0" alt="رازک" width="34" height="34">
-      </div>
+  <header class="masthead">
+    <div class="brand">
+      <img src="assets/logo.svg" alt="لوگوی رازک">
       <div>
-        <div class="brand-name">رازک <span class="brand-tag">v1.0</span></div>
+        <span class="brand-name">رازک</span><span class="brand-ver">۱.۰</span>
+        <span class="brand-sub">ورود پیامکی برای وردپرس و ووکامرس</span>
       </div>
-    </a>
-    <div class="nav-actions">
-      <button type="button" class="btn-popup-test" id="btn-open-fullscreen">
-        تست پاپ‌آپ تمام‌صفحه
-      </button>
-      <a href="https://www.rtl-theme.com" class="btn-rtltheme" target="_blank">
-        خرید از راست‌چین
-      </a>
     </div>
+    <nav class="masthead-actions">
+      <button type="button" id="btn-open-fullscreen" class="btn-solid">باز کردن پنجره واقعی</button>
+      <a class="btn-text" href="https://www.rtl-theme.com" target="_blank" rel="noopener noreferrer">خرید از راست‌چین</a>
+    </nav>
   </header>
 
-  <!-- ==========================================================================
-       Hero Section
-       ========================================================================== -->
-  <section class="hero">
-    <div class="hero-badge"><span class="pulse-dot"></span> پیش‌نمایش زنده نسخه ۱.۰</div>
-    <h1>احراز هویت OTP و ورود با گوگل <span>برای وردپرس و ووکامرس</span></h1>
-    <p>ورود بدون رمز عبور از طریق پیامک یا حساب گوگل — با رابط شیشه‌ای قابل شخصی‌سازی.</p>
-    <p class="hero-noredirect">⚡ ورود درجا با پاپ‌آپ مودال؛ برخلاف افزونه‌های رایج، کاربر هرگز به صفحه‌ی لاگین ریدایرکت نمی‌شود.</p>
-  </section>
+  <div class="intro">
+    <h1>ورود با شماره موبایل، <em>داخل همان صفحه</em></h1>
+    <p>این نسخهٔ زندهٔ پنجره ورود رازک است — همان چیزی که بعد از نصب روی سایت شما می‌نشیند. دست‌کاری‌اش کنید تا با برندتان جور دربیاید.</p>
+  </div>
 
-  <!-- ==========================================================================
-       Studio: Controls (Right) + Exact Live Modal (Left)
-       ========================================================================== -->
-  <div class="studio-container">
-
-    <!-- Controls Column -->
-    <div class="control-panel">
-      <div class="panel-title">
-        <span>شخصی‌سازی</span>
-      </div>
-
-      <!-- Theme Style Selector -->
-      <div class="panel-group">
-        <label class="group-label">پوسته ظاهری مودال (UI Style):</label>
-        <div class="style-grid">
-          <button type="button" class="style-btn active" data-style="glass">شیشه‌ای (Glass)</button>
-          <button type="button" class="style-btn" data-style="solid">سفید مات (Solid)</button>
-          <button type="button" class="style-btn" data-style="outline">خطی (Outline)</button>
-          <button type="button" class="style-btn" data-style="dark">تاریک نئون (Dark)</button>
-        </div>
-      </div>
-
-      <!-- Accent Color Swatches -->
-      <div class="panel-group">
-        <label class="group-label">رنگ سازمانی و دکمه‌ها (Accent Color):</label>
-        <div class="color-swatches">
-          <div class="color-swatch active" style="background: #10b981; --swatch-color: #10b981;" data-color="#10b981" title="زمردی"></div>
-          <div class="color-swatch" style="background: #06b6d4; --swatch-color: #06b6d4;" data-color="#06b6d4" title="فیروزه‌ای"></div>
-          <div class="color-swatch" style="background: #6366f1; --swatch-color: #6366f1;" data-color="#6366f1" title="نیلی"></div>
-          <div class="color-swatch" style="background: #f59e0b; --swatch-color: #f59e0b;" data-color="#f59e0b" title="کهربایی"></div>
-          <div class="color-swatch" style="background: #f43f5e; --swatch-color: #f43f5e;" data-color="#f43f5e" title="یاقوتی"></div>
-        </div>
-      </div>
-
-      <!-- Background Image Preset & Upload -->
-      <div class="panel-group">
-        <label class="group-label">پس‌زمینه مودال (Background):</label>
-        <div class="bg-presets">
-          <button type="button" class="bg-preset-btn active" data-bg="razak">رازک</button>
-          <button type="button" class="bg-preset-btn" data-bg="ember">اخگر</button>
-          <button type="button" class="bg-preset-btn" data-bg="ocean">اقیانوس</button>
-          <button type="button" class="bg-preset-btn" data-bg="dusk">شفق</button>
-          <button type="button" class="bg-preset-btn" data-bg="obsidian">ابسیدین</button>
-          <button type="button" class="bg-preset-btn" data-bg="amethyst">آمتیست</button>
-          <button type="button" class="bg-preset-btn" data-bg="aurora">شفق قطبی</button>
-          <button type="button" class="bg-preset-btn" data-bg="crimson">زرشکی</button>
-          <button type="button" class="bg-preset-btn" data-bg="midnight">نیمه‌شب</button>
-          <button type="button" class="bg-preset-btn" data-bg="none">بدون</button>
-        </div>
-        <div class="upload-row">
-          <label class="btn-upload" for="file-bg-upload">
-            آپلود تصویر
-            <input type="file" id="file-bg-upload" accept="image/*" style="display:none;">
-          </label>
-        </div>
-      </div>
-
-      <!-- Logo & Slogan Controls -->
-      <div class="panel-group">
-        <label class="group-label">لوگو و شعار برند (Branding):</label>
-        <div class="logo-controls">
-          <button type="button" class="logo-opt-btn active" id="logo-btn-rzk">لوگوی رازک</button>
-          <button type="button" class="logo-opt-btn" id="logo-btn-store">لوگوی فروشگاهی</button>
-          <label class="logo-opt-btn" for="file-logo-upload" style="cursor: pointer;">
-            آپلود لوگو
-            <input type="file" id="file-logo-upload" accept="image/*" style="display:none;">
-          </label>
-        </div>
-        <input type="text" class="slogan-input" id="inp-slogan" value="ورود امن و سریع به حساب کاربری" placeholder="متن شعار زیر لوگو">
-      </div>
-
-      <!-- Blur Intensity Slider -->
-      <div class="panel-group">
-        <label class="group-label">شدت ماتی شیشه (Blur Level):</label>
-        <div class="slider-row">
-          <input type="range" class="slider-input" id="slider-blur" min="0" max="120" value="24">
-          <span class="slider-val" id="val-blur">24px</span>
-        </div>
-      </div>
-
-      <!-- Feature Toggles -->
-      <div class="panel-group">
-        <label class="group-label">ماژول‌ها و گزینه‌های فعال:</label>
-        <div class="toggle-list">
-          <div class="toggle-item checked" id="toggle-google">
-            <span class="toggle-text">ورود سریع با اکانت گوگل (Google One-Tap)</span>
-            <div class="switch"></div>
-          </div>
-          <div class="toggle-item checked" id="toggle-captcha">
-            <span class="toggle-text">کپچای ریاضی تصادفی ضد اسپم</span>
-            <div class="switch"></div>
-          </div>
-          <div class="toggle-item checked" id="toggle-terms">
-            <span class="toggle-text">چک‌باکس پذیرش قوانین و مقررات</span>
-            <div class="switch"></div>
-          </div>
-          <div class="toggle-item checked" id="toggle-fullname">
-            <span class="toggle-text">فیلد نام کاربر برای ثبت‌نام</span>
-            <div class="switch"></div>
-          </div>
-        </div>
-      </div>
-
-      <button type="button" class="btn-reset-demo" id="btn-reset">
-        🔄 بازنشانی تست به مرحله اول
-      </button>
-    </div>
-
-    <!-- Live Stage Column -->
+  <section class="bench">
     <div class="stage-container">
-      <!-- Backdrop with colorful ambient shapes for genuine frosted glass effect -->
-      <div class="stage-backdrop bg-razak" id="stage-backdrop">
-        <div class="stage-bg-art">
-          <div class="art-circle art-c1"></div>
-          <div class="art-circle art-c2"></div>
-          <div class="art-circle art-c3"></div>
-        </div>
-
-        <!-- THE EXACT FROSTED GLASS MODAL BOX -->
-        <div class="rzk-modal-box" id="demo-modal-box">
+      <div id="stage-backdrop" class="stage-backdrop"></div>
+      <span class="stage-note">پیش‌نمایش زنده — هر تغییری بلافاصله اعمال می‌شود</span>
+<div class="rzk-modal-box" id="demo-modal-box">
           
           <div class="rzk-brand-header">
-            <img class="rzk-logo-img" id="demo-logo-img" src="assets/logo.svg?v=5.0" alt="لوگو">
-            <p class="rzk-slogan" id="demo-slogan">ورود امن و سریع به حساب کاربری</p>
+            <img class="rzk-logo-img" id="demo-logo-img" src="assets/logo.svg?v=8.0" alt="لوگو">
+            <p class="rzk-slogan" id="demo-slogan">ورود بدون رمز عبور، فقط با یک کد</p>
           </div>
 
           <!-- STEP 1: Phone Number -->
           <div id="rzk-step-phone" class="rzk-step active">
-            <h3>شماره موبایل خود را وارد کنید</h3>
+            <h3>ورود یا ثبت‌نام</h3>
 
             <!-- Google Button -->
             <div class="rzk-google-wrap" id="demo-google-wrap">
@@ -1495,13 +470,13 @@
               </label>
             </div>
 
-            <button type="button" id="demo-btn-continue">دریافت کد تایید</button>
+            <button type="button" id="demo-btn-continue">ادامه</button>
             <div class="rzk-msg" id="demo-msg-phone"></div>
           </div>
 
           <!-- STEP 2: OTP Code -->
           <div id="rzk-step-otp" class="rzk-step">
-            <h3>کد تایید ارسال شد</h3>
+            <h3>کد تایید را وارد کنید</h3>
             <p class="rzk-slogan" id="demo-otp-desc">کد ۶ رقمی ارسال شده به شماره را وارد کنید</p>
 
             <!-- 6 Segmented Digits -->
@@ -1519,7 +494,7 @@
               <input type="text" id="demo-fullname" placeholder="نام و نام خانوادگی شما">
             </div>
 
-            <button type="button" id="demo-btn-verify">تایید و ورود به سایت</button>
+            <button type="button" id="demo-btn-verify">تایید و ورود</button>
 
             <div class="rzk-resend-row">
               کد را دریافت نکردید؟ <span id="demo-resend-btn">ارسال مجدد</span> (<span id="demo-timer">54</span> ثانیه)
@@ -1536,29 +511,101 @@
                 <path class="rzk-checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
               </svg>
             </div>
-            <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 6px;">ورود با موفقیت انجام شد!</h3>
-            <p class="rzk-slogan" style="margin-bottom: 20px;">خوش آمدید، در حال انتقال به پیشخوان کاربری...</p>
-            <button type="button" id="demo-btn-restart">تست مجدد از ابتدا</button>
+            <h3 style="font-size: 20px; font-weight: 650; margin-bottom: 6px;">خوش آمدید</h3>
+            <p class="rzk-slogan" style="margin-bottom: 20px;">در حال انتقال به حساب کاربری…</p>
+            <button type="button" id="demo-btn-restart">دوباره از اول</button>
           </div>
 
         </div>
-
-      </div>
     </div>
 
+    <div class="bench-controls">
+      <div class="cluster">
+        <span class="cluster-label">استایل</span>
+        <div class="opt-row">
+          <button class="style-btn active" data-style="glass">شیشه‌ای</button>
+          <button class="style-btn" data-style="solid">سفید مات</button>
+          <button class="style-btn" data-style="outline">خط‌دار</button>
+          <button class="style-btn" data-style="dark">تیره</button>
+        </div>
+      </div>
+
+      <div class="cluster">
+        <span class="cluster-label">رنگ برند</span>
+        <div class="opt-row"><button class="color-swatch active" data-color="#10b981" style="background:#10b981" aria-label="زمردی"></button><button class="color-swatch" data-color="#06b6d4" style="background:#06b6d4" aria-label="فیروزه‌ای"></button><button class="color-swatch" data-color="#6366f1" style="background:#6366f1" aria-label="نیلی"></button><button class="color-swatch" data-color="#f59e0b" style="background:#f59e0b" aria-label="کهربایی"></button><button class="color-swatch" data-color="#ef4444" style="background:#ef4444" aria-label="یاقوتی"></button></div>
+      </div>
+
+      <div class="cluster">
+        <span class="cluster-label">پس‌زمینه پنجره</span>
+        <div class="opt-row"><button class="bg-preset-btn active" data-bg="razak">رازک</button><button class="bg-preset-btn" data-bg="ember">اخگر</button><button class="bg-preset-btn" data-bg="ocean">اقیانوس</button><button class="bg-preset-btn" data-bg="dusk">شفق</button><button class="bg-preset-btn" data-bg="obsidian">ابسیدین</button><button class="bg-preset-btn" data-bg="amethyst">آمتیست</button><button class="bg-preset-btn" data-bg="aurora">شفق قطبی</button><button class="bg-preset-btn" data-bg="crimson">زرشکی</button><button class="bg-preset-btn" data-bg="midnight">نیمه‌شب</button><button class="bg-preset-btn" data-bg="none">بدون</button>
+          <label class="upload-label">آپلود تصویر<input type="file" id="file-bg-upload" accept="image/*"></label>
+        </div>
+      </div>
+
+      <div class="cluster">
+        <span class="cluster-label">برند</span>
+        <div class="opt-row">
+          <button class="logo-opt-btn active" id="logo-btn-rzk">لوگوی رازک</button>
+          <button class="logo-opt-btn" id="logo-btn-store">لوگوی فروشگاهی</button>
+          <label class="upload-label">آپلود لوگو<input type="file" id="file-logo-upload" accept="image/*"></label>
+          <input type="text" class="inp-slogan" id="inp-slogan" placeholder="شعار زیر لوگو…">
+        </div>
+      </div>
+
+      <div class="cluster">
+        <span class="cluster-label">شیشه</span>
+        <div class="blur-row">
+          <input type="range" id="slider-blur" min="0" max="60" step="2" value="24" aria-label="میزان مات شدن شیشه">
+          <span class="blur-val" id="val-blur">24px</span>
+        </div>
+      </div>
+
+      <div class="cluster">
+        <span class="cluster-label">گزینه‌ها</span>
+        <div class="opt-row"><span class="switch-row toggle-item checked" id="toggle-google"><span class="switch"></span>ورود با گوگل</span><span class="switch-row toggle-item checked" id="toggle-captcha"><span class="switch"></span>کپچا</span><span class="switch-row toggle-item checked" id="toggle-terms"><span class="switch"></span>قوانین</span><span class="switch-row toggle-item checked" id="toggle-fullname"><span class="switch"></span>گرفتن نام</span></div>
+      </div>
+
+      <button type="button" id="btn-reset" class="bench-reset">بازگشت به پیش‌فرض</button>
+    </div>
+  </section>
+
+  <section class="ledger">
+    <h2>چه چیزی داخل افزونه است</h2>
+    <p class="ledger-sub">هر امکان با یک جمله؛ فهرست کاملش در صفحهٔ محصول راست‌چین آمده.</p>
+    <div class="ledger-row"><span class="ledger-no">۰۱</span><h3>ورود با حساب گوگل</h3><p>کاربر با حساب گوگل خودش وارد می‌شود؛ نام، ایمیل و عکس پروفایلش از همان حساب می‌آید و در پروفایل وردپرس می‌نشیند.</p></div>
+    <div class="ledger-row"><span class="ledger-no">۰۲</span><h3>ارسال کد از پیام‌رسان</h3><p>کد تایید می‌تواند با ربات بله، ایتا یا تلگرام برسد؛ در این حالت هزینه پیامکی پرداخت نمی‌کنید.</p></div>
+    <div class="ledger-row"><span class="ledger-no">۰۳</span><h3>کپچای ریاضی داخلی</h3><p>پیش از ارسال کد، یک جمع یا تفریق ساده از کاربر پرسیده می‌شود تا درخواست‌های خودکار به پنل پیامک نرسند. بدون هیچ کلید و سرویس بیرونی.</p></div>
+    <div class="ledger-row"><span class="ledger-no">۰۴</span><h3>ووکامرس</h3><p>فرم ورود در صفحهٔ «حساب کاربری من» و بالای تسویه‌حساب دیده می‌شود. شمارهٔ تاییدشده در فیلد تلفن صورتحساب می‌نشیند.</p></div>
+    <div class="ledger-row"><span class="ledger-no">۰۵</span><h3>ارقام فارسی</h3><p>اعداد فارسی و عربی هنگام تایپ به لاتین تبدیل می‌شوند؛ کاربر لازم نیست صفحه‌کلیدش را عوض کند.</p></div>
+    <div class="ledger-row"><span class="ledger-no">۰۶</span><h3>۱۳ سرویس پیامکی</h3><p>فراز، کاوه‌نگار، SMS.ir، ملی‌پیامک، فراپیامک، مگفا، قاصدک، Twilio، Vonage، وبهوک — و ربات‌های بله، ایتا و تلگرام.</p></div>
+  </section>
+
+  <section class="figures">
+    <div class="figures-row">
+      <div class="figure"><b>&lt;49<small>KB</small></b><span>حجم CSS و JS خام افزونه</span></div>
+      <div class="figure"><b>≈11<small>KB</small></b><span>همین دو فایل با فشرده‌سازی gzip</span></div>
+      <div class="figure"><b>۰</b><span>کتابخانه، فونت یا CDN خارجی</span></div>
+      <div class="figure"><b>۰</b><span>خط jQuery</span></div>
+    </div>
+  </section>
+
+  <div class="cta-line">
+    <p>آمادهٔ نصب؟ <a href="https://www.rtl-theme.com" target="_blank" rel="noopener noreferrer">صفحهٔ محصول در راست‌چین</a></p>
   </div>
 
-  <!-- ==========================================================================
-       REAL FULLSCREEN MODAL POPUP (Triggered via Header Button)
-       ========================================================================== -->
+  <footer>
+    <span>ساخته‌شده توسط Hasan Mfar</span>
+    <span>عرضه در راست‌چین</span>
+  </footer>
+
   <div id="rzk-modal-overlay">
     <div class="rzk-modal-box" id="popup-modal-box">
-      <span class="rzk-close" id="popup-close">&times;</span>
+      <button type="button" class="rzk-close" id="popup-close" aria-label="بستن پنجره">&times;</button>
       <div class="rzk-brand-header">
-        <img class="rzk-logo-img" id="popup-logo-img" src="assets/logo.svg?v=5.0" alt="لوگو">
-        <p class="rzk-slogan">مودال شیشه‌ای زنده رازک بر روی سایت شما</p>
+        <img class="rzk-logo-img" id="popup-logo-img" src="assets/logo.svg?v=8.0" alt="لوگو">
+        <p class="rzk-slogan">این همان پنجره‌ای است که روی سایت شما نصب می‌شود</p>
       </div>
-      <h3>ورود با شماره موبایل</h3>
+      <h3>ورود یا ثبت‌نام</h3>
       
       <div class="rzk-google-wrap">
         <button type="button" class="rzk-btn-google">
@@ -1574,145 +621,13 @@
       </div>
 
       <input type="tel" id="popup-phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" inputmode="numeric">
-      <button type="button" id="popup-btn-submit" style="margin-top: 10px;">دریافت کد تایید</button>
+      <button type="button" id="popup-btn-submit" style="margin-top: 10px;">ادامه</button>
       <div class="rzk-msg" id="popup-msg"></div>
     </div>
   </div>
 
-  <!-- ==========================================================================
-       Speed Benchmark & Feature Cards
-       ========================================================================== -->
-  <section class="features-section">
-    
-    <!-- Speed Benchmark Card -->
-    <div class="comparison-card">
-      <div class="section-title-wrap" style="margin-bottom: 0;">
-        <h2>عملکرد فنی و سبکی فرانت‌اند (Performance Metric)</h2>
-        <p>بدون حتی ۱ خط کد jQuery • بدون وابستگی به CDN خارجی • پایداری در انواع شبکه‌ها</p>
-      </div>
-
-      <div class="comp-grid">
-        <div class="comp-item">
-          <div class="comp-number">&lt; 34 KB</div>
-          <div class="comp-label">حجم بسته کلاینت (CSS + JS)</div>
-        </div>
-        <div class="comp-item">
-          <div class="comp-number" style="color: #ef4444;">1,400 KB</div>
-          <div class="comp-label">میانگین سایر افزونه‌ها</div>
-        </div>
-        <div class="comp-item">
-          <div class="comp-number">0.02s</div>
-          <div class="comp-label">زمان اجرای اسکریپت در مرورگر</div>
-        </div>
-        <div class="comp-item">
-          <div class="comp-number">0 jQuery</div>
-          <div class="comp-label">فناوری نوین Vanilla JS خالص</div>
-        </div>
-        <div class="comp-item">
-          <div class="comp-number">0 Redirect</div>
-          <div class="comp-label">ورود درجا با پاپ‌آپ؛ بدون ریدایرکت به صفحه لاگین</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Feature Grid -->
-    <div class="section-title-wrap">
-      <h2>ویژگی‌های کلیدی و معماری محصول</h2>
-      <p>طراحی شده با استانداردهای مدرن توسعه وب و سازگاری کامل با اکوسیستم وردپرس</p>
-    </div>
-
-    <div class="features-grid">
-      <div class="f-card">
-        <div class="f-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-            <line x1="9" y1="9" x2="15" y2="15"/>
-            <line x1="15" y1="9" x2="9" y2="15"/>
-          </svg>
-        </div>
-        <h3>ورود درجا، بدون ریدایرکت (No Redirect)</h3>
-        <p>برخلاف افزونه‌های رایج که کاربر را به صفحه‌ی لاگین جداگانه می‌فرستند، کل فرآیند ورود داخل یک پاپ‌آپ مودال فوق‌سبک روی همین صفحه انجام می‌شود؛ بدون رفرش و بدون ترک صفحه.</p>
-      </div>
-
-      <div class="f-card">
-        <div class="f-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="2" y1="12" x2="22" y2="12"/>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-          </svg>
-        </div>
-        <h3>ورود رسمی با گوگل (One-Tap)</h3>
-        <p>کاربر با یک کلیک و بدون نیاز به پیامک با اکانت گوگل خود ثبت‌نام کرده و وارد می‌شود؛ نام، ایمیل و تصویر پروفایل اتوماتیک ست می‌گردد.</p>
-      </div>
-
-      <div class="f-card">
-        <div class="f-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          </svg>
-        </div>
-        <h3>ارسال پیامک از پیام‌رسان‌ها</h3>
-        <p>پشتیبانی بومی از ربات‌های پیام‌رسان بله و ایتا برای ارسال سریع کدهای اعتبارسنجی با کمترین هزینه و بالاترین پایداری.</p>
-      </div>
-
-      <div class="f-card">
-        <div class="f-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
-        </div>
-        <h3>کپچای ریاضی ضد اتک ربات‌ها</h3>
-        <p>جلوگیری قطعی از ارسال اسپم و ترافیک فیک به پنل پیامک، با فرمول‌های تصادفی ریاضی امضا شده با Salt امنیتی وردپرس.</p>
-      </div>
-
-      <div class="f-card">
-        <div class="f-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="21" r="1"/>
-            <circle cx="20" cy="21" r="1"/>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-          </svg>
-        </div>
-        <h3>هماهنگی کامل با ووکامرس</h3>
-        <p>جایگزینی هوشمند با صفحه «حساب کاربری من» و فیلد ورود تسویه حساب ووکامرس (چه در فرم کلاسیک و چه در Checkout بلوکی جدید).</p>
-      </div>
-
-      <div class="f-card">
-        <div class="f-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="4 7 4 4 20 4 20 7"/>
-            <line x1="9" y1="20" x2="15" y2="20"/>
-            <line x1="12" y1="4" x2="12" y2="20"/>
-          </svg>
-        </div>
-        <h3>تبدیل خودکار ارقام فارسی</h3>
-        <p>استانداردسازی خودکار اعداد فارسی و عربی کیبورد گوشی به فرمت بین‌المللی برای جلوگیری از هرگونه خطای تایپی کاربر.</p>
-      </div>
-
-      <div class="f-card">
-        <div class="f-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-            <line x1="12" y1="18" x2="12.01" y2="18"/>
-          </svg>
-        </div>
-        <h3>سازگار با تمام سامانه‌های پیامک</h3>
-        <p>پشتیبانی کامل از فراز اس‌ام‌اس (آی‌پنل)، کاوه‌نگار، SMS.ir، ملی‌پیامک، قاصدک، فراپیامک، مگفا و خطوط خدماتی بدون بلک‌لیست.</p>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>طراحی و توسعه با افتخار توسط <strong>Hasan Mfar</strong> • ارائه شده با پشتیبانی اختصاصی در مارکت‌پلیس <strong>راست‌چین (RTL-Theme)</strong></p>
-  </footer>
-
-  <!-- ==========================================================================
-       Interactive Studio JavaScript Logic
-       ========================================================================== -->
   <script>
+
     (function () {
       'use strict';
 
@@ -1788,32 +703,27 @@
 
 
       function applyModalBg(bgVal) {
-        var boxes = [demoModalBox, popupModalBox];
         var overlay = document.getElementById('rzk-modal-overlay');
-        
-        if (overlay) {
-          overlay.style.backgroundImage = 'none'; // No image on overlay
-        }
 
-        boxes.forEach(function (box) {
+        // شیشه‌ای واقعی: تصویر پشت پنل نقاشی می‌شود (استیج و اورلی پاپ‌آپ)،
+        // نه داخل خود پنل — تا backdrop-filter آن را واقعاً مات کند.
+        [demoModalBox, popupModalBox].forEach(function (box) {
           if (!box) return;
-          
-          if (!bgVal || bgVal === 'none') {
-            box.classList.remove('has-custom-bg');
-            box.style.backgroundColor = 'rgba(255, 255, 255, 0.12)';
-            box.style.backgroundImage = 'none';
-            box.style.backdropFilter = 'blur(20px) saturate(160%)';
-            box.style.webkitBackdropFilter = 'blur(20px) saturate(160%)';
-          } else {
-            box.classList.add('has-custom-bg');
-            // شیشهٔ تیرهٔ یخزده: تصویر از پشت تینت ملایم دیده می‌شود + متن سفید خوانا می‌ماند
-            box.style.backgroundColor = 'transparent';
-            box.style.backgroundImage = 'linear-gradient(rgba(10, 15, 28, 0.16), rgba(10, 15, 28, 0.30)), ' + bgVal;
-            box.style.backgroundSize = 'cover';
-            box.style.backgroundPosition = 'center';
-            box.style.backgroundRepeat = 'no-repeat';
-          }
+          box.classList.remove('has-custom-bg');
+          box.style.backgroundColor = (!bgVal || bgVal === 'none') ? '' : 'rgba(10, 15, 26, 0.55)';
+          box.style.backgroundImage = 'none';
         });
+
+        if (overlay) {
+          if (!bgVal || bgVal === 'none') {
+            overlay.style.backgroundImage = 'none';
+          } else {
+            overlay.style.backgroundImage = 'linear-gradient(rgba(4, 8, 14, 0.55), rgba(4, 8, 14, 0.55)), ' + bgVal;
+            overlay.style.backgroundSize = 'cover';
+            overlay.style.backgroundPosition = 'center';
+            overlay.style.backgroundRepeat = 'no-repeat';
+          }
+        }
       }
 
       // Gradient preset definitions — background for both stage and modal
@@ -1894,16 +804,16 @@
       document.getElementById('logo-btn-rzk').addEventListener('click', function () {
         document.querySelectorAll('.logo-opt-btn').forEach(function (b) { b.classList.remove('active'); });
         this.classList.add('active');
-        demoLogoImg.src = 'assets/logo.svg?v=5.0';
-        popupLogoImg.src = 'assets/logo.svg?v=5.0';
+        demoLogoImg.src = 'assets/logo.svg?v=8.0';
+        popupLogoImg.src = 'assets/logo.svg?v=8.0';
         document.documentElement.style.setProperty('--rzk-logo-h', '46px');
       });
 
       document.getElementById('logo-btn-store').addEventListener('click', function () {
         document.querySelectorAll('.logo-opt-btn').forEach(function (b) { b.classList.remove('active'); });
         this.classList.add('active');
-        demoLogoImg.src = 'assets/store-logo.svg?v=5.0';
-        popupLogoImg.src = 'assets/store-logo.svg?v=5.0';
+        demoLogoImg.src = 'assets/store-logo.svg?v=8.0';
+        popupLogoImg.src = 'assets/store-logo.svg?v=8.0';
         document.documentElement.style.setProperty('--rzk-logo-h', '50px');
       });
 
@@ -1982,7 +892,7 @@
 
         var phone = normalizeFa(phoneInp.value.trim());
         if (!phone || phone.length < 10) {
-          msgPhone.textContent = 'لطفاً شماره موبایل معتبر (۱۱ رقم) وارد کنید.';
+          msgPhone.textContent = 'شماره موبایل باید ۱۱ رقم باشد و با ۰۹ شروع شود.';
           msgPhone.classList.add('error');
           phoneInp.focus();
           return;
@@ -1992,7 +902,7 @@
         if (captchaWrap && captchaWrap.style.display !== 'none') {
           var ans = normalizeFa(document.getElementById('demo-captcha-ans').value.trim());
           if (parseInt(ans, 10) !== (captchaA + captchaB)) {
-            msgPhone.textContent = 'پاسخ سوال ریاضی اشتباه است! دوباره امتحان کنید.';
+            msgPhone.textContent = 'جواب کپچا درست نیست؛ دوباره امتحان کنید.';
             msgPhone.classList.add('error');
             newCaptcha();
             return;
@@ -2002,17 +912,17 @@
         var termsWrap = document.getElementById('demo-terms-wrap');
         if (termsWrap && termsWrap.style.display !== 'none') {
           if (!document.getElementById('demo-terms-cb').checked) {
-            msgPhone.textContent = 'جهت ادامه باید تیک قوانین را تایید کنید.';
+            msgPhone.textContent = 'برای عضویت باید قوانین سایت را بپذیرید.';
             msgPhone.classList.add('error');
             return;
           }
         }
 
-        btnCont.textContent = 'در حال ارسال پیامک...';
+        btnCont.textContent = 'در حال ارسال…';
         btnCont.disabled = true;
 
         setTimeout(function () {
-          btnCont.textContent = 'دریافت کد تایید';
+          btnCont.textContent = 'ادامه';
           btnCont.disabled = false;
           showStep('rzk-step-otp');
 
@@ -2065,16 +975,16 @@
         otpInputs.forEach(function (d) { code += d.value; });
 
         if (code.length < 6) {
-          msgOtp.textContent = 'لطفاً کد ۶ رقمی کامل را وارد کنید.';
+          msgOtp.textContent = 'کد ۶ رقمی را کامل وارد کنید.';
           msgOtp.classList.add('error');
           return;
         }
 
-        btnVerify.textContent = 'در حال اعتبارسنجی...';
+        btnVerify.textContent = 'در حال بررسی…';
         btnVerify.disabled = true;
 
         setTimeout(function () {
-          btnVerify.textContent = 'تایید و ورود به سایت';
+          btnVerify.textContent = 'تایید و ورود';
           btnVerify.disabled = false;
           showStep('rzk-step-success');
         }, 600);
@@ -2105,7 +1015,11 @@
 
       document.getElementById('demo-resend-btn').addEventListener('click', function () {
         startTimer();
-        alert('کد تایید جدید پیامک شد!');
+        var resendNote = document.getElementById('demo-msg-otp');
+        if (resendNote) {
+          resendNote.textContent = 'کد تایید دوباره ارسال شد.';
+          resendNote.className = 'rzk-msg success';
+        }
       });
 
       document.getElementById('demo-btn-restart').addEventListener('click', function () {
@@ -2143,15 +1057,16 @@
         var pMsg = document.getElementById('popup-msg');
         var pPhone = document.getElementById('popup-phone').value.trim();
         if (!pPhone) {
-          pMsg.textContent = 'شماره موبایل را وارد نمایید.';
+          pMsg.textContent = 'شماره موبایل را وارد کنید.';
           pMsg.className = 'rzk-msg error';
           return;
         }
-        pMsg.textContent = 'پیامک ارسال شد! (تست زنده پاپ‌آپ)';
+        pMsg.textContent = 'کد تایید ارسال شد.';
         pMsg.className = 'rzk-msg success';
       });
 
     })();
+  
   </script>
 </body>
 </html>

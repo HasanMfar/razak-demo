@@ -1,592 +1,992 @@
-/* ==========================================================================
-   Glassy OTP Login - Core Styles & Customization Variables
-   ========================================================================== */
+/* Hallmark · component: auth modal · genre: modern-minimal · theme: Quiet Glass
+ * states: default · hover · focus-visible · active · disabled · loading · error · success
+ * contrast: text ≥4.5:1 on glass, solid, outline and dark surfaces
+ *
+ * Every colour, radius, duration and space below is a named token.
+ * Site owners override the tokens on #rzk-modal-overlay (see README → CSS variables).
+ */
 
 :root {
-    --rzk-accent: #007cba;
-    --rzk-radius: 20px;
-    --rzk-btn-radius: 12px;
-    --rzk-width: 380px;
-    --rzk-blur: 8px;
-    --rzk-transition: 0.3s;
+    /* Brand */
+    --rzk-accent: #00628f;
+    --rzk-accent-ink: #ffffff;
+    --rzk-radius: 18px;
+    --rzk-btn-radius: 10px;
+    --rzk-width: 384px;
+    --rzk-blur: 14px;
+
+    /* Motion */
+    --rzk-transition: 0.18s;
+    --rzk-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --rzk-dur-1: 120ms;
+    --rzk-dur-2: 180ms;
+    --rzk-dur-3: 240ms;
+
+    /* Spacing (4pt scale) */
+    --rzk-space-1: 4px;
+    --rzk-space-2: 8px;
+    --rzk-space-3: 12px;
+    --rzk-space-4: 16px;
+    --rzk-space-5: 24px;
+    --rzk-space-6: 32px;
+
+    /* Surfaces: default = glass, overridden per style below */
+    --rzk-overlay: 0.55;
+    --rzk-surface: rgba(13, 19, 30, 0.74);
+    --rzk-surface-2: rgba(255, 255, 255, 0.06);
+    --rzk-line: rgba(255, 255, 255, 0.16);
+    --rzk-line-strong: rgba(255, 255, 255, 0.3);
+    --rzk-ink: #f7fafc;
+    --rzk-ink-soft: rgba(247, 250, 252, 0.76);
+    --rzk-ink-faint: rgba(247, 250, 252, 0.56);
+    --rzk-focus: #8ccbff;
+    --rzk-danger: #ff9d9d;
+    --rzk-success: #5ad1a8;
+    --rzk-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 24px 48px -12px rgba(0, 0, 0, 0.55);
+
+    --rzk-logo-h: 40px;
 }
 
-/* استایل دکمه بازکننده در هدر و صفحات */
+/* ==========================================================================
+   1. Trigger button
+   ========================================================================== */
+
 .rzk-trigger-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--rzk-space-2);
+    padding: var(--rzk-space-2) var(--rzk-space-4);
+    font: inherit;
+    font-weight: 600;
+    line-height: 1.4;
+    color: inherit;
+    background: none;
+    border: 0;
+    border-radius: var(--rzk-btn-radius);
     cursor: pointer;
-    font-weight: bold;
-    padding: 8px 15px;
-    color: #333;
-    transition: var(--rzk-transition);
-    display: inline-block;
+    text-decoration: none;
+    transition: color var(--rzk-dur-2) var(--rzk-ease),
+                background-color var(--rzk-dur-2) var(--rzk-ease),
+                border-color var(--rzk-dur-2) var(--rzk-ease);
 }
-.rzk-trigger-btn:hover { color: var(--rzk-accent); }
 
-/* پس‌زمینه تار (Glass Backdrop) */
+.rzk-trigger-btn:focus-visible {
+    outline: 2px solid var(--rzk-focus);
+    outline-offset: 2px;
+}
+
+.rzk-trigger-solid {
+    background: var(--rzk-accent);
+    color: var(--rzk-accent-ink);
+}
+
+.rzk-trigger-solid:hover {
+    background-color: color-mix(in oklab, var(--rzk-accent) 86%, #000);
+}
+
+.rzk-trigger-outline {
+    border: 1.5px solid var(--rzk-accent);
+    color: var(--rzk-accent);
+}
+
+.rzk-trigger-outline:hover {
+    background-color: color-mix(in oklab, var(--rzk-accent) 10%, transparent);
+}
+
+.rzk-trigger-dark {
+    background: #151b22;
+    color: #f7fafc;
+}
+
+.rzk-trigger-dark:hover {
+    background-color: #222b35;
+}
+
+/* ==========================================================================
+   2. Overlay
+   ========================================================================== */
+
 #rzk-modal-overlay {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, var(--rzk-overlay, 0.4));
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+    inset: 0;
     z-index: 99999;
     display: flex;
-    justify-content: center;
     align-items: center;
-    /* مخفی: از pointer-events + visibility استفاده می‌کنیم تا display:none inline بلاک نکند */
+    justify-content: center;
+    padding: var(--rzk-space-4);
+    background: rgba(4, 8, 14, var(--rzk-overlay, 0.55));
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity var(--rzk-transition) ease, visibility var(--rzk-transition) ease;
+    transition: opacity var(--rzk-dur-3) var(--rzk-ease),
+                visibility var(--rzk-dur-3) var(--rzk-ease);
 }
+
 #rzk-modal-overlay.rzk-open {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
 }
 
-/* باکس مودال شیشه‌ای — background را تقسیم می‌کنیم تا background-image override پذیر بماند */
+/* ==========================================================================
+   3. Modal surface
+   ========================================================================== */
+
 .rzk-modal-box {
-    background-color: rgba(255, 255, 255, 0.25);
-    /* لایه‌ی شیشه‌ای فاقد تیرگی: متن سفید با بلور و پرده‌ی بسیار ملایم خوانا می‌ماند */
-    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(180%);
-    -webkit-backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(180%);
-    width: var(--rzk-width, 380px);
-    max-width: 90%;
-    padding: 30px;
-    border-radius: var(--rzk-radius, 20px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.35);
     position: relative;
-    text-align: center;
-    font-family: inherit;
-    transform: translateY(12px) scale(0.98);
-    transition: transform var(--rzk-transition) ease, background-color var(--rzk-transition) ease;
+    width: var(--rzk-width);
+    max-width: 100%;
+    max-height: calc(100dvh - 2 * var(--rzk-space-4));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: var(--rzk-space-5) var(--rzk-space-5) var(--rzk-space-4);
     box-sizing: border-box;
-    color: #ffffff;
-}
-#rzk-modal-overlay.rzk-open .rzk-modal-box {
-    transform: translateY(0) scale(1);
-}
 
-/* جلای مورب شیشه: نوار نور که هنگام باز شدن مودال یک بار می‌گذرد */
-.rzk-modal-box::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    background: linear-gradient(115deg,
-        transparent 30%,
-        rgba(255, 255, 255, 0.16) 44%,
-        rgba(255, 255, 255, 0.05) 50%,
-        transparent 62%);
-    transform: translateX(-130%);
-    transition: none;
-    z-index: 0;
-}
-#rzk-modal-overlay.rzk-open .rzk-modal-box::before {
-    transform: translateX(130%);
-    transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
-}
+    color: var(--rzk-ink);
+    text-align: right;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
 
-/* حجم‌دار شدن لبه‌ی شیشه: نور از بالا-راست، سایه از پایین-چپ */
-.rzk-modal-box::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    background:
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.14), transparent 26%),
-        linear-gradient(to top, rgba(0, 0, 0, 0.16), transparent 30%),
-        linear-gradient(to left, rgba(255, 255, 255, 0.08), transparent 34%),
-        linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent 34%);
-    z-index: 0;
-}
-
-/* پس‌زمینه‌ی تصویری مودال: شیشه‌ی یخزدهٔ ملایم؛ تصویر از پشت با تینت کم دیده می‌شود */
-#rzk-modal-overlay[style*="--rzk-bg"] .rzk-modal-box {
-    background-image: linear-gradient(rgba(10, 15, 28, 0.16), rgba(10, 15, 28, 0.30)), var(--rzk-bg);
-    background-color: transparent;
+    background-color: var(--rzk-surface);
+    background-image: none;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(190%);
-    -webkit-backdrop-filter: blur(var(--rzk-blur, 16px)) saturate(190%);
+
+    border: 1px solid var(--rzk-line);
+    border-radius: var(--rzk-radius);
+    box-shadow: var(--rzk-shadow);
+    -webkit-backdrop-filter: blur(var(--rzk-blur, 14px)) saturate(140%);
+    backdrop-filter: blur(var(--rzk-blur, 14px)) saturate(140%);
+
+    transform: translateY(8px);
+    opacity: 0;
+    transition: transform var(--rzk-dur-3) var(--rzk-ease),
+                opacity var(--rzk-dur-3) var(--rzk-ease);
 }
 
-/* بخش برندینگ: لوگو و شعار */
+#rzk-modal-overlay.rzk-open .rzk-modal-box {
+    transform: none;
+    opacity: 1;
+}
+
+/* Optional background image and gradient presets */
+/* Optional background image and gradient presets:
+   the image is painted on the overlay, behind the panel — the panel stays
+   translucent so backdrop-filter frosts it for real instead of printing
+   a baked copy of the image inside the card. */
+#rzk-modal-overlay[style*="--rzk-bg"] {
+    background-image:
+        linear-gradient(rgba(4, 8, 14, var(--rzk-overlay, 0.55)), rgba(4, 8, 14, var(--rzk-overlay, 0.55))),
+        var(--rzk-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#rzk-modal-overlay[style*="--rzk-bg"] .rzk-modal-box {
+    background-color: rgba(10, 15, 26, 0.55);
+    -webkit-backdrop-filter: blur(calc(var(--rzk-blur, 14px) + 6px)) saturate(150%);
+    backdrop-filter: blur(calc(var(--rzk-blur, 14px) + 6px)) saturate(150%);
+}
+
+/* ==========================================================================
+   4. Brand header
+   ========================================================================== */
+
 .rzk-brand-header {
-    margin: 0 0 16px;
+    margin: 0 0 var(--rzk-space-5);
     text-align: center;
 }
+
 .rzk-logo {
     display: block;
+    width: auto;
     max-width: 70%;
     height: var(--rzk-logo-h, 40px);
-    width: auto;
-    margin: 0 auto 12px;
+    margin: 0 auto var(--rzk-space-2);
     object-fit: contain;
 }
+
 .rzk-slogan {
+    margin: 0;
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.85);
-    margin: -4px 0 16px;
-    font-weight: 500;
-    line-height: 1.5;
-    opacity: 0.9;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--rzk-ink-soft);
 }
+
+/* ==========================================================================
+   5. Close button
+   ========================================================================== */
 
 .rzk-close {
     position: absolute;
-    top: 10px; left: 15px;
-    font-size: 24px;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.85);
-    line-height: 1;
-    transition: color 0.2s ease;
-}
-.rzk-close:hover { color: #fff; }
-
-/* مراحل مودال - انیمیشن ورود نرم */
-.rzk-step { animation: rzk-fade-in var(--rzk-transition) ease; position: relative; z-index: 1; }
-@keyframes rzk-fade-in {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-.rzk-step h3 { margin-bottom: 18px; font-size: 20px; }
-.rzk-step p { font-size: 14px; color: rgba(255, 255, 255, 0.82); margin-bottom: 15px; }
-.rzk-step p small { color: rgba(255, 255, 255, 0.55); }
-
-/* ورودی‌ها */
-.rzk-modal-box input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: none;
-    background: rgba(255, 255, 255, 0.9);
-    color: #1d2327;
-    border-bottom: 2px solid #ddd;
+    inset-block-start: var(--rzk-space-2);
+    inset-inline-end: var(--rzk-space-2);
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    color: var(--rzk-ink-soft);
+    background: transparent;
+    border: 0;
     border-radius: 8px;
-    outline: none;
-    text-align: center;
-    font-size: 16px;
-    transition: var(--rzk-transition);
-    box-sizing: border-box;
-    font-family: inherit;
+    cursor: pointer;
+    transition: color var(--rzk-dur-2) var(--rzk-ease),
+                background-color var(--rzk-dur-2) var(--rzk-ease);
 }
-.rzk-modal-box input:focus { border-bottom-color: var(--rzk-accent); }
-.rzk-modal-box input::placeholder { color: #8c8f94; opacity: 1; }
+
+.rzk-close:hover {
+    color: var(--rzk-ink);
+    background-color: var(--rzk-surface-2);
+}
+
+.rzk-close:active {
+    background-color: var(--rzk-line);
+}
+
+.rzk-close:focus-visible {
+    outline: 2px solid var(--rzk-focus);
+    outline-offset: 1px;
+}
+
+/* ==========================================================================
+   6. Steps and type
+   ========================================================================== */
+
+.rzk-step {
+    position: relative;
+    display: none;
+    animation: rzk-step-in var(--rzk-dur-3) var(--rzk-ease);
+}
+
+.rzk-step.active {
+    display: block;
+}
+
+@keyframes rzk-step-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.rzk-step h3 {
+    margin: 0 0 var(--rzk-space-2);
+    font-size: 19px;
+    font-weight: 650;
+    line-height: 1.45;
+    letter-spacing: 0;
+    color: var(--rzk-ink);
+    text-wrap: balance;
+}
+
+.rzk-step p {
+    margin: 0 0 var(--rzk-space-4);
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--rzk-ink-soft);
+}
+
+.rzk-step p small {
+    color: var(--rzk-ink-faint);
+}
+
+/* Field labels: visually hidden but announced */
+.rzk-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ==========================================================================
+   7. Inputs
+   ========================================================================== */
+
+.rzk-modal-box input[type="text"],
+.rzk-modal-box input[type="tel"],
+.rzk-modal-box input[type="password"] {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 var(--rzk-space-3);
+    padding: 11px var(--rzk-space-3);
+
+    font: inherit;
+    font-size: 16px; /* 16px keeps iOS from zooming on focus */
+    line-height: 1.5;
+    color: var(--rzk-ink);
+    text-align: start;
+
+    background-color: var(--rzk-surface-2);
+    border: 1px solid var(--rzk-line);
+    border-radius: var(--rzk-btn-radius);
+    outline: none;
+
+    transition: border-color var(--rzk-dur-2) var(--rzk-ease),
+                background-color var(--rzk-dur-2) var(--rzk-ease),
+                box-shadow var(--rzk-dur-2) var(--rzk-ease);
+}
+
+.rzk-modal-box input::placeholder {
+    color: var(--rzk-ink-faint);
+    opacity: 1;
+}
+
+.rzk-modal-box input:hover:not(:disabled) {
+    border-color: var(--rzk-line-strong);
+}
+
+.rzk-modal-box input:focus {
+    border-color: var(--rzk-accent);
+    background-color: color-mix(in oklab, var(--rzk-surface-2) 70%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--rzk-accent) 30%, transparent);
+}
+
+.rzk-modal-box input:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.rzk-modal-box input[aria-invalid="true"] {
+    border-color: var(--rzk-danger);
+}
+
+.rzk-modal-box input[aria-invalid="true"]:focus {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--rzk-danger) 30%, transparent);
+}
 
 #rzk-phone {
-    letter-spacing: 1px;
-    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
 }
 
-#rzk-otp-input {
-    letter-spacing: 8px;
-    font-size: 22px;
-    font-weight: 700;
-    direction: ltr;
-    text-align: center;
+/* ==========================================================================
+   8. OTP field — one real input under N visual slots
+   ========================================================================== */
+
+.rzk-otp-field {
+    position: relative;
+    margin: 0 0 var(--rzk-space-3);
 }
 
-/* دکمه‌ها */
-.rzk-modal-box button {
+.rzk-otp-input {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
     width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: var(--rzk-btn-radius, 12px);
-    background: var(--rzk-accent);
-    color: #fff;
-    font-size: 16px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: transparent;
+    caret-color: transparent;
+    opacity: 0.01;
+}
+
+.rzk-otp-input:focus {
+    border: 0;
+    box-shadow: none;
+}
+
+.rzk-otp-slots {
+    display: flex;
+    gap: 6px;
+    direction: ltr;
+    justify-content: center;
+}
+
+.rzk-otp-slot {
+    display: grid;
+    place-items: center;
+    flex: 1 1 0;
+    min-width: 0;
+    height: 52px;
+    font-size: 20px;
     font-weight: 600;
-    cursor: pointer;
-    transition: var(--rzk-transition);
+    font-variant-numeric: tabular-nums;
+    color: var(--rzk-ink);
+    background-color: var(--rzk-surface-2);
+    border: 1px solid var(--rzk-line);
+    border-radius: var(--rzk-btn-radius);
+    transition: border-color var(--rzk-dur-2) var(--rzk-ease),
+                background-color var(--rzk-dur-2) var(--rzk-ease);
+}
+
+.rzk-otp-slot.is-filled {
+    border-color: var(--rzk-line-strong);
+}
+
+.rzk-otp-field:focus-within .rzk-otp-slot {
+    border-color: var(--rzk-accent);
+    background-color: color-mix(in oklab, var(--rzk-surface-2) 70%, transparent);
+}
+
+.rzk-otp-field:focus-within .rzk-otp-slot.is-active {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--rzk-accent) 28%, transparent);
+}
+
+.rzk-otp-field[data-invalid="true"] .rzk-otp-slot {
+    border-color: var(--rzk-danger);
+}
+
+/* ==========================================================================
+   9. Buttons
+   ========================================================================== */
+
+.rzk-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    font-family: inherit;
+    gap: var(--rzk-space-2);
+    width: 100%;
     box-sizing: border-box;
-}
-.rzk-modal-box button:hover:not(:disabled) {
-    transform: translateY(-2px);
-    filter: brightness(0.9);
-}
-.rzk-modal-box button:disabled { opacity: 0.65; cursor: wait; }
+    padding: 11px var(--rzk-space-4);
 
-/* اسپینر لودینگ دکمه‌ها */
-.rzk-spinner {
-    width: 18px;
-    height: 18px;
-    border: 2px solid rgba(255, 255, 255, 0.35);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: rzk-spin 0.6s linear infinite;
-    display: inline-block;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+
+    color: var(--rzk-accent-ink);
+    background-color: var(--rzk-accent);
+    border: 1px solid transparent;
+    border-radius: var(--rzk-btn-radius);
+    cursor: pointer;
+
+    transition: background-color var(--rzk-dur-2) var(--rzk-ease),
+                border-color var(--rzk-dur-2) var(--rzk-ease),
+                color var(--rzk-dur-2) var(--rzk-ease);
 }
+
+.rzk-btn:hover:not(:disabled) {
+    background-color: color-mix(in oklab, var(--rzk-accent) 86%, #000);
+}
+
+.rzk-btn:active:not(:disabled) {
+    background-color: color-mix(in oklab, var(--rzk-accent) 74%, #000);
+}
+
+.rzk-btn:focus-visible {
+    outline: 2px solid var(--rzk-focus);
+    outline-offset: 2px;
+}
+
+.rzk-btn:disabled {
+    opacity: 0.62;
+    cursor: not-allowed;
+}
+
+.rzk-btn[aria-busy="true"]:disabled {
+    cursor: progress;
+}
+
+/* Text buttons — used for "change number", "use OTP", "resend" */
+.rzk-text-btn {
+    display: inline;
+    width: auto;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--rzk-accent);
+    background: none;
+    border: 0;
+    border-radius: 4px;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--rzk-accent) 45%, transparent);
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+.rzk-text-btn:hover:not(:disabled) {
+    background: none;
+    color: color-mix(in oklab, var(--rzk-accent) 78%, #000);
+    text-decoration-color: currentColor;
+}
+
+.rzk-text-btn:focus-visible {
+    outline: 2px solid var(--rzk-focus);
+    outline-offset: 2px;
+}
+
+.rzk-alt-link,
+.rzk-back-link {
+    display: block;
+    margin: var(--rzk-space-3) auto 0;
+    text-align: center;
+}
+
+.rzk-alt-link {
+    font-size: 13px;
+}
+
+.rzk-back-link {
+    font-size: 12.5px;
+    color: var(--rzk-ink-faint);
+    text-decoration-color: transparent;
+}
+
+.rzk-back-link:hover:not(:disabled) {
+    color: var(--rzk-ink-soft);
+}
+
+/* Spinner */
+.rzk-spinner {
+    display: inline-block;
+    flex: 0 0 auto;
+    width: 15px;
+    height: 15px;
+    border: 2px solid color-mix(in oklab, currentColor 35%, transparent);
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: rzk-spin 0.65s linear infinite;
+}
+
 @keyframes rzk-spin {
     to { transform: rotate(360deg); }
 }
 
-/* لینک‌های بازگشت و جایگزین */
-.rzk-back-link,
-.rzk-alt-link {
-    display: block;
-    margin-top: 12px;
+/* ==========================================================================
+   10. Messages, resend row
+   ========================================================================== */
+
+.rzk-msg {
+    margin: var(--rzk-space-3) 0 0;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--rzk-danger);
+    text-align: start;
+}
+
+.rzk-msg:empty {
+    display: none;
+}
+
+.rzk-resend-row {
+    margin: var(--rzk-space-4) 0 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--rzk-ink-soft);
+    text-align: center;
+}
+
+#rzk-countdown {
+    color: var(--rzk-ink-faint);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   11. Terms
+   ========================================================================== */
+
+.rzk-terms-wrap {
+    margin: 0 0 var(--rzk-space-4);
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--rzk-ink-soft);
+    text-align: start;
+}
+
+.rzk-terms-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--rzk-space-2);
+    cursor: pointer;
+}
+
+.rzk-terms-label input[type="checkbox"] {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    margin: 3px 0 0;
+    accent-color: var(--rzk-accent);
+    cursor: pointer;
+}
+
+.rzk-terms-text a {
+    color: var(--rzk-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.rzk-terms-text a:focus-visible {
+    outline: 2px solid var(--rzk-focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* ==========================================================================
+   12. Math captcha
+   ========================================================================== */
+
+.rzk-captcha-wrap {
+    display: flex;
+    align-items: stretch;
+    gap: var(--rzk-space-2);
+    margin: 0 0 var(--rzk-space-3);
+}
+
+.rzk-captcha-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--rzk-space-1);
+    flex: 0 0 auto;
+    padding: 0 var(--rzk-space-2) 0 var(--rzk-space-3);
+    direction: ltr;
+    background-color: var(--rzk-surface-2);
+    border: 1px solid var(--rzk-line);
+    border-radius: var(--rzk-btn-radius);
+}
+
+.rzk-captcha-question {
+    font-size: 15px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    color: var(--rzk-ink);
+    white-space: nowrap;
+}
+
+.rzk-captcha-wrap input[type="text"] {
+    margin: 0;
+}
+
+.rzk-captcha-refresh {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--rzk-ink-faint);
+    background: none;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: color var(--rzk-dur-2) var(--rzk-ease),
+                background-color var(--rzk-dur-2) var(--rzk-ease);
+}
+
+.rzk-captcha-refresh:hover:not(:disabled) {
+    color: var(--rzk-ink);
+    background-color: var(--rzk-line);
+}
+
+.rzk-captcha-refresh:focus-visible {
+    outline: 2px solid var(--rzk-focus);
+    outline-offset: 1px;
+}
+
+.rzk-captcha-refresh.spinning {
+    animation: rzk-spin 0.65s linear infinite;
+}
+
+/* ==========================================================================
+   13. Divider
+   ========================================================================== */
+
+.rzk-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--rzk-space-3);
+    margin: var(--rzk-space-4) 0;
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.7);
-    cursor: pointer;
-    text-decoration: underline;
-}
-.rzk-alt-link { color: var(--rzk-accent); font-size: 13px; }
-.rzk-alt-link:hover { filter: brightness(1.25); }
-
-/* ارسال مجدد کد + شمارش معکوس */
-.rzk-resend-row { font-size: 13px; color: rgba(255, 255, 255, 0.82); margin-top: 10px; }
-#rzk-resend {
-    color: var(--rzk-accent);
-    cursor: pointer;
-    text-decoration: underline;
-}
-#rzk-countdown { color: rgba(255, 255, 255, 0.55); }
-
-.rzk-msg { margin-top: 10px; font-size: 13px; color: #ffb4b6; min-height: 0; }
-
-/* دکمه‌های تریگر - هماهنگ با استایل مودال */
-.rzk-trigger-solid { background: var(--rzk-accent); color: #fff; border-radius: 10px; padding: 9px 18px; }
-.rzk-trigger-solid:hover { color: #fff; filter: brightness(0.9); }
-.rzk-trigger-outline { border: 2px solid var(--rzk-accent); color: var(--rzk-accent); border-radius: 10px; padding: 7px 16px; }
-.rzk-trigger-outline:hover { background: var(--rzk-accent); color: #fff; }
-.rzk-trigger-dark { background: #1d2327; color: #fff; border-radius: 10px; padding: 9px 18px; }
-.rzk-trigger-dark:hover { color: #fff; filter: brightness(1.3); }
-
-/* ============ Variation: تک‌رنگ (solid) و خط‌دار (outline) — پس‌زمینه روشن ============ */
-/* متن‌ها به تیره برمی‌گردند چون پس‌زمینه شیشه‌ای/تیره نیست */
-.rzk-style-solid,
-.rzk-style-outline {
-    color: #1d2327;
-}
-.rzk-style-solid .rzk-step p,
-.rzk-style-outline .rzk-step p { color: #555; }
-.rzk-style-solid .rzk-step p small,
-.rzk-style-outline .rzk-step p small { color: #999; }
-.rzk-style-solid .rzk-slogan,
-.rzk-style-outline .rzk-slogan { color: #666; }
-.rzk-style-solid .rzk-close,
-.rzk-style-outline .rzk-close { color: #666; }
-.rzk-style-solid .rzk-close:hover,
-.rzk-style-outline .rzk-close:hover { color: #111; }
-.rzk-style-solid .rzk-back-link,
-.rzk-style-solid .rzk-resend-row,
-.rzk-style-outline .rzk-back-link,
-.rzk-style-outline .rzk-resend-row { color: #888; }
-.rzk-style-solid #rzk-countdown,
-.rzk-style-outline #rzk-countdown { color: #aaa; }
-.rzk-style-solid .rzk-msg,
-.rzk-style-outline .rzk-msg { color: #d63638; }
-.rzk-style-solid .rzk-terms-wrap,
-.rzk-style-outline .rzk-terms-wrap { color: #666; }
-.rzk-style-solid .rzk-terms-text a,
-.rzk-style-outline .rzk-terms-text a { filter: none; }
-.rzk-style-solid .rzk-alt-link,
-.rzk-style-outline .rzk-alt-link { filter: none; }
-.rzk-style-solid .rzk-success-desc,
-.rzk-style-outline .rzk-success-desc { color: #666; }
-.rzk-style-solid .rzk-captcha-badge,
-.rzk-style-outline .rzk-captcha-badge {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-.rzk-style-solid .rzk-captcha-question,
-.rzk-style-outline .rzk-captcha-question { color: #333; }
-.rzk-style-solid .rzk-captcha-refresh,
-.rzk-style-outline .rzk-captcha-refresh { color: #666 !important; }
-.rzk-style-solid .rzk-divider,
-.rzk-style-outline .rzk-divider { color: #999; }
-.rzk-style-solid .rzk-divider::before,
-.rzk-style-solid .rzk-divider::after,
-.rzk-style-outline .rzk-divider::before,
-.rzk-style-outline .rzk-divider::after {
-    border-bottom-color: rgba(0, 0, 0, 0.1);
+    color: var(--rzk-ink-faint);
+    text-align: center;
 }
 
-.rzk-style-solid {
-    background: #fff;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.22);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-}
-#rzk-modal-overlay:has(.rzk-style-solid) {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+.rzk-divider::before,
+.rzk-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--rzk-line);
 }
 
-/* ============ Variation: خط‌دار (outline) ============ */
-.rzk-style-outline {
-    background: #fff;
-    border: 3px solid var(--rzk-accent);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25);
-    border-radius: 16px;
-    /* پس‌زمینه روشن است؛ پرده کنتراست شیشه‌ای نباید اعمال شود */
-    background-image: none;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-}
-.rzk-style-outline .rzk-modal-box button {
-    background: transparent;
-    color: var(--rzk-accent);
-    border: 2px solid var(--rzk-accent);
-}
-.rzk-style-outline .rzk-modal-box button:hover:not(:disabled) {
-    background: var(--rzk-accent);
-    color: #fff;
+.rzk-divider span {
+    flex: 0 0 auto;
 }
 
-/* ============ Variation: تیره (dark) ============ */
-.rzk-style-dark {
-    background: #1d2327;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-}
-.rzk-style-dark .rzk-step h3 { color: #f0f0f1; }
-.rzk-style-dark .rzk-step p { color: #c3c4c7; }
-.rzk-style-dark .rzk-step p small { color: #8c8f94; }
-.rzk-style-dark .rzk-slogan { color: #a7aaad; }
-.rzk-style-dark input {
-    background: rgba(255, 255, 255, 0.08);
-    border-bottom: 2px solid #3c434a;
-    color: #f0f0f1;
-}
-.rzk-style-dark input::placeholder { color: #8c8f94; }
-.rzk-style-dark input:focus { border-bottom-color: var(--rzk-accent); }
-.rzk-style-dark .rzk-close { color: #c3c4c7; }
-.rzk-style-dark .rzk-close:hover { color: #fff; }
-.rzk-style-dark .rzk-back-link { color: #a7aaad; }
-.rzk-style-dark .rzk-resend-row { color: #a7aaad; }
-.rzk-style-dark .rzk-alt-link { color: var(--rzk-accent); }
+/* ==========================================================================
+   14. Success
+   ========================================================================== */
 
-/* ============ انیمیشن تیک موفقیت (Success Step) ============ */
 .rzk-success-wrapper {
-    margin: 10px auto 20px;
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
+    margin: var(--rzk-space-2) auto var(--rzk-space-4);
 }
+
 .rzk-checkmark {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
     display: block;
+    width: 56px;
+    height: 56px;
     stroke-width: 3;
-    stroke: #10b981;
+    stroke: var(--rzk-success);
     stroke-miterlimit: 10;
-    box-shadow: inset 0px 0px 0px #10b981;
-    animation: rzk-fill 0.4s ease-in-out 0.4s forwards, rzk-scale 0.3s ease-in-out 0.9s both;
+    fill: none;
 }
+
 .rzk-checkmark-circle {
     stroke-dasharray: 166;
     stroke-dashoffset: 166;
-    stroke-width: 3;
-    stroke-miterlimit: 10;
-    stroke: #10b981;
-    fill: none;
-    animation: rzk-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    animation: rzk-stroke 0.5s var(--rzk-ease) forwards;
 }
+
 .rzk-checkmark-check {
     transform-origin: 50% 50%;
     stroke-dasharray: 48;
     stroke-dashoffset: 48;
-    stroke: #10b981;
-    animation: rzk-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    animation: rzk-stroke 0.28s var(--rzk-ease) 0.42s forwards;
 }
+
 @keyframes rzk-stroke {
-    100% { stroke-dashoffset: 0; }
+    to { stroke-dashoffset: 0; }
 }
-@keyframes rzk-scale {
-    0%, 100% { transform: none; }
-    50% { transform: scale3d(1.1, 1.1, 1); }
-}
-@keyframes rzk-fill {
-    100% { box-shadow: inset 0px 0px 0px 30px rgba(16, 185, 129, 0.12); }
-}
+
 .rzk-success-title {
-    color: #10b981 !important;
-    margin-bottom: 8px !important;
-    font-size: 20px;
+    margin-bottom: var(--rzk-space-1);
+    font-size: 19px;
+    font-weight: 650;
+    color: var(--rzk-success);
+    text-align: center;
 }
+
 .rzk-success-desc {
-    color: rgba(255, 255, 255, 0.82);
-    font-size: 14px;
-}
-.rzk-style-dark .rzk-success-desc {
-    color: #aaa;
+    margin-bottom: 0;
+    text-align: center;
+    color: var(--rzk-ink-soft);
 }
 
-/* ============ دکمه ورود با حساب گوگل ============ */
+/* ==========================================================================
+   15. Google button
+   ========================================================================== */
+
 .rzk-google-wrap {
-    margin-bottom: 16px;
+    margin-bottom: var(--rzk-space-1);
 }
-.rzk-btn-google {
-    width: 100%;
-    background: #ffffff !important;
-    color: #3c4043 !important;
-    border: 1px solid #dadce0 !important;
-    border-radius: var(--rzk-btn-radius, 12px) !important;
-    padding: 10px 16px !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    transition: all var(--rzk-transition) ease;
+
+.rzk-modal-box .rzk-btn-google {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f1f1f;
+    background-color: #ffffff;
+    border: 1px solid #dadce0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
-.rzk-btn-google:hover:not(:disabled) {
-    background: #f8fafd !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
-    transform: translateY(-1px);
+
+.rzk-modal-box .rzk-btn-google:hover:not(:disabled) {
+    background-color: #f6f8fb;
+    border-color: #c9ced6;
 }
+
+.rzk-modal-box .rzk-btn-google:active:not(:disabled) {
+    background-color: #eef1f6;
+}
+
 .rzk-google-icon {
-    flex-shrink: 0;
+    flex: 0 0 auto;
 }
 
-/* ============ جداکننده (Divider) ============ */
-.rzk-divider {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin: 14px 0 10px;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 12px;
-}
-.rzk-divider::before,
-.rzk-divider::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-}
-.rzk-divider span {
-    padding: 0 10px;
-    opacity: 0.8;
+/* ==========================================================================
+   16. Style variations — swap tokens, children follow
+   ========================================================================== */
+
+.rzk-style-solid {
+    --rzk-surface: #ffffff;
+    --rzk-surface-2: rgba(17, 26, 36, 0.04);
+    --rzk-line: rgba(17, 26, 36, 0.14);
+    --rzk-line-strong: rgba(17, 26, 36, 0.26);
+    --rzk-ink: #131a22;
+    --rzk-ink-soft: #4b5763;
+    --rzk-ink-faint: #6b7681;
+    --rzk-focus: #00628f;
+    --rzk-danger: #b3261e;
+    --rzk-success: #0f7a55;
+    --rzk-shadow: 0 1px 2px rgba(16, 24, 32, 0.08), 0 24px 48px -16px rgba(16, 24, 32, 0.3);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
 }
 
-/* ============ کپچای ریاضی شیشه‌ای ============ */
-.rzk-captcha-wrap {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-bottom: 15px;
-}
-.rzk-captcha-badge {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 6px;
-    background: rgba(0, 0, 0, 0.28);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 15px;
-    font-weight: bold;
-    direction: ltr;
-    flex-shrink: 0;
-    min-width: 105px;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-.rzk-captcha-question {
-    letter-spacing: 2px;
-    color: #fff;
-}
-.rzk-captcha-refresh {
-    background: transparent !important;
-    border: none !important;
-    color: rgba(255, 255, 255, 0.75) !important;
-    padding: 0 !important;
-    width: auto !important;
-    font-size: 18px !important;
-    line-height: 1 !important;
-    cursor: pointer;
-    box-shadow: none !important;
-    transition: transform 0.3s ease;
-}
-.rzk-captcha-refresh:hover {
-    color: var(--rzk-accent) !important;
-    transform: rotate(90deg);
-}
-.rzk-captcha-refresh.spinning {
-    animation: rzk-spin 0.6s linear infinite;
-}
-.rzk-captcha-wrap input {
-    margin-bottom: 0 !important;
-    text-align: center;
+.rzk-style-solid .rzk-btn-google {
+    color: #1f1f1f;
+    background-color: #ffffff;
 }
 
-/* ============ چک‌باکس شرایط و قوانین ============ */
-.rzk-terms-wrap {
-    margin: 8px 0 16px;
-    text-align: right;
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.6;
+#rzk-modal-overlay:has(.rzk-style-solid) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
 }
-.rzk-terms-label {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    cursor: pointer;
+
+.rzk-style-outline {
+    --rzk-surface: #ffffff;
+    --rzk-surface-2: rgba(17, 26, 36, 0.03);
+    --rzk-line: rgba(17, 26, 36, 0.18);
+    --rzk-line-strong: rgba(17, 26, 36, 0.32);
+    --rzk-ink: #131a22;
+    --rzk-ink-soft: #4b5763;
+    --rzk-ink-faint: #6b7681;
+    --rzk-focus: #00628f;
+    --rzk-danger: #b3261e;
+    --rzk-success: #0f7a55;
+    --rzk-shadow: 0 12px 32px rgba(16, 24, 32, 0.18);
+    border-width: 2px;
+    border-color: var(--rzk-accent);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
 }
-.rzk-terms-label input[type="checkbox"] {
-    width: 16px !important;
-    height: 16px !important;
-    margin: 3px 0 0 0 !important;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-.rzk-terms-text a {
+
+.rzk-style-outline .rzk-btn {
     color: var(--rzk-accent);
-    text-decoration: underline;
-    filter: brightness(1.3);
+    background-color: transparent;
+    border-color: var(--rzk-accent);
 }
 
-/* ============ تطبیق با دارک مود (Dark Mode Overrides) ============ */
+.rzk-style-outline .rzk-btn:hover:not(:disabled) {
+    color: var(--rzk-accent-ink);
+    background-color: var(--rzk-accent);
+}
+
+.rzk-style-dark {
+    --rzk-surface: #121820;
+    --rzk-surface-2: rgba(255, 255, 255, 0.055);
+    --rzk-line: rgba(255, 255, 255, 0.14);
+    --rzk-line-strong: rgba(255, 255, 255, 0.28);
+    --rzk-ink: #eef2f7;
+    --rzk-ink-soft: #b3bec9;
+    --rzk-ink-faint: #8994a1;
+    --rzk-focus: #8ccbff;
+    --rzk-danger: #ff9d9d;
+    --rzk-success: #5ad1a8;
+    --rzk-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 28px 56px -16px rgba(0, 0, 0, 0.7);
+    border-color: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
 .rzk-style-dark .rzk-btn-google {
-    background: #2b3035 !important;
-    color: #e2e8f0 !important;
-    border-color: rgba(255, 255, 255, 0.15) !important;
-}
-.rzk-style-dark .rzk-btn-google:hover:not(:disabled) {
-    background: #363c42 !important;
-}
-.rzk-style-dark .rzk-divider {
-    color: #718096;
-}
-.rzk-style-dark .rzk-divider::before,
-.rzk-style-dark .rzk-divider::after {
-    border-bottom-color: rgba(255, 255, 255, 0.12);
-}
-.rzk-style-dark .rzk-captcha-badge {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.15);
-}
-.rzk-style-dark .rzk-captcha-question {
-    color: #f0f0f1;
-}
-.rzk-style-dark .rzk-captcha-refresh {
-    color: #a0aec0 !important;
-}
-.rzk-style-dark .rzk-terms-wrap {
-    color: #a0aec0;
+    color: #e8eef5;
+    background-color: #232b35;
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow: none;
 }
 
+/* ==========================================================================
+   17. Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    #rzk-modal-overlay,
+    .rzk-modal-box,
+    .rzk-step,
+    .rzk-close,
+    .rzk-btn,
+    .rzk-text-btn,
+    .rzk-modal-box input,
+    .rzk-otp-slot,
+    .rzk-captcha-refresh,
+    .rzk-trigger-btn {
+        transition-duration: 1ms !important;
+    }
+
+    .rzk-modal-box {
+        transform: none;
+    }
+
+    .rzk-step,
+    .rzk-checkmark-circle,
+    .rzk-checkmark-check,
+    .rzk-spinner,
+    .rzk-captcha-refresh.spinning {
+        animation: none !important;
+    }
+
+    .rzk-checkmark-circle,
+    .rzk-checkmark-check {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* ==========================================================================
+   18. Small screens
+   ========================================================================== */
+
+@media (max-width: 420px) {
+    .rzk-modal-box {
+        padding: var(--rzk-space-4) var(--rzk-space-4) var(--rzk-space-3);
+    }
+
+    .rzk-step h3 {
+        font-size: 17.5px;
+    }
+
+    .rzk-otp-slot {
+        height: 46px;
+        font-size: 18px;
+    }
+
+    .rzk-captcha-wrap {
+        flex-wrap: wrap;
+    }
+
+    .rzk-captcha-badge {
+        flex: 1 1 100%;
+        justify-content: space-between;
+        min-height: 42px;
+    }
+}
+
+/* ==========================================================================
+   19. Forced colors
+   The custom focus ring is a box-shadow, which forced-colors mode drops,
+   so restore a system outline and visible borders.
+   ========================================================================== */
+
+@media (forced-colors: active) {
+    .rzk-btn,
+    .rzk-text-btn,
+    .rzk-close,
+    .rzk-captcha-refresh,
+    .rzk-trigger-btn,
+    .rzk-otp-slot,
+    .rzk-modal-box input {
+        border: 1px solid ButtonText;
+    }
+
+    .rzk-btn,
+    .rzk-trigger-solid,
+    .rzk-trigger-dark {
+        background: ButtonFace;
+        color: ButtonText;
+    }
+
+    .rzk-btn:focus-visible,
+    .rzk-text-btn:focus-visible,
+    .rzk-close:focus-visible,
+    .rzk-captcha-refresh:focus-visible,
+    .rzk-trigger-btn:focus-visible,
+    .rzk-modal-box input:focus-visible,
+    .rzk-otp-field:focus-within .rzk-otp-slot {
+        outline: 3px solid Highlight;
+        outline-offset: 2px;
+    }
+
+    .rzk-spinner {
+        border-color: ButtonText;
+        border-top-color: Highlight;
+    }
+}
